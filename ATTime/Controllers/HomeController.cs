@@ -5,8 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ATTime.Models;
-using System.Data.Entity;
-
 
 namespace ATTime.Controllers
 {
@@ -14,10 +12,18 @@ namespace ATTime.Controllers
     {
         public ActionResult Index()
         {
-            using (var ctx = new ATTime_DBContext())
-            {
-                var team = ctx.Team.SqlQuery("Select team_name from team where team_name='WU-F18a'").FirstOrDefault<Student>();
-            }
+            var context = new ATTime_DBContext();
+
+            //var teamname = context.Team
+            //                         .Where(s => s.TeamId == 2)
+            //                       .FirstOrDefault();
+
+            var teamname = context.Team
+                        .FromSql("Select team_name, team_ID from team")
+                        .ToList();
+
+            ViewBag.team = teamname;
+            ViewData["hej"] = teamname;
             return View();
         }
 

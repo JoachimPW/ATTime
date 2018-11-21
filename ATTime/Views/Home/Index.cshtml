@@ -1,5 +1,10 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model ATTime.Models.Team
+
+@{
 }
 
-<h1>Start Spiderman</h1>
+<h1>Start </h1>
+@foreach (var team in ViewBag.team)
+{
+    @team.TeamName
+}
