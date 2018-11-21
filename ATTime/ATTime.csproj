@@ -46,6 +46,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.EntityFrameworkCore, Version=2.1.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.EntityFrameworkCore.2.1.4\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
@@ -228,6 +234,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Attendance.cs" />
+    <Compile Include="Models\AttendanceCourseStudent.cs" />
+    <Compile Include="Models\ATTime_DBContext.cs" />
+    <Compile Include="Models\Calender.cs" />
+    <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\CourseCalender.cs" />
+    <Compile Include="Models\Operator.cs" />
+    <Compile Include="Models\Permission.cs" />
+    <Compile Include="Models\School.cs" />
+    <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\Team.cs" />
+    <Compile Include="Models\TeamCourseOperator.cs" />
+    <Compile Include="Models\TeamCourseStudent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -269,7 +288,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
