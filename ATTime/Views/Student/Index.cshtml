@@ -1,0 +1,13 @@
+﻿@model ATTime.Models.Student
+@{
+}
+
+
+
+@foreach (var student in ViewBag.student)
+{
+    <h1>Navn: @student.FirstName @student.LastName </h1>
+
+    <h2> Username:  @student.Username </h2>
+    <p> Password: @student.Psw</p>
+}

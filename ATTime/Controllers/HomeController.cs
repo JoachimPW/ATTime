@@ -20,7 +20,7 @@ namespace ATTime.Controllers
 
             var teamname = context.Team
                         .FromSql("Select team_name, team_ID from team")
-                        .ToList();
+                        .ToList();         
 
             ViewBag.team = teamname;
             ViewData["hej"] = teamname;
