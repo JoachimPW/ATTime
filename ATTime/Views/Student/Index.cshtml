@@ -1,5 +1,6 @@
 ﻿@model ATTime.Models.Student
 @{
+    ViewBag.Title = "CreateStudent";
 }
 
 
@@ -11,3 +12,61 @@
     <h2> Username:  @student.Username </h2>
     <p> Password: @student.Psw</p>
 }
+
+<h1> Create Student </h1>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="">
+
+    <h4> Students</h4>
+    <hr />
+    @Html.ValidationSummary(true)
+
+    <div class"">
+        @Html.LabelFor(model => model.FirstName, new { @class = "" })
+        <div class="">
+            @Html.EditorFor(model => model.FirstName)
+            @Html.ValidationMessageFor(model => model.FirstName)
+        </div>
+    </div>
+
+    <div class"">
+        @Html.LabelFor(model => model.LastName, new { @class = "" })
+        <div class="">
+            @Html.EditorFor(model => model.LastName)
+            @Html.ValidationMessageFor(model => model.LastName)
+        </div>
+    </div>
+
+    <div class"">
+        @Html.LabelFor(model => model.Username, new { @class = "" })
+        <div class="">
+            @Html.EditorFor(model => model.Username)
+            @Html.ValidationMessageFor(model => model.Username)
+        </div>
+    </div>
+
+    <div class"">
+        @Html.LabelFor(model => model.Psw, new { @class = "" })
+        <div class="">
+            @Html.EditorFor(model => model.Psw)
+            @Html.ValidationMessageFor(model => model.Psw)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+    
+
+
+
+</div>
+}
+
