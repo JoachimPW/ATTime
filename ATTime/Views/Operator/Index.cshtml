@@ -1,0 +1,36 @@
+﻿@model ATTime.Models.Operator
+
+@{
+
+}
+
+
+<h1> Operators </h1>
+
+
+<h3> Admins</h3>
+
+@foreach (var admin in ViewBag.admin)
+{
+    <h2>Navn: @admin.FirstName @admin.LastName </h2>
+
+    <h3> Username:  @admin.Username </h3>
+    <p> Password: @admin.Psw</p>
+
+    <hr />
+}
+
+<hr />
+<h1> Teachers</h1>
+
+@foreach (var teacher in ViewBag.teacher)
+{
+    <h3>Navn: @teacher.FirstName @teacher.LastName </h3>
+
+    <h3> Username:  @teacher.Username </h3>
+    <p> Password: @teacher.Psw</p>
+
+    <hr />
+}
+
+
