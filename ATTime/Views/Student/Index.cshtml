@@ -5,21 +5,11 @@
 
 <a href="/SearchStudent"> <button> Søg </button></a>
 
-@foreach (var student in ViewBag.student)
+@foreach (ATTime.Models.Student student in ViewBag.student)
 {
-    <h2>Navn: @student.FirstName @student.LastName </h2>
-
-    <h3> Username:  @student.Username </h3>
-    <p> Password: @student.Psw</p>
-    @(Html.BeginForm("Delete", "Student", FormMethod.Post))
-    {
-        <input type="hidden" name="studentid" value="@student.StudentId" />
-        <input type="submit" placeholder="Slet" value="Slet"/>
-    }
-    <hr />
+    @Html.Partial("_Students", student)
 }
 
-<hr />
 <h1> Create Student </h1>
 
 
@@ -67,7 +57,7 @@
 
         <div class="form-group">
             <div class="">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <button type="submit" class="btn btn-default m-1 p-1 btn-success">Create</button>
             </div>
         </div>
 

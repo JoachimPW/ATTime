@@ -19,7 +19,7 @@ namespace ATTime.Controllers
                         .ToList();
 
             ViewBag.student = student;
-           
+
             return View();
         }
 
@@ -45,17 +45,27 @@ namespace ATTime.Controllers
           return Redirect("Index");            
         }
 
+        [HttpPost]
         public ActionResult Delete(int studentid)
         {
+            if (studentid == 0)
+            {
+                ViewData["msg"] = "Id not found";
+            }
+
             using (var context = new ATTime_DBContext())
             {
                 var students = context.Students.FirstOrDefault(s => s.StudentId == studentid);
+
+                if (students == null)
+                {
+                    ViewData["msg"] = "Student not found";
+                }
+
                 context.Students.Remove(students);
                 context.SaveChanges();
             }
-
             return Redirect("Index");
-
         }
 
     } 
