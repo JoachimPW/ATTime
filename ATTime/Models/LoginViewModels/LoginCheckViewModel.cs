@@ -9,12 +9,7 @@ namespace ATTime.Models.LoginViewModels
 {
     public class LoginCheckViewModel
     {
-        public int CurrentId { get; set; }
-        public string CurrentRole { get; set; }
-
-        private List<LoginCheckViewModel> Currentuser = new List<LoginCheckViewModel>();
-
-        public string Firstname()
+        public static string Firstname(int CurrentId, string CurrentRole)
         {
             var context = new ATTime_DBContext();
             var firstname = string.Empty;
@@ -32,7 +27,7 @@ namespace ATTime.Models.LoginViewModels
             return firstname;
         }
 
-        public string Lastname()
+        public static string Lastname(int CurrentId, string CurrentRole)
         {
             var context = new ATTime_DBContext();
             var lastname = string.Empty;
@@ -49,11 +44,6 @@ namespace ATTime.Models.LoginViewModels
                     .Single().LastName;
             }
             return lastname;
-        }
-
-        public virtual void Adduser(int userid, string userrole)
-        {
-         Currentuser.Add(new LoginCheckViewModel { CurrentId = userid, CurrentRole = userrole });
         }
     }
 }

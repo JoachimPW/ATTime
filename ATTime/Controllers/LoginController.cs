@@ -16,6 +16,7 @@ namespace ATTime.Controllers
 
         public ActionResult Index(LoginModel model)
         {
+            ViewBag.msg = "";
             return View(model);
         }
 
@@ -24,7 +25,6 @@ namespace ATTime.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model)
         {
-
             if (ModelState.IsValid)
             {
                 var username = model.Username;
@@ -57,8 +57,16 @@ namespace ATTime.Controllers
                            .Where(s => s.Username == username)
                            .Include(s => s.Role)
                            .Single().Role.RoleName;
-                        logincheckviewModel.Adduser(operatorid, operatorrole);
-                        return View();
+                        Session["UserId"] = operatorid;
+                        Session["UserRole"] = operatorrole;
+                        if(operatorrole == "Admin")
+                        {
+                            return Redirect("~/AdminView/Index");
+                        }
+                        else if (operatorrole == "Teacher")
+                        {
+                            return Redirect("~/TeacherView/Index");
+                        }
                     }
                     else
                     {
@@ -72,12 +80,13 @@ namespace ATTime.Controllers
                             .Single().Psw;
                     if (studentmatch == password)
                     {
+                        string strundentrole = "Student";
                         var studentid = context.Students
                             .Where(s => s.Username == username)
-                            .Single().StudentId;                   
-                        logincheckviewModel.Adduser(studentid, "Student");
-                        ViewBag.msg = "Du er inde" + studentid;
-                        return View("~/Views/StudentView/Index.cshtml");
+                            .Single().StudentId;
+                        Session["UserId"] = studentid;
+                        Session["UserRole"] = strundentrole;
+                        return Redirect("~/StudentView/Index");
                     }
                     else
                     {
@@ -93,8 +102,7 @@ namespace ATTime.Controllers
             {
                 ViewBag.msg = "Please enter username and password";
             }
-
-            return View();
+            return View("Index");
         }
     }
 }
