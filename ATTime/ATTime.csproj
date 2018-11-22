@@ -227,8 +227,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OperatorController.cs" />
+    <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\SearchStudentController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\StudentViewController.cs" />
@@ -335,6 +335,7 @@
     <Content Include="Views\Operator\Index.cshtml" />
     <Content Include="Views\Student\Delete.cshtml" />
     <Content Include="Views\Shared\_Students.cshtml" />
+    <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\StudentView\Index.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
