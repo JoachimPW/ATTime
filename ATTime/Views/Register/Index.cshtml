@@ -1,0 +1,73 @@
+﻿@model ATTime.Models.Operator
+
+@{
+    ViewBag.Title = "CreateOperator";
+}
+
+<h1> Register </h1>
+
+
+
+@using (Html.BeginForm("CreateOperator", "Register", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+<div class="">
+
+
+    <hr />
+    @Html.ValidationSummary(true)
+
+    <div class"">
+        @Html.LabelFor(model => model.FirstName, new { @class = "" })
+        <div class="">
+            <input name="firstname" type="text" />
+            @Html.ValidationMessageFor(model => model.FirstName)
+        </div>
+    </div>
+
+    <div class"">
+        @Html.LabelFor(model => model.LastName, new { @class = "" })
+        <div class="">
+            <input name="lastname" type="text" />
+            @Html.ValidationMessageFor(model => model.LastName)
+        </div>
+    </div>
+
+    <div class"">
+        @Html.LabelFor(model => model.Username, new { @class = "" })
+        <div class="">
+            <input name="username" type="text" />
+            @Html.ValidationMessageFor(model => model.Username)
+        </div>
+    </div>
+
+    <div class"">
+        @Html.LabelFor(model => model.Psw, new { @class = "" })
+        <div class="">
+            <input name="psw" type="text" />
+            @Html.ValidationMessageFor(model => model.Psw)
+        </div>
+    </div>
+
+    <div class"">
+        @Html.LabelFor(model => model.Phone, new { @class = "" })
+        <div class="">
+            <input name="phone" type="text" />
+            @Html.ValidationMessageFor(model => model.Phone)
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="">
+            <button type="submit" class="btn btn-default m-1 p-1 btn-success">Create</button>
+        </div>
+    </div>
+
+
+
+
+</div>
+}
