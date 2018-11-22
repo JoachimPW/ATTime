@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ATTime.Models;
+using System.Text;
+
 
 namespace ATTime.Controllers
 {
@@ -27,6 +29,11 @@ namespace ATTime.Controllers
         [HttpPost]
         public ActionResult CreateStudent(string firstname, string lastname, string username, string psw)
         {
+            var pasw = string.Empty;
+            byte[] encode = new byte[psw.Length];
+            encode = Encoding.UTF8.GetBytes(psw);
+            pasw = Convert.ToBase64String(encode);
+
             using (var context = new ATTime_DBContext())
             {
                 var std = new Student()
@@ -34,7 +41,7 @@ namespace ATTime.Controllers
                     FirstName = firstname,
                     LastName = lastname,
                     Username = username,
-                    Psw = psw
+                    Psw = pasw
 
                 };
                 context.Students.Add(std);
