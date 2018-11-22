@@ -13,7 +13,7 @@ namespace ATTime.Controllers
         {
             return View();
         }
-        /*
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -48,6 +48,6 @@ namespace ATTime.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
-        }*/
+        }
     }
 }
