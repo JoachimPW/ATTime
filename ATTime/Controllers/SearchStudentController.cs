@@ -16,7 +16,7 @@ namespace ATTime.Controllers
         {
             var context = new ATTime_DBContext();
 
-            var student = context.Student
+            var student = context.Students
                         .FromSql("select * from student")
                         .ToList();
 
@@ -29,7 +29,7 @@ namespace ATTime.Controllers
         public ActionResult Index(string firstname)
         {
             ATTime_DBContext db = new ATTime_DBContext();
-            var firstnamelist = db.Student.FromSql("select * from student where first_name=@p0", firstname).ToList();
+            var firstnamelist = db.Students.FromSql("select * from student where first_name=@p0", firstname).ToList();
 
             return View(firstnamelist);
         }

@@ -1,5 +1,4 @@
 ﻿@model ATTime.Models.Student
-
 @{
     ViewBag.Title = "CreateStudent";
 }
@@ -12,6 +11,11 @@
 
     <h3> Username:  @student.Username </h3>
     <p> Password: @student.Psw</p>
+    @(Html.BeginForm("Delete", "Student", FormMethod.Post))
+    {
+        <input type="hidden" name="studentid" value="@student.StudentId" />
+        <input type="submit" placeholder="Slet" value="Slet"/>
+    }
     <hr />
 }
 
@@ -19,57 +23,57 @@
 <h1> Create Student </h1>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("CreateStudent", "Student", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
-<div class="">
+    <div class="">
 
-    
-    <hr />
-    @Html.ValidationSummary(true)
 
-    <div class"">
-        @Html.LabelFor(model => model.FirstName, new { @class = "" })
-        <div class="">
-            @Html.EditorFor(model => model.FirstName)
-            @Html.ValidationMessageFor(model => model.FirstName)
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class"">
+            @Html.LabelFor(model => model.FirstName, new { @class = "" })
+            <div class="">
+                <input name="firstname" type="text" />
+                @Html.ValidationMessageFor(model => model.FirstName)
+            </div>
         </div>
-    </div>
 
-    <div class"">
-        @Html.LabelFor(model => model.LastName, new { @class = "" })
-        <div class="">
-            @Html.EditorFor(model => model.LastName)
-            @Html.ValidationMessageFor(model => model.LastName)
+        <div class"">
+            @Html.LabelFor(model => model.LastName, new { @class = "" })
+            <div class="">
+                <input name="lastname" type="text" />
+                @Html.ValidationMessageFor(model => model.LastName)
+            </div>
         </div>
-    </div>
 
-    <div class"">
-        @Html.LabelFor(model => model.Username, new { @class = "" })
-        <div class="">
-            @Html.EditorFor(model => model.Username)
-            @Html.ValidationMessageFor(model => model.Username)
+        <div class"">
+            @Html.LabelFor(model => model.Username, new { @class = "" })
+            <div class="">
+                <input name="username" type="text" />
+                @Html.ValidationMessageFor(model => model.Username)
+            </div>
         </div>
-    </div>
 
-    <div class"">
-        @Html.LabelFor(model => model.Psw, new { @class = "" })
-        <div class="">
-            @Html.EditorFor(model => model.Psw)
-            @Html.ValidationMessageFor(model => model.Psw)
+        <div class"">
+            @Html.LabelFor(model => model.Psw, new { @class = "" })
+            <div class="">
+                <input name="psw" type="text" />
+                @Html.ValidationMessageFor(model => model.Psw)
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="">
-            <input type="submit" value="Create" class="btn btn-default" />
+        <div class="form-group">
+            <div class="">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
         </div>
+
+
+
+
     </div>
-    
-
-
-
-</div>
 }
 

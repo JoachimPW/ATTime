@@ -18,7 +18,7 @@ namespace ATTime.Controllers
             //                         .Where(s => s.TeamId == 2)
             //                       .FirstOrDefault();
 
-            var teamname = context.Team
+            var teamname = context.Teams
                         .FromSql("Select team_name, team_ID from team")
                         .ToList();         
 
