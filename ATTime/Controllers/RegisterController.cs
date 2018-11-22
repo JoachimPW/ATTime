@@ -34,16 +34,11 @@ namespace ATTime.Controllers
                     Username = username,
                     Psw = pasw,
                     Phone = phone,
-                    RoleId = 1           
-
+                    RoleId = 1 
                 };
                 context.Operators.Add(oprtr);
-
-
-                ViewBag.SuccessMessage = firstname + " was created";
+                ViewBag.SuccessMessage = firstname + " was created";       
                 
-                
-
                 context.SaveChanges();
             }
 
