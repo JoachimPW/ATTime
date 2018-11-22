@@ -231,6 +231,7 @@
     <Compile Include="Controllers\OperatorController.cs" />
     <Compile Include="Controllers\SearchStudentController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Controllers\StudentViewController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -240,6 +241,7 @@
     <Compile Include="Models\Calender.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\CourseCalender.cs" />
+    <Compile Include="Models\LoginViewModels\LoginCheckViewModel.cs" />
     <Compile Include="Models\LoginViewModels\LoginModel.cs" />
     <Compile Include="Models\Operator.cs" />
     <Compile Include="Models\Permission.cs" />
@@ -330,12 +332,12 @@
     <Content Include="Views\Student\Search.cshtml" />
     <Content Include="Views\SearchStudent\Search.cshtml" />
     <Content Include="Views\SearchStudent\Index.cshtml" />
-
     <Content Include="Views\Operator\Index.cshtml" />
-
     <Content Include="Views\Student\Delete.cshtml" />
     <Content Include="Views\Shared\_Students.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\StudentView\Index.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

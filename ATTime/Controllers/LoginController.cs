@@ -4,50 +4,97 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ATTime.Models.LoginViewModels;
+using Microsoft.EntityFrameworkCore;
+using ATTime.Models;
+using System.Text;
 
 namespace ATTime.Controllers
 {
     public class LoginController : Controller
     {
-        public ActionResult Index()
+        private LoginCheckViewModel logincheckviewModel;
+
+        public ActionResult Index(LoginModel model)
         {
-            return View();
+            return View(model);
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginModel model, string returnUrl = null)
+        public ActionResult Login(LoginModel model)
         {
-            ViewData["ReturnUrl"] = returnUrl;
+
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
+                var username = model.Username;
+
+                var pasw = string.Empty;
+                byte[] encode = new byte[model.Password.Length];
+                encode = Encoding.UTF8.GetBytes(model.Password);
+                pasw = Convert.ToBase64String(encode);
+
+                var password = pasw;
+
+                var context = new ATTime_DBContext();
+                var OperatorUsername = context.Operators
+                            .Where(s => s.Username == username)
+                            .Count();
+                var StudentUsername = context.Students
+                          .Where(s => s.Username == username)
+                          .Count();
+                if(OperatorUsername > 0)
                 {
-                    _logger.LogInformation("User logged in.");
-                    return RedirectToLocal(returnUrl);
+                    var operatormatch = context.Operators
+                            .Where(s => s.Username == username)
+                            .Single().Psw;
+                    if(operatormatch == password)
+                    {
+                        var operatorid = context.Operators
+                            .Where(s => s.Username == username)
+                            .Single().OperatorId;
+                        var operatorrole = context.Operators
+                           .Where(s => s.Username == username)
+                           .Include(s => s.Role)
+                           .Single().Role.RoleName;
+                        logincheckviewModel.Adduser(operatorid, operatorrole);
+                        return View();
+                    }
+                    else
+                    {
+                        ViewBag.msg = "Wrong password";
+                    }
                 }
-                if (result.RequiresTwoFactor)
+                else if (StudentUsername > 0)
                 {
-                    return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
-                }
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToAction(nameof(Lockout));
+                    var studentmatch = context.Students
+                            .Where(s => s.Username == username)
+                            .Single().Psw;
+                    if (studentmatch == password)
+                    {
+                        var studentid = context.Students
+                            .Where(s => s.Username == username)
+                            .Single().StudentId;                   
+                        logincheckviewModel.Adduser(studentid, "Student");
+                        ViewBag.msg = "Du er inde" + studentid;
+                        return View("~/Views/StudentView/Index.cshtml");
+                    }
+                    else
+                    {
+                        ViewBag.msg = "Wrong password";
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return View(model);
+                    ViewBag.msg = "User doesn't exist";
                 }
             }
+            else
+            {
+                ViewBag.msg = "Please enter username and password";
+            }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
+            return View();
         }
     }
 }

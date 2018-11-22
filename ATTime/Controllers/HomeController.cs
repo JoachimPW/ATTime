@@ -14,16 +14,10 @@ namespace ATTime.Controllers
         {
             var context = new ATTime_DBContext();
 
-            //var teamname = context.Team
-            //                         .Where(s => s.TeamId == 2)
-            //                       .FirstOrDefault();
-
             var teamname = context.Teams
-                        .FromSql("Select team_name, team_ID from team")
-                        .ToList();         
-
-            ViewBag.team = teamname;
-            ViewData["hej"] = teamname;
+                        .Where(s => s.TeamId == 2)
+                        .ToList();
+  
             return View();
         }
 
