@@ -1,18 +1,21 @@
 ﻿@model ATTime.Models.Student
+
 @{
     ViewBag.Title = "CreateStudent";
 }
 
-
+<a href="/SearchStudent"> <button> Søg </button></a>
 
 @foreach (var student in ViewBag.student)
 {
-    <h1>Navn: @student.FirstName @student.LastName </h1>
+    <h2>Navn: @student.FirstName @student.LastName </h2>
 
-    <h2> Username:  @student.Username </h2>
+    <h3> Username:  @student.Username </h3>
     <p> Password: @student.Psw</p>
+    <hr />
 }
 
+<hr />
 <h1> Create Student </h1>
 
 
@@ -22,7 +25,7 @@
 
 <div class="">
 
-    <h4> Students</h4>
+    
     <hr />
     @Html.ValidationSummary(true)
 
