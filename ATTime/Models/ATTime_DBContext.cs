@@ -15,19 +15,19 @@ namespace ATTime.Models
         {
         }
 
-        public virtual DbSet<Attendance> Attendance { get; set; }
-        public virtual DbSet<AttendanceCourseStudent> AttendanceCourseStudent { get; set; }
-        public virtual DbSet<Calender> Calender { get; set; }
-        public virtual DbSet<Course> Course { get; set; }
-        public virtual DbSet<CourseCalender> CourseCalender { get; set; }
-        public virtual DbSet<CourseCode> CourseCode { get; set; }
-        public virtual DbSet<Operator> Operator { get; set; }
-        public virtual DbSet<Permission> Permission { get; set; }
-        public virtual DbSet<School> School { get; set; }
-        public virtual DbSet<Student> Student { get; set; }
-        public virtual DbSet<Team> Team { get; set; }
-        public virtual DbSet<TeamCourseOperator> TeamCourseOperator { get; set; }
-        public virtual DbSet<TeamCourseStudent> TeamCourseStudent { get; set; }
+        public virtual DbSet<Attendance> Attendances { get; set; }
+        public virtual DbSet<AttendanceCourseStudent> AttendanceCourseStudents { get; set; }
+        public virtual DbSet<Calender> Calenders { get; set; }
+        public virtual DbSet<Course> Courses { get; set; }
+        public virtual DbSet<CourseCalender> CourseCalenders { get; set; }
+        public virtual DbSet<CourseCode> CourseCodes { get; set; }
+        public virtual DbSet<Operator> Operators { get; set; }
+        public virtual DbSet<Permission> Permissions { get; set; }
+        public virtual DbSet<School> Schools { get; set; }
+        public virtual DbSet<Student> Students { get; set; }
+        public virtual DbSet<Team> Teams { get; set; }
+        public virtual DbSet<TeamCourseOperator> TeamCourseOperators { get; set; }
+        public virtual DbSet<TeamCourseStudent> TeamCourseStudents { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
