@@ -1,72 +1,90 @@
 ﻿@model ATTime.Models.Operator
 
 @{
-    ViewBag.Title = "CreateOperator";
+    ViewBag.Title = "Index";
 }
 
 <h1> Register </h1>
-
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
 
 
 @using (Html.BeginForm("CreateOperator", "Register", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
 
-<div class="">
+    <div class="">
+
+        <hr />
 
 
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-    <div class"">
-        @Html.LabelFor(model => model.FirstName, new { @class = "" })
-        <div class="">
-            <input name="firstname" type="text" />
+        <div class"">
+            @Html.LabelFor(model => model.FirstName, new { @class = "" })
+            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.FirstName)
-        </div>
-    </div>
 
-    <div class"">
-        @Html.LabelFor(model => model.LastName, new { @class = "" })
-        <div class="">
-            <input name="lastname" type="text" />
+        </div>
+        <br />
+        <div class"">
+            @Html.LabelFor(model => model.LastName, new { @class = "" })
+            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
-    <div class"">
-        @Html.LabelFor(model => model.Username, new { @class = "" })
-        <div class="">
-            <input name="username" type="text" />
+        </div>
+        <br />
+        <div class"">
+            @Html.LabelFor(model => model.Username, new { @class = "" })
+            @Html.TextBoxFor(model => model.Username, new { @class = "form-control", @onchange = "UserCheck()" })
             @Html.ValidationMessageFor(model => model.Username)
-        </div>
-    </div>
+            <p id="Status"></p>
 
-    <div class"">
-        @Html.LabelFor(model => model.Psw, new { @class = "" })
-        <div class="">
-            <input name="psw" type="text" />
+        </div>
+        <br />
+        <div class"">
+            @Html.LabelFor(model => model.Psw, new { @class = "" })
+            @Html.TextBoxFor(model => model.Psw, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Psw)
+
         </div>
-    </div>
-
-    
-
-    <div class"">
-        @Html.LabelFor(model => model.Phone, new { @class = "" })
-        <div class="">
-            <input name="phone" type="text" />
+        <br />
+        <div class"">
+            @Html.LabelFor(model => model.Phone, new { @class = "" })
+            @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Phone)
+
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="">
+                <button type="submit" id="submitForm" class="btn btn-default m-1 p-1 btn-success">Create</button>
+            </div>
         </div>
     </div>
-
-
-    <div class="form-group">
-        <div class="">
-            <button type="submit" class="btn btn-default m-1 p-1 btn-success">Create</button>
-        </div>
-    </div>
-</div>
 }
 
-@ViewBag.SuccessMessage
+<h1>@ViewBag.SuccessMessage</h1>
+
+
+<script>
+    function UserCheck() {
+        $("#Status").html("Checking...");
+        $.post("@Url.Action("CheckUsernameAvailability", "Register")",
+            {
+                userdata: $("#Username").val()
+            },
+        function (data) {
+            if (data == 0) {
+                $("#Status").html('<font color="Green">Username is available.</font>');
+                $("#Username").css("border-color", "Green");
+                $("#submitForm").prop("disabled", false);
+
+            }
+            else {
+                $("#Status").html('<font color="Red">That username is taken. Try Another.</font>');
+                $("#Username").css("border-color", "Red");
+                $("#submitForm").prop("disabled", true);
+            }
+        });
+    }
+</script>

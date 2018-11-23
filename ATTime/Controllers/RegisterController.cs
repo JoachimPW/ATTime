@@ -6,15 +6,31 @@ using System.Web.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ATTime.Models;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace ATTime.Controllers
 {
     public class RegisterController : Controller
     {
+        ATTime_DBContext db = new ATTime_DBContext();
         // GET: Register
         public ActionResult Index()
         {
             return View();
+        }
+
+        public JsonResult CheckUsernameAvailability(string userdata)
+        {
+            System.Threading.Thread.Sleep(200);
+            var SearchData = db.Operators.Where(x => x.Username == userdata).SingleOrDefault();
+            if(SearchData!=null)
+            {
+                return Json(1);
+            }
+            else
+            {
+                return Json(0);
+            }
         }
 
         [HttpPost]
@@ -37,12 +53,21 @@ namespace ATTime.Controllers
                     RoleId = 1 
                 };
                 context.Operators.Add(oprtr);
-                ViewBag.SuccessMessage = firstname + " was created";       
-                
-                context.SaveChanges();
-            }
+                ViewBag.SuccessMessage = firstname + " was created";
 
-            return View("Index");
+                if (ModelState.IsValid)
+                {
+                    context.SaveChanges();
+                    return View("Operator");
+                                    
+                    
+                } else
+                {
+                    return View("Index");
+                }
+
+            }
+           
         }
 
     }
