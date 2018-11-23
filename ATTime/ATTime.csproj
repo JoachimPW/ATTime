@@ -254,6 +254,7 @@
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\TeamCourseOperator.cs" />
     <Compile Include="Models\TeamCourseStudent.cs" />
+    <Compile Include="Models\ViewModel\RegistorViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\RepositoryStudent.cs" />
   </ItemGroup>

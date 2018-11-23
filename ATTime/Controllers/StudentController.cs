@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using ATTime.Models;
 using System.Text;
 
-
 namespace ATTime.Controllers
 {
     public class StudentController : Controller

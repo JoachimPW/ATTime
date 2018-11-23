@@ -34,6 +34,7 @@ namespace ATTime.Controllers
         }
 
         [HttpPost]
+        
         public ActionResult CreateOperator(string firstname, string lastname, string username, string psw, string phone)
         {
             var pasw = string.Empty;
@@ -53,21 +54,12 @@ namespace ATTime.Controllers
                     RoleId = 1 
                 };
                 context.Operators.Add(oprtr);
-                ViewBag.SuccessMessage = firstname + " was created";
-
-                if (ModelState.IsValid)
-                {
+                ViewBag.SuccessMessage = firstname;              
+                
                     context.SaveChanges();
-                    return View("Operator");
-                                    
-                    
-                } else
-                {
-                    return View("Index");
-                }
-
+                
             }
-           
+            return View("Index");
         }
 
     }
