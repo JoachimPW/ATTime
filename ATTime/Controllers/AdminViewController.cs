@@ -70,6 +70,7 @@ namespace ATTime.Controllers
             if (start_date == null || end_date == null)
             {
                 ViewBag.msg = "Add start and end date";
+                return View("Index");
             }
             else
             { 
@@ -79,6 +80,7 @@ namespace ATTime.Controllers
                 if(days_between_end < days_between_start)
                 {
                     ViewBag.msg = "End date has to be later than Start date";
+                    return View("Index");
                 }
                 else
                 {
@@ -90,25 +92,75 @@ namespace ATTime.Controllers
                     if (datecount > 0)
                     {
                         ViewBag.msg = "Date already in calender";
+                        return View("Index");
                     }
                     else
                     {
                         for (int i = days_between_start; i < days_between_end; i++)
                         {
                             var param = new SqlParameter("@date_calender", DateTime.Now.AddDays(i).ToString("dd/MM/yyyy"));
-                            context.Calenders.FromSql("add_calender", param);
+                            context.Database.ExecuteSqlCommand("exec add_calender @date_calender", param);
                             context.SaveChanges();
                         }
+                        var all_c_c = context.CourseCalenders
+                                    .FromSql("Select * from all_c_c")
+                                    .ToList();
+                        ViewBag.allcc = all_c_c;
+                        return View("Calender");
                     }
                 }
      
             }
-            return View("Index");
         }
 
         public ActionResult Calender()
         {
-            return View();
+            //Her tjekker vi, som vi har en session med et id i:
+            if (Session["UserId"] == null)
+            {
+                //får default route
+                string routeName = ControllerContext.RouteData.Values["Default"].ToString();
+                return View(routeName);
+            }
+            else
+            {
+                //Her tjekker vi vores role, og sender en person til et andet vi, hvis de ikke har den rigtige role:
+                if (((string)Session["UserRole"]) == "Student")
+                {
+                    return View("~/StudentView/Index");
+                }
+                else if (((string)Session["UserRole"]) == "Teacher")
+                {
+                    return View("~/TeacherView/Index");
+                }
+                else if (((string)Session["UserRole"]) == "Admin")
+                {
+                    //Her fanger vi alle sessions som indeholder information for den bruger som er logget ind:
+                    var currentid = ((int)Session["UserId"]);
+                    var currentrole = ((string)Session["UserRole"]);
+                    ViewData["id"] = currentid;
+                    ViewData["Role"] = currentrole;
+                    //Tilføj koden her: 
+                    var context = new ATTime_DBContext();
+                    var all_c_c = context.CourseCalenders
+                        .FromSql("select * from course_calender")
+                        .Include(s => s.Calender)
+                        .Include(s => s.Course)
+                        .ToList();
+
+                    ViewBag.allcc = all_c_c;
+
+                    //Koden skal slutte her
+                    return View();
+                }
+                else
+                {
+                    //får default route
+                    string routeName = ControllerContext.RouteData.Values["Default"].ToString();
+                    return View(routeName);
+                }
+            }
+           
         }
 
     }
