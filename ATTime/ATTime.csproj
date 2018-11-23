@@ -244,6 +244,7 @@
     <Compile Include="Models\Calender.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\CourseCalender.cs" />
+    <Compile Include="Models\CourseCode.cs" />
     <Compile Include="Models\LoginViewModels\LoginCheckViewModel.cs" />
     <Compile Include="Models\LoginViewModels\LoginModel.cs" />
     <Compile Include="Models\Operator.cs" />
@@ -343,6 +344,7 @@
     <Content Include="Views\StudentView\Index.cshtml" />
     <Content Include="Views\TeacherView\Index.cshtml" />
     <Content Include="Views\AdminView\Index.cshtml" />
+    <Content Include="Views\AdminView\Calender.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

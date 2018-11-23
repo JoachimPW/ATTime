@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
 
 namespace ATTime.Models
 {
@@ -19,7 +16,9 @@ namespace ATTime.Models
         public string LastName { get; set; }
         public string Username { get; set; }
         public string Psw { get; set; }
+        public int? SchoolId { get; set; }
 
+        public School School { get; set; }
         public ICollection<AttendanceCourseStudent> AttendanceCourseStudent { get; set; }
         public ICollection<TeamCourseStudent> TeamCourseStudent { get; set; }
     }
