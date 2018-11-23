@@ -58,32 +58,38 @@ namespace ATTime.Controllers
 
         public ActionResult AddCalender(DateTime start_date, DateTime end_date)
         {
+            //tilfæjer session data, for når denne action bliver brugt
             var currentid = ((int)Session["UserId"]);
             var currentrole = ((string)Session["UserRole"]);
             ViewData["id"] = currentid;
             ViewData["Role"] = currentrole;
+
+            //tilføjer data for datoen i dag
             var today = DateTime.Now;
             var datestring = start_date.ToString("dd/MM/yyyy");
 
             ViewBag.msg = "Add days to your calender";
 
+            //tjekker her at vores værdier ikke er null
             if (start_date == null || end_date == null)
             {
                 ViewBag.msg = "Add start and end date";
-                return View("Index");
+                return View("Calender");
             }
             else
             { 
+                //Her tjekker vi om end dato er mindre end start dato
                 int days_between_start = (start_date - today).Days;
                 int days_between_end = (end_date - today).Days;
 
                 if(days_between_end < days_between_start)
                 {
                     ViewBag.msg = "End date has to be later than Start date";
-                    return View("Index");
+                    return View("Calender");
                 }
                 else
                 {
+                    //Her tjekker vi, at datoerne ikke allerede er i databasen
                     var context = new ATTime_DBContext();
                     var datecount = context.Calenders
                            .Where(s => s.CalenderName == datestring)
@@ -92,10 +98,11 @@ namespace ATTime.Controllers
                     if (datecount > 0)
                     {
                         ViewBag.msg = "Date already in calender";
-                        return View("Index");
+                        return View("Calender");
                     }
                     else
                     {
+                        //Her laver vi et forloop, som tilføjer alle de datoer, som man gerne vil have med i sin kalender
                         for (int i = days_between_start; i < days_between_end; i++)
                         {
                             var param = new SqlParameter("@date_calender", DateTime.Now.AddDays(i).ToString("dd/MM/yyyy"));

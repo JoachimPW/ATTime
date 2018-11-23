@@ -12,7 +12,9 @@ namespace ATTime.Models
 
         public int CalenderId { get; set; }
         public string CalenderName { get; set; }
+        public int? SchoolId { get; set; }
 
+        public School School { get; set; }
         public ICollection<CourseCalender> CourseCalender { get; set; }
     }
 }

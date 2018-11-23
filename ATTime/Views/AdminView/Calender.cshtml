@@ -1,20 +1,30 @@
-﻿@using  ATTime.Models
+﻿@using ATTime.Models
 @{
     ViewBag.Title = "Calender";
 }
 
+<h5>@ViewBag.msg</h5>
+@using (Html.BeginForm("AddCalender", "AdminView", FormMethod.Post))
+{
+    <label>Start date</label>
+    <input type="date" value="@ViewBag.start" name="start_date" id="Date_start" class="hasDatepicker" />
+    <label>End date</label>
+    <input type="date" value="@ViewBag.end" name="end_date" id="Date_end" class="hasDatepicker" />
+    <button type="submit" class="btn btn-default m-1 p-1 btn-success">Add calender</button>
+}
+
 <div class="row">
-@foreach (CourseCalender day in @ViewBag.allcc)
- {
-    <div class="col-2">
-        <div class="col-12">
-            <p>@day.Calender.CalenderName</p>
+    @foreach (CourseCalender day in @ViewBag.allcc)
+    {
+        <div class="col-2">
+            <div class="col-12">
+                <p>@day.Calender.CalenderName</p>
+            </div>
+            <div class="col-12">
+                <p>@day.Course.CourseName</p>
+            </div>
         </div>
-        <div class="col-12">
-            <p>@day.Course.CourseName</p>
-        </div>
-    </div>
- }
+    }
 </div>
 
 
