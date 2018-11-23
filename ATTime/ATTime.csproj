@@ -238,6 +238,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AdminViewModels\AddViewModel.cs" />
     <Compile Include="Models\Attendance.cs" />
     <Compile Include="Models\AttendanceCourseStudent.cs" />
     <Compile Include="Models\ATTime_DBContext.cs" />
@@ -345,6 +346,7 @@
     <Content Include="Views\TeacherView\Index.cshtml" />
     <Content Include="Views\AdminView\Index.cshtml" />
     <Content Include="Views\AdminView\Calender.cshtml" />
+    <Content Include="Views\AdminView\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

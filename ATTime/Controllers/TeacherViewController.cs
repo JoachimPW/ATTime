@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ATTime.Models.LoginViewModels;
+using Microsoft.EntityFrameworkCore;
+using ATTime.Models;
+
 
 namespace ATTime.Controllers
 {
@@ -13,7 +17,8 @@ namespace ATTime.Controllers
             //Her tjekker vi, som vi har en session med et id i:
             if (Session["UserId"] == null)
             {
-                return View("~/Views/Login/Index");
+                string routeName = ControllerContext.RouteData.Values["Default"].ToString();
+                return View(routeName);
             }
             else
             {
@@ -29,10 +34,16 @@ namespace ATTime.Controllers
                 else if (((string)Session["UserRole"]) == "Teacher")
                 {
                     //Her fanger vi alle sessions som indeholder information for den bruger som er logget ind:
+                    var context = new ATTime_DBContext();
                     var currentid = ((int)Session["UserId"]);
                     var currentrole = ((string)Session["UserRole"]);
+                    var school = ((int)Session["School"]);
+                    var schoolname = context.Schools.FromSql("select * from school").Single().SchoolName;
+                    var schoollogo = context.Schools.FromSql("select * from school").Single().Logo;
                     ViewData["id"] = currentid;
                     ViewData["Role"] = currentrole;
+                    ViewData["Schoolname"] = schoolname;
+                    ViewData["Logo"] = schoollogo;
                     //Tilføj koden her: 
 
                     //Koden skal slutte her
@@ -40,7 +51,8 @@ namespace ATTime.Controllers
                 }
                 else
                 {
-                    return View("~/Views/Login/Index");
+                    string routeName = ControllerContext.RouteData.Values["Default"].ToString();
+                    return View(routeName);
                 }
             }
         }

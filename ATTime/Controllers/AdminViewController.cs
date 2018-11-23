@@ -36,13 +36,18 @@ namespace ATTime.Controllers
                 else if (((string)Session["UserRole"]) == "Admin")
                 {
                     //Her fanger vi alle sessions som indeholder information for den bruger som er logget ind:
+                    var context = new ATTime_DBContext();
                     var currentid = ((int)Session["UserId"]);
                     var currentrole = ((string)Session["UserRole"]);
+                    var school = ((int)Session["School"]);
+                    var schoolname = context.Schools.FromSql("select * from school").Single().SchoolName;
+                    var schoollogo = context.Schools.FromSql("select * from school").Single().Logo;
                     ViewData["id"] = currentid;
                     ViewData["Role"] = currentrole;
+                    ViewData["Schoolname"] = schoolname;
+                    ViewData["Logo"] = schoollogo;
                     //Tilføj koden her: 
-                    ViewBag.start = DateTime.Now.ToString("dd/MM/yyyy");
-                    ViewBag.end = DateTime.Now.AddDays(182).ToString("dd/MM/yyyy");
+                   
 
                     //Koden skal slutte her
                     return View();
@@ -58,11 +63,17 @@ namespace ATTime.Controllers
 
         public ActionResult AddCalender(DateTime start_date, DateTime end_date)
         {
-            //tilfæjer session data, for når denne action bliver brugt
+            //tiløjer session data, for når denne action bliver brugt
+            var context = new ATTime_DBContext();
             var currentid = ((int)Session["UserId"]);
             var currentrole = ((string)Session["UserRole"]);
+            var school = ((int)Session["School"]);
+            var schoolname = context.Schools.FromSql("select * from school").Single().SchoolName;
+            var schoollogo = context.Schools.FromSql("select * from school").Single().Logo;
             ViewData["id"] = currentid;
             ViewData["Role"] = currentrole;
+            ViewData["Schoolname"] = schoolname;
+            ViewData["Logo"] = schoollogo;
 
             //tilføjer data for datoen i dag
             var today = DateTime.Now;
@@ -90,7 +101,6 @@ namespace ATTime.Controllers
                 else
                 {
                     //Her tjekker vi, at datoerne ikke allerede er i databasen
-                    var context = new ATTime_DBContext();
                     var datecount = context.Calenders
                            .Where(s => s.CalenderName == datestring)
                            .Count();
@@ -106,12 +116,17 @@ namespace ATTime.Controllers
                         for (int i = days_between_start; i < days_between_end; i++)
                         {
                             var param = new SqlParameter("@date_calender", DateTime.Now.AddDays(i).ToString("dd/MM/yyyy"));
-                            context.Database.ExecuteSqlCommand("exec add_calender @date_calender", param);
+                            var param1 = new SqlParameter("@school", school);
+                            context.Database.ExecuteSqlCommand("exec add_calender @date_calender, @school", param, param1);
                             context.SaveChanges();
                         }
                         var all_c_c = context.CourseCalenders
-                                    .FromSql("Select * from all_c_c")
-                                    .ToList();
+                         .FromSql("select * from course_calender")
+                         .Include(s => s.Calender)
+                         .Include(s => s.Course)
+                         .Where(s => s.SchoolId == school)
+                         .ToList();
+
                         ViewBag.allcc = all_c_c;
                         return View("Calender");
                     }
@@ -143,16 +158,24 @@ namespace ATTime.Controllers
                 else if (((string)Session["UserRole"]) == "Admin")
                 {
                     //Her fanger vi alle sessions som indeholder information for den bruger som er logget ind:
+                    var context = new ATTime_DBContext();
                     var currentid = ((int)Session["UserId"]);
                     var currentrole = ((string)Session["UserRole"]);
+                    var school = ((int)Session["School"]);
+                    var schoolname = context.Schools.FromSql("select * from school").Single().SchoolName;
+                    var schoollogo = context.Schools.FromSql("select * from school").Single().Logo;
                     ViewData["id"] = currentid;
                     ViewData["Role"] = currentrole;
+                    ViewData["Schoolname"] = schoolname;
+                    ViewData["Logo"] = schoollogo;
+
                     //Tilføj koden her: 
-                    var context = new ATTime_DBContext();
+                    //Skaffer alle datoer og fag
                     var all_c_c = context.CourseCalenders
                         .FromSql("select * from course_calender")
                         .Include(s => s.Calender)
                         .Include(s => s.Course)
+                        .Where(s => s.SchoolId == school)
                         .ToList();
 
                     ViewBag.allcc = all_c_c;
@@ -168,6 +191,55 @@ namespace ATTime.Controllers
                 }
             }
            
+        }
+
+        public ActionResult Add()
+        {
+
+            //Her tjekker vi, som vi har en session med et id i:
+            if (Session["UserId"] == null)
+            {
+                //får default route
+                string routeName = ControllerContext.RouteData.Values["Default"].ToString();
+                return View(routeName);
+            }
+            else
+            {
+                //Her tjekker vi vores role, og sender en person til et andet vi, hvis de ikke har den rigtige role:
+                if (((string)Session["UserRole"]) == "Student")
+                {
+                    return View("~/StudentView/Index");
+                }
+                else if (((string)Session["UserRole"]) == "Teacher")
+                {
+                    return View("~/TeacherView/Index");
+                }
+                else if (((string)Session["UserRole"]) == "Admin")
+                {
+                    //Her fanger vi alle sessions som indeholder information for den bruger som er logget ind:
+                    var context = new ATTime_DBContext();
+                    var currentid = ((int)Session["UserId"]);
+                    var currentrole = ((string)Session["UserRole"]);
+                    var school = ((int)Session["School"]);
+                    var schoolname = context.Schools.FromSql("select * from school").Single().SchoolName;
+                    var schoollogo = context.Schools.FromSql("select * from school").Single().Logo;
+                    ViewData["id"] = currentid;
+                    ViewData["Role"] = currentrole;
+                    ViewData["Schoolname"] = schoolname;
+                    ViewData["Logo"] = schoollogo;
+                    //Tilføj koden her: 
+                    
+
+                    //Koden skal slutte her
+                    return View();
+                }
+                else
+                {
+                    //får default route
+                    string routeName = ControllerContext.RouteData.Values["Default"].ToString();
+                    return View(routeName);
+                }
+            }
         }
 
     }

@@ -57,9 +57,13 @@ namespace ATTime.Controllers
                            .Where(s => s.Username == username)
                            .Include(s => s.Role)
                            .Single().Role.RoleName;
+                        var schoold = context.Operators
+                            .Where(s => s.Username == username)
+                            .Single().SchoolId;
                         Session["UserId"] = operatorid;
                         Session["UserRole"] = operatorrole;
-                        if(operatorrole == "Admin")
+                        Session["School"] = schoold;
+                        if (operatorrole == "Admin")
                         {
                             return Redirect("~/AdminView/Index");
                         }
@@ -84,8 +88,12 @@ namespace ATTime.Controllers
                         var studentid = context.Students
                             .Where(s => s.Username == username)
                             .Single().StudentId;
+                        var schoold = context.Students
+                            .Where(s => s.Username == username)
+                            .Single().SchoolId;
                         Session["UserId"] = studentid;
                         Session["UserRole"] = strundentrole;
+                        Session["School"] = schoold;
                         return Redirect("~/StudentView/Index");
                     }
                     else
