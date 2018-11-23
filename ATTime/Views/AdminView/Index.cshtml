@@ -7,16 +7,14 @@
     @LoginCheckViewModel.Lastname(((int)ViewData["id"]), ((string)ViewData["Role"]))
 </h2>
 <h5>@ViewData["Role"]</h5>
-
+<h2>@ViewBag.msg</h2>
 
 @using (Html.BeginForm("AddCalender", "AdminView", FormMethod.Post))
- {
+{
     <label>Start date</label>
-    <input type="text" value="@ViewBag.start" style="width: 100px;" readonly="readonly" name="start_date" id="Date" class="hasDatepicker" />
+    <input type="date" value="@ViewBag.start" name="start_date" id="Date_start" class="hasDatepicker" />
     <label>End date</label>
-    <input type="text" value="@ViewBag.end" style="width: 100px;" readonly="readonly" name="end_date" id="Date" class="hasDatepicker" />
+    <input type="date" value="@ViewBag.end" name="end_date" id="Date_end" class="hasDatepicker" />
     <button type="submit" class="btn btn-default m-1 p-1 btn-success">Add calender</button>
- }
-    @Html.ActionLink("AddCalender", "AddCalender")
-    <script src="../../Scripts/jquery-1.3.2.min.js" language="javascript" type="text/javascript" />
-    <script src="../../Scripts/jquery-ui-1.7.1.custom.min.js" type="text/javascript" />
+}
+@Html.ActionLink("Admin", "Calender")
