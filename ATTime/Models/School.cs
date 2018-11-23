@@ -7,6 +7,7 @@ namespace ATTime.Models
     {
         public School()
         {
+            CourseCalender = new HashSet<CourseCalender>();
             Operator = new HashSet<Operator>();
             Student = new HashSet<Student>();
             Team = new HashSet<Team>();
@@ -16,6 +17,7 @@ namespace ATTime.Models
         public string SchoolName { get; set; }
         public string Logo { get; set; }
 
+        public ICollection<CourseCalender> CourseCalender { get; set; }
         public ICollection<Operator> Operator { get; set; }
         public ICollection<Student> Student { get; set; }
         public ICollection<Team> Team { get; set; }

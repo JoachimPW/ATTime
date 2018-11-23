@@ -7,14 +7,6 @@
     @LoginCheckViewModel.Lastname(((int)ViewData["id"]), ((string)ViewData["Role"]))
 </h2>
 <h5>@ViewData["Role"]</h5>
-<h2>@ViewBag.msg</h2>
 
-@using (Html.BeginForm("AddCalender", "AdminView", FormMethod.Post))
-{
-    <label>Start date</label>
-    <input type="date" value="@ViewBag.start" name="start_date" id="Date_start" class="hasDatepicker" />
-    <label>End date</label>
-    <input type="date" value="@ViewBag.end" name="end_date" id="Date_end" class="hasDatepicker" />
-    <button type="submit" class="btn btn-default m-1 p-1 btn-success">Add calender</button>
-}
-@Html.ActionLink("Admin", "Calender")
+@Html.ActionLink("Calender", "Calender")
+@Html.ActionLink("Add", "Add")
