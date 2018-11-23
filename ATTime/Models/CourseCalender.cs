@@ -13,6 +13,5 @@ namespace ATTime.Models
         public Calender Calender { get; set; }
         public Course Course { get; set; }
         public School School { get; set; }
-
     }
 }

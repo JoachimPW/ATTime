@@ -1,7 +1,6 @@
 ﻿@using ATTime.Models.LoginViewModels;
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/"
 }
 <h2>
     @LoginCheckViewModel.Firstname(((int)ViewData["id"]), ((string)ViewData["Role"]))
