@@ -24,7 +24,7 @@ namespace ATTime.Controllers
             }
             else
             {
-                //Her tjekker vi vores role, og sender en person til et andet vi, hvis de ikke har den rigtige role:
+                //Her tjekker vi vores role, og sender en person til et andet view, hvis de ikke har den rigtige role:
                 if (((string)Session["UserRole"]) == "Student")
                 {
                     return View("~/StudentView/Index");
@@ -40,12 +40,14 @@ namespace ATTime.Controllers
                     var currentid = ((int)Session["UserId"]);
                     var currentrole = ((string)Session["UserRole"]);
                     var school = ((int)Session["School"]);
-                    var schoolname = context.Schools.FromSql("select * from school").Single().SchoolName;
-                    var schoollogo = context.Schools.FromSql("select * from school").Single().Logo;
+                    
+                    var schoolname = context.Schools.FromSql("select * from school where school_id=1").Single().SchoolName;
+                    var schoollogo = context.Schools.FromSql("select * from school where school_id=1").Single().Logo;
                     ViewData["id"] = currentid;
                     ViewData["Role"] = currentrole;
                     ViewData["Schoolname"] = schoolname;
                     ViewData["Logo"] = schoollogo;
+                    ViewData["schoolid"] = school;
                     //Tilføj koden her: 
                    
 

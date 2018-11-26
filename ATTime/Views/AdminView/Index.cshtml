@@ -7,6 +7,13 @@
     @LoginCheckViewModel.Lastname(((int)ViewData["id"]), ((string)ViewData["Role"]))
 </h2>
 <h5>@ViewData["Role"]</h5>
+@ViewData["id"]
+@ViewData["Role"]
+@ViewData["Schoolname"]
+@ViewData["Logo"]
+@ViewData["schoolid"]
 
 @Html.ActionLink("Calender", "Calender")
 @Html.ActionLink("Add", "Add")
+
+@Html.ActionLink("Student", "Student", "Register")

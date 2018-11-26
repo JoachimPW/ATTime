@@ -1,94 +1,9 @@
-﻿@model ATTime.Models.ViewModel.RegistorViewModel
-    
-
+﻿
 @{
     ViewBag.Title = "Index";
 }
 
-<h1> Register </h1>
-@Styles.Render("~/Content/css")
-@Scripts.Render("~/bundles/modernizr")
+<h2>Index</h2>
 
-
-
-@using (Html.BeginForm("CreateOperator", "Register", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(false)
-
-    <div class="">
-
-        <hr />
-
-        <div class"">
-            @Html.LabelFor(model => model.FirstName, new { @class = "" })
-            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.FirstName)
-
-        </div>
-        <br />
-        <div class"">
-            @Html.LabelFor(model => model.LastName, new { @class = "" })
-            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-
-        </div>
-        <br />
-        <div class"">
-            @Html.LabelFor(model => model.Username, new { @class = "" })
-            @Html.TextBoxFor(model => model.Username, new { @class = "form-control", @onchange = "UserCheck()" })
-            @Html.ValidationMessageFor(model => model.Username)
-            <p id="Status"></p>
-
-        </div>
-        <br />
-        <div class"">
-            @Html.LabelFor(model => model.Psw, new { @class = "" })
-            @Html.TextBoxFor(model => model.Psw, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Psw)
-
-        </div>
-        <br />
-        <div class"">
-            @Html.LabelFor(model => model.Phone, new { @class = "" })
-            @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Phone)
-
-        </div>
-        <br />
-        <div class="form-group">
-            <div class="">
-                <button type="submit" id="submitForm" class="btn btn-default m-1 p-1 btn-success" asp-action>Create</button>
-            </div>
-        </div>
-    </div>
-}
-
-<h1>@ViewBag.SuccessMessage</h1>
-
-@Html.ActionLink("Login", "Index", "Login")
-
-<script>
-
-
-
-    function UserCheck() {
-        $("#Status").html("Checking...");
-        $.post("@Url.Action("CheckUsernameAvailability", "Register")",
-            {
-                userdata: $("#Username").val()
-            },
-        function (data) {
-            if (data == 0) {
-                $("#Status").html('<font color="Green">Username is available.</font>');
-                $("#Username").css("border-color", "Green");
-                $("#submitForm").prop("disabled", false);
-            }
-            else {
-                $("#Status").html('<font color="Red">That username is taken. Try Another.</font>');
-                $("#Username").css("border-color", "Red");
-                $("#submitForm").prop("disabled", true);
-            }
-        });
-    }
-</script>
+@Html.ActionLink("Admin", "Admin", "Register")
+@Html.ActionLink("Student", "Student", "Register")

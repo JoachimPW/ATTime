@@ -71,7 +71,7 @@ namespace ATTime.Controllers
                 context.Students.Remove(students);
                 context.SaveChanges();
             }
-            return Redirect("Index");
+            return RedirectToAction("Student", "Register");
         }
 
     } 

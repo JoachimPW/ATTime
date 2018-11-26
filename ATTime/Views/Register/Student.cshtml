@@ -1,0 +1,91 @@
+﻿@model ATTime.Models.Student
+@{
+    ViewBag.Title = "Student";
+}
+
+@Html.ActionLink("Admin View", "Index", "AdminView")
+
+@Html.Partial("_AdminNav")
+
+<div class="container">
+    <h2>Students</h2>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Courses</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (ATTime.Models.Student student in ViewBag.student)
+            {
+                @Html.Partial("_Students", student)
+            }
+
+
+        </tbody>
+    </table>
+</div>
+
+<h2>Student</h2>
+
+@using (Html.BeginForm("CreateStudent", "Register", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+
+    <div class="">
+
+        <hr />
+
+        <br />
+
+        <div class"">
+            @Html.LabelFor(model => model.FirstName, new { @class = "" })
+            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.FirstName)
+
+        </div>
+        <br />
+
+        <div class"">
+            @Html.LabelFor(model => model.LastName, new { @class = "" })
+            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.LastName)
+
+        </div>
+        <br />
+
+        <div class"">
+            @Html.LabelFor(model => model.Username, new { @class = "" })
+            @Html.TextBoxFor(model => model.Username, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Username)
+
+        </div>
+        <br />
+
+        <div class"">
+            @Html.LabelFor(model => model.Psw, new { @class = "" })
+            @Html.TextBoxFor(model => model.Psw, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Psw)
+
+        </div>
+        <br />
+
+        <div class="form-group">
+            <div class="">
+                <button type="submit" id="submitForm" class="btn btn-default m-1 p-1 btn-success" asp-action>Create</button>
+            </div>
+        </div>
+
+    </div>
+}
+
+<h1>@ViewBag.SuccessMessage2</h1>
+
+
+

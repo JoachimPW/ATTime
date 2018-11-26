@@ -7,23 +7,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ATTime.Models.ViewModel
 {
-    public class RegistorViewModel
+    public class StudentVM
     {
-
-        [Required(ErrorMessage = "Please Enter Your First Name")]
+        public int StudentId { get; set; }
         public string FirstName { get; set; }
-        [Required]
         public string LastName { get; set; }
-        [Required]
         public string Username { get; set; }
-        [Required]
         public string Psw { get; set; }
-        [Required]
-        public string Phone { get; set; }
-        [Required]
-        public string SchoolName { get; set; }
-        [Required]
-        public string Logo { get; set; }
         public int? SchoolId { get; set; }
     }
 }

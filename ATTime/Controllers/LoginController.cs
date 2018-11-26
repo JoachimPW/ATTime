@@ -37,6 +37,7 @@ namespace ATTime.Controllers
                 var password = pasw;
 
                 var context = new ATTime_DBContext();
+                var AdminName = context.Operators.Where(s => s.Username == username).Single().Username;
                 var OperatorUsername = context.Operators
                             .Where(s => s.Username == username)
                             .Count();
@@ -60,6 +61,7 @@ namespace ATTime.Controllers
                         var schoold = context.Operators
                             .Where(s => s.Username == username)
                             .Single().SchoolId;
+                        Session["AdminName"] = AdminName;
                         Session["UserId"] = operatorid;
                         Session["UserRole"] = operatorrole;
                         Session["School"] = schoold;
