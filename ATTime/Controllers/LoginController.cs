@@ -12,8 +12,6 @@ namespace ATTime.Controllers
 {
     public class LoginController : Controller
     {
-        private LoginCheckViewModel logincheckviewModel;
-
         public ActionResult Index(LoginModel model)
         {
             ViewBag.msg = "";
