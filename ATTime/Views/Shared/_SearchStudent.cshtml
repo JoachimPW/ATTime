@@ -1,0 +1,56 @@
+﻿@model IEnumerable<ATTime.Models.Student>
+@{
+    ViewBag.Title = "_SearchStudent";
+}
+<br />
+
+<div class="container">
+    <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+            <input type="text" id="Search" placeholder="Search" class="form-control" />
+        </div>
+    </div>
+</div>
+<br />
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Student ID</th>
+            <th>Student Name</th>
+            <th>Username</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        
+            <tr class="Search">
+                <td>@Model.StudentId </td>
+                <td>@Model.FirstName</td>
+                <td>@Model.Username</td>
+            </tr>
+         
+        </tbody>
+    </table>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        function Contains(text_one, text_two) {
+            if (text_one.indexOf(text_two) != -1)
+                return true;
+        }
+        $("#Search").keyup(function () {
+            var searchText = $("#Search").val().toLowerCase();
+            $(".Search").each(function () {
+                if (!Contains($(this).text().toLowerCase(), searchText)) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+        }); 
+    });
+</script>
+

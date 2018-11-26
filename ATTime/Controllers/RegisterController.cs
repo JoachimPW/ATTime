@@ -23,14 +23,14 @@ namespace ATTime.Controllers
         {
             return View();
         }
-
+        
         public ActionResult Student()
         {
             var schoolid = ((int)Session["School"]);
-            var student = db.Students.Where(s => s.SchoolId == schoolid);                    
+            var student = db.Students.Where(s => s.SchoolId == schoolid);
 
             ViewBag.student = student;
-            
+
             var schoolName = db.Schools.Where(s => s.SchoolId == schoolid).Single().SchoolName;
             ViewData["schoolname"] = schoolName;
             var adminUsername = ((string)Session["adminName"]);
@@ -38,10 +38,20 @@ namespace ATTime.Controllers
             var adminLastname = db.Operators.Where(s => s.Username == adminUsername).Single().LastName;
             ViewData["adminFirstname"] = adminFirstname;
             ViewData["adminLastname"] = adminLastname;
-            
-            return View();    
-           
+            var studentList = db.Students.ToList();
+            ViewBag.STUDENT = studentList;
+            return View(studentList);
         }
+
+        public ActionResult SearchTest()
+        {
+            return View(db.Students.ToList());
+        }
+        /*[HttpPost]
+        public ActionResult _SearchStudent()
+        {
+            return View(db.Students.ToList());
+        } */
 
         public JsonResult CheckUsernameAvailability(string userdata)
         {
@@ -136,6 +146,18 @@ namespace ATTime.Controllers
             }
             return RedirectToAction("Student");
         }
+
+
+        /* SØGEFUNKTION  
+
+        [HttpPost]
+        public ActionResult Index(string firstname)
+        {
+            ATTime_DBContext db = new ATTime_DBContext();
+            var firstnamelist = db.Students.FromSql("select * from student where first_name=@p0", firstname).ToList();
+            return View(firstnamelist);
+        }*/
+
 
     }
    

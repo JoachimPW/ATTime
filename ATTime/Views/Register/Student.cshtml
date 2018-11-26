@@ -1,4 +1,5 @@
 ﻿@model ATTime.Models.Student
+
 @{
     ViewBag.Title = "Student";
 }
@@ -7,30 +8,22 @@
 
 @Html.Partial("_AdminNav")
 
-<div class="container">
-    <h2>Students</h2>
+<!-- -->
+<!--  <div class="container">
+    <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+            <input type="text" id="Search" placeholder="Search" class="form-control" />
+        </div>
+    </div>
+</div> -->
+<br />
+@foreach (ATTime.Models.Student student in ViewBag.STUDENT)
+{
+    @Html.Partial("SearchStudent", student)
+}
 
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Courses</th>
-
-            </tr>
-        </thead>
-        <tbody>
-
-            @foreach (ATTime.Models.Student student in ViewBag.student)
-            {
-                @Html.Partial("_Students", student)
-            }
-
-        </tbody>
-    </table>
-</div>
-
-<h2>Student</h2>
+<h2>Create new student</h2>
 
 @using (Html.BeginForm("CreateStudent", "Register", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
@@ -40,7 +33,6 @@
     <div class="">
 
         <hr />
-
         <br />
 
         <div class"">
@@ -63,7 +55,7 @@
             @Html.LabelFor(model => model.Username, new { @class = "" })
             @Html.TextBoxFor(model => model.Username, new { @class = "form-control", @onkeydown = "UserCheck()" })
             @Html.ValidationMessageFor(model => model.Username)
-
+            <p id="Status"></p>
         </div>
         <br />
 
@@ -80,9 +72,36 @@
                 <button type="submit" id="submitForm" class="btn btn-default m-1 p-1 btn-success" asp-action>Create</button>
             </div>
         </div>
-
     </div>
 }
+<form style="text-align:center;" action="" method="post" role="form">
+    <div class="form-group">
+        <label for="firstname">FirstName</label>
+        <input style="text-align:center; margin:0 auto;" type="text" name="firstname" value="" class="form-control" />
+        <br />
+        <input type="submit" name="btn_search" value="Search name" class="btn btn-primary" />
+    </div>
+</form>
+
+<div class="container">
+    <h2>Students</h2>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Courses</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ATTime.Models.Student student in ViewBag.student)
+            {
+                @Html.Partial("_Students", student)
+            }
+        </tbody>
+    </table>
+</div>
 
 <h1>@ViewBag.SuccessMessage2</h1>
 
