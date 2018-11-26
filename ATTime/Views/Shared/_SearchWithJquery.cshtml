@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "_SearchWithJquery";
+}
+
+<script>
+    function UserCheck() {
+        $("#Status").html("Checking...");
+        $.post("@Url.Action("CheckUsernameAvailability", "Register")",
+            {
+                userdata: $("#Username").val()
+            },
+        function (data) {
+            if (data == 0) {
+                $("#Status").html('<font color="Green">Username is available.</font>');
+                $("#Username").css("border-color", "Green");
+                $("#submitForm").prop("disabled", false);
+            }
+            else {
+                $("#Status").html('<font color="Red">That username is taken. Try Another.</font>');
+                $("#Username").css("border-color", "Red");
+                $("#submitForm").prop("disabled", true);
+            }
+        });
+    }
+</script>

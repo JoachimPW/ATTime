@@ -39,8 +39,12 @@ namespace ATTime.Controllers
                     var currentid = ((int)Session["UserId"]);
                     var currentrole = ((string)Session["UserRole"]);
                     var school = ((int)Session["School"]);
+
+
+
                     var schoolname = context.Schools.Where(s => s.SchoolId == school).Single().SchoolName;
                     var schoollogo = context.Schools.Where(s => s.SchoolId == school).Single().Logo;
+
                     ViewData["id"] = currentid;
                     ViewData["Role"] = currentrole;
                     ViewData["Schoolname"] = schoolname;

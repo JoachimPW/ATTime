@@ -26,7 +26,6 @@
                 @Html.Partial("_Students", student)
             }
 
-
         </tbody>
     </table>
 </div>
@@ -62,7 +61,7 @@
 
         <div class"">
             @Html.LabelFor(model => model.Username, new { @class = "" })
-            @Html.TextBoxFor(model => model.Username, new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.Username, new { @class = "form-control", @onkeydown = "UserCheck()" })
             @Html.ValidationMessageFor(model => model.Username)
 
         </div>
@@ -88,4 +87,4 @@
 <h1>@ViewBag.SuccessMessage2</h1>
 
 
-
+@Html.Partial("_SearchWithJquery")

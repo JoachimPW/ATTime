@@ -39,7 +39,7 @@ namespace ATTime.Controllers
             ViewData["adminFirstname"] = adminFirstname;
             ViewData["adminLastname"] = adminLastname;
             
-            return View();         
+            return View();    
            
         }
 
