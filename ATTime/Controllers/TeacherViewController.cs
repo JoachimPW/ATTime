@@ -38,7 +38,7 @@ namespace ATTime.Controllers
                     var currentid = ((int)Session["UserId"]);
                     var currentrole = ((string)Session["UserRole"]);
                     var school = ((int)Session["School"]);
-                    var schoolname = context.Schools.FromSql("select * from school").Single().SchoolName;
+                    var schoolname = context.Schools.FromSql("select * from school where school_id = 2").Single().SchoolName;
                     var schoollogo = context.Schools.FromSql("select * from school").Single().Logo;
                     ViewData["id"] = currentid;
                     ViewData["Role"] = currentrole;
