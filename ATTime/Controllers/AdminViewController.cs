@@ -63,7 +63,7 @@ namespace ATTime.Controllers
             }
         }
 
-        public ActionResult AddCalender(DateTime start_date, DateTime end_date)
+        public ActionResult AddCalender(DateTime start_date, DateTime end_date, int team_id)
         {
             //tiløjer session data, for når denne action bliver brugt
             var context = new ATTime_DBContext();
@@ -119,7 +119,8 @@ namespace ATTime.Controllers
                         {
                             var param = new SqlParameter("@date_calender", DateTime.Now.AddDays(i).ToString("dd/MM/yyyy"));
                             var param1 = new SqlParameter("@school", school);
-                            context.Database.ExecuteSqlCommand("exec add_calender @date_calender, @school", param, param1);
+                            var param2 = new SqlParameter("@TeamID", team_id);
+                            context.Database.ExecuteSqlCommand("exec add_calender @date_calender, @school, @TeamID", param, param1, param2);
                             context.SaveChanges();
                         }
                         var all_c_c = context.CourseCalenders
