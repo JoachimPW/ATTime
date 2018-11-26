@@ -235,7 +235,6 @@
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\StudentViewController.cs" />
     <Compile Include="Controllers\TeacherViewController.cs" />
-    <Compile Include="Controllers\TestSearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -353,13 +352,13 @@
     <Content Include="Views\Register\Student.cshtml" />
     <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Views\Shared\_AdminNav.cshtml" />
-    <Content Include="Views\Shared\_SearchWithJquery.cshtml" />
-
+    <Content Include="Views\Shared\_CheckUsername.cshtml" />
     <Content Include="Views\Shared\_SearchStudent.cshtml" />
     <Content Include="Views\TestSearch\Index.cshtml" />
-
     <Content Include="Views\Shared\_team.cshtml" />
-
+    <Content Include="Views\Register\Teacher.cshtml" />
+    <Content Include="Views\Shared\_Teachers.cshtml" />
+    <Content Include="Views\Shared\_team_teacher.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -17,6 +17,7 @@ namespace ATTime.Controllers
         public ActionResult Index()
         {
             return View(db.Students.ToList());
+            
         }
     }
 }

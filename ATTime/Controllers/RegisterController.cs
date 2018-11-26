@@ -40,12 +40,16 @@ namespace ATTime.Controllers
             ViewData["adminLastname"] = adminLastname;
             var studentList = db.Students.ToList();
             ViewBag.STUDENT = studentList;
-            return View(studentList);
+            return View();
         }
 
-        public ActionResult SearchTest()
+        public ActionResult Teacher()
         {
-            return View(db.Students.ToList());
+            var schoolid = ((int)Session["School"]);
+            var oprtr = db.Operators.Where(s => s.SchoolId == schoolid);
+            ViewBag.oprtr = oprtr;
+
+            return View();
         }
         /*[HttpPost]
         public ActionResult _SearchStudent()
@@ -65,6 +69,40 @@ namespace ATTime.Controllers
             {
                 return Json(0);
             }
+        }
+
+        [HttpPost]
+        public ActionResult CreateTeacher(string firstname, string lastname, string username, string psw, string phone)
+        {
+            var pasw = string.Empty;
+            byte[] encode = new byte[psw.Length];
+            encode = Encoding.UTF8.GetBytes(psw);
+            pasw = Convert.ToBase64String(encode);
+            var schoolid = ((int)Session["School"]);
+
+
+            using (var context = new ATTime_DBContext())
+            {               
+                var teacher = new Operator()
+                {
+                    FirstName = firstname,
+                    LastName = lastname,
+                    Username = username,
+                    Psw = pasw,
+                    Phone = phone,
+                    RoleId = 2,
+                    SchoolId = schoolid
+                };
+
+                if (ModelState.IsValid)
+                {
+                    context.Operators.Add(teacher);
+                    ViewBag.SuccessMessage = "The teacher: " + "<" + username + ">" + " has been created";
+                    context.SaveChanges();
+                }
+
+            }
+            return RedirectToAction("Teacher");
         }
 
         [HttpPost]        
@@ -93,8 +131,7 @@ namespace ATTime.Controllers
                     Psw = pasw,
                     Phone = phone,
                     RoleId = 1,
-                    SchoolId = latestId
-                };
+            };
 
                 if (ModelState.IsValid)
                 {
@@ -105,13 +142,7 @@ namespace ATTime.Controllers
                 
             }
             return View("Admin");
-        }
-        public int StudentId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Username { get; set; }
-        public string Psw { get; set; }
-        public int? SchoolId { get; set; }
+        }       
 
         [HttpPost]
         public ActionResult CreateStudent(string firstname, string lastname, string username, string psw)

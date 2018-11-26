@@ -16,12 +16,12 @@
             <input type="text" id="Search" placeholder="Search" class="form-control" />
         </div>
     </div>
-</div> -->
+</div>
 <br />
 @foreach (ATTime.Models.Student student in ViewBag.STUDENT)
 {
-    @Html.Partial("SearchStudent", student)
-}
+    @Html.Partial("_SearchStudent", student)
+}-->
 
 <h2>Create new student</h2>
 
@@ -57,7 +57,7 @@
             @Html.ValidationMessageFor(model => model.Username)
             <p id="Status"></p>
         </div>
-        <br />
+        
 
         <div class"">
             @Html.LabelFor(model => model.Psw, new { @class = "" })
@@ -74,14 +74,17 @@
         </div>
     </div>
 }
-<form style="text-align:center;" action="" method="post" role="form">
-    <div class="form-group">
-        <label for="firstname">FirstName</label>
-        <input style="text-align:center; margin:0 auto;" type="text" name="firstname" value="" class="form-control" />
-        <br />
-        <input type="submit" name="btn_search" value="Search name" class="btn btn-primary" />
+
+<br />
+
+    <div class="container" style="text-align:center;">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                <input style="margin:0 auto;" type="text" id="Search" placeholder="Search" class="form-control" />
+            </div>
+        </div>
     </div>
-</form>
 
 <div class="container">
     <h2>Students</h2>
@@ -106,4 +109,4 @@
 <h1>@ViewBag.SuccessMessage2</h1>
 
 
-@Html.Partial("_SearchWithJquery")
+@Html.Partial("_CheckUsername")
