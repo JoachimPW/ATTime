@@ -17,6 +17,7 @@ namespace ATTime.Controllers
             //Her tjekker vi, som vi har en session med et id i:
             if (Session["UserId"] == null)
             {
+                //får default route
                 string routeName = ControllerContext.RouteData.Values["Default"].ToString();
                 return View(routeName);
             }
@@ -45,6 +46,12 @@ namespace ATTime.Controllers
                     ViewData["Schoolname"] = schoolname;
                     ViewData["Logo"] = schoollogo;
                     //Tilføj koden her: 
+                    var teams_operator = context.TeamCourseOperators
+                        .Where(s => s.OperatorId == currentid)
+                        .Include(s => s.Team)
+                        .ToList();
+
+                    ViewBag.TO = teams_operator;
 
                     //Koden skal slutte her
                     return View();

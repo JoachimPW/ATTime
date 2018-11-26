@@ -1,0 +1,17 @@
+﻿@model ATTime.Models.TeamCourseOperator
+@using ATTime.Models.ViewModel
+
+
+<div class="">
+    @using (Html.BeginForm("calender", "TeacherView", FormMethod.Post))
+    {
+        <input type="hidden" name="teamid" value="@Model.TeamId" />
+        <button type="submit" class="btn btn-default m-1 p-1 btn-danger">@Model.Team.TeamName</button>
+    }
+    <hr />
+    @using (Html.BeginForm("student", "TeacherView", FormMethod.Post))
+     {
+        <input type="hidden" name="teamid" value="@Model.TeamId" />
+        <button type="submit" class="btn btn-default m-1 p-1 btn-danger">Students @ATTime.Models.ViewModel.Studencount.student_count(@Model.TeamId)</button>
+     }
+</div>

@@ -352,6 +352,7 @@
     <Content Include="Views\Register\Student.cshtml" />
     <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Views\Shared\_AdminNav.cshtml" />
+    <Content Include="Views\Shared\_team.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

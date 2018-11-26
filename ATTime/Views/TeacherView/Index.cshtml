@@ -1,4 +1,5 @@
 ﻿@using ATTime.Models.LoginViewModels;
+@using ATTime.Models;
 @{
     ViewBag.Title = "Index";
 }
@@ -7,4 +8,9 @@
     @LoginCheckViewModel.Lastname(((int)ViewData["id"]), ((string)ViewData["Role"]))
 </h2>
 <h5>@ViewData["Role"]</h5>
+
+@foreach (TeamCourseOperator team in ViewBag.TO)
+ {
+    @Html.Partial("_team_teacher", team)
+ }
 
