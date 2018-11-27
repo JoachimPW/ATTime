@@ -45,5 +45,33 @@ namespace ATTime.Models.LoginViewModels
             }
             return lastname;
         }
+
+        public static string check(int userid, string role)
+        {
+            if(userid == 0)
+            {
+                return "Login";
+            }
+            else
+            {
+                if(role == "Admin")
+                {
+                    return "AdminView";
+                }
+                else if(role == "Teacher")
+                {
+                    return "TeacherView";
+                }
+                else if (role == "Student")
+                {
+                    return "StudentView";
+                }
+                else
+                {
+                    return "Login";
+                }
+            }
+            
+        }
     }
 }

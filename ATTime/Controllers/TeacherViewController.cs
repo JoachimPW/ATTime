@@ -14,57 +14,39 @@ namespace ATTime.Controllers
     {
         public ActionResult Index()
         {
-            //Her tjekker vi, som vi har en session med et id i:
-            if (Session["UserId"] == null)
+            //Her fanger vi alle sessions som indeholder information for den bruger som er logget ind:
+            var context = new ATTime_DBContext();
+            var currentid = ((int)Session["UserId"]);
+            var currentrole = ((string)Session["UserRole"]);
+            var school = ((int)Session["School"]);
+            var schoolname = context.Schools.FromSql("select * from school").Single().SchoolName;
+            var schoollogo = context.Schools.FromSql("select * from school").Single().Logo;
+            ViewData["id"] = currentid;
+            ViewData["Role"] = currentrole;
+            ViewData["Schoolname"] = schoolname;
+            ViewData["Logo"] = schoollogo;
+
+            //Tilføj koden her: 
+            var teams_operator = context.TeamCourseOperators
+                .Where(s => s.OperatorId == currentid)
+                .Include(s => s.Team)
+                .ToList();
+
+            ViewBag.TO = teams_operator;
+
+
+            //Sakffer routen for en bruger
+            if (currentrole == "Teacher" && currentid != 0)
             {
-                //får default route
-                string routeName = ControllerContext.RouteData.Values["Default"].ToString();
-                return View(routeName);
+                return View();
             }
             else
             {
-                //Her tjekker vi vores role, og sender en person til et andet vi, hvis de ikke har den rigtige role:
-                if (((string)Session["UserRole"]) == "Student")
-                {
-                    return View("~/StudentView/Index");
-                }
-                else if (((string)Session["UserRole"]) == "Admin")
-                {
-                    return View("~/AdminView/Index");
-                }
-                else if (((string)Session["UserRole"]) == "Teacher")
-                {
-                    //Her fanger vi alle sessions som indeholder information for den bruger som er logget ind:
-                    var context = new ATTime_DBContext();
-                    var currentid = ((int)Session["UserId"]);
-                    var currentrole = ((string)Session["UserRole"]);
-                    var school = ((int)Session["School"]);
-
-                    var schoolname = context.Schools.Where(s => s.SchoolId == school).Single().SchoolName;
-                    var schoollogo = context.Schools.Where(s => s.SchoolId == school).Single().Logo;
-
-                    ViewData["id"] = currentid;
-                    ViewData["Role"] = currentrole;
-                    ViewData["Schoolname"] = schoolname;
-                    ViewData["Logo"] = schoollogo;
-                    //Tilføj koden her: 
-                    var teams_operator = context.TeamCourseOperators
-                        .Where(s => s.OperatorId == currentid)
-                        .Include(s => s.Team)
-                        .ToList();
-
-                    ViewBag.TO = teams_operator;
-
-                    //Koden skal slutte her
-                    return View();
-                }
-                else
-                {
-                    string routeName = ControllerContext.RouteData.Values["Default"].ToString();
-                    return View(routeName);
-                }
+                string url = LoginCheckViewModel.check(currentid, currentrole);
+                return RedirectToAction("Index", url);
             }
         }
+
         public ActionResult AddCourse(int Courseid, int calendercourseid)
         {
             //Informationer 
@@ -109,111 +91,128 @@ namespace ATTime.Controllers
 
         public ActionResult calender(int teamid)
         {
-            //Her tjekker vi, som vi har en session med et id i:
-            if (Session["UserId"] == null)
+            //Her fanger vi alle sessions som indeholder information for den bruger som er logget ind:
+            var context = new ATTime_DBContext();
+            var currentid = ((int)Session["UserId"]);
+            var currentrole = ((string)Session["UserRole"]);
+            var school = ((int)Session["School"]);
+            var schoolname = context.Schools.FromSql("select * from school").Single().SchoolName;
+            var schoollogo = context.Schools.FromSql("select * from school").Single().Logo;
+            ViewData["id"] = currentid;
+            ViewData["Role"] = currentrole;
+            ViewData["Schoolname"] = schoolname;
+            ViewData["Logo"] = schoollogo;
+            ViewData["team"] = teamid;
+
+            //Tilføj koden her: 
+            var start_date = DateTime.Now.ToString("dd/MM/yyyy");
+            var startid = context.Calenders.Where(s => s.CalenderName == start_date).Single().CalenderId;
+            var teams_calender = context.CourseCalenders
+                           .Where(s => s.TeamId == teamid)
+                           .Where(s => s.CalenderId > startid)
+                           .Include(s => s.Course)
+                           .Include(s => s.Calender)
+                           .ToList();
+
+            var course_operator = context.TeamCourseOperators
+                 .Where(s => s.TeamId == teamid)
+                 .Include(s => s.Course)
+                 .ToList();
+
+            ViewBag.TO = teams_calender;
+            ViewBag.CO = course_operator;
+
+            //Sakffer routen for en bruger
+            if (currentrole == "Teacher" && currentid != 0)
             {
-                //får default route
-                string routeName = ControllerContext.RouteData.Values["Default"].ToString();
-                return View(routeName);
+                return View();
             }
             else
             {
-                //Her tjekker vi vores role, og sender en person til et andet vi, hvis de ikke har den rigtige role:
-                if (((string)Session["UserRole"]) == "Student")
-                {
-                    return View("~/StudentView/Index");
-                }
-                else if (((string)Session["UserRole"]) == "Admin")
-                {
-                    return View("~/AdminView/Index");
-                }
-                else if (((string)Session["UserRole"]) == "Teacher")
-                {
-                    //Her fanger vi alle sessions som indeholder information for den bruger som er logget ind:
-                    var context = new ATTime_DBContext();
-                    var currentid = ((int)Session["UserId"]);
-                    var currentrole = ((string)Session["UserRole"]);
-                    var school = ((int)Session["School"]);
-                    var schoolname = context.Schools.Where(s => s.SchoolId == school).Single().SchoolName;
-                    var schoollogo = context.Schools.Where(s => s.SchoolId == school).Single().Logo;
-
-                    ViewData["id"] = currentid;
-                    ViewData["Role"] = currentrole;
-                    ViewData["Schoolname"] = schoolname;
-                    ViewData["Logo"] = schoollogo;
-                    //Tilføj koden her: 
-                    var teams_calender = context.CourseCalenders
-                        .Where(s => s.TeamId == teamid)
-                        .Include(s => s.Course)
-                        .Include(s => s.Calender)
-                        .ToList();
-
-                    var course_operator = context.TeamCourseOperators
-                         .Where(s => s.TeamId == teamid)
-                         .Include(s => s.Course)
-                         .ToList();
-
-                    ViewBag.TO = teams_calender;
-                    ViewBag.CO = course_operator;
-
-                    //Koden skal slutte her
-                    return View();
-                }
-                else
-                {
-                    string routeName = ControllerContext.RouteData.Values["Default"].ToString();
-                    return View(routeName);
-                }
+                string url = LoginCheckViewModel.check(currentid, currentrole);
+                return RedirectToAction("Index", url);
             }
+           
         }
+
+        public ActionResult between(int teamid, DateTime start, DateTime end)
+        {
+            //Her fanger vi alle sessions som indeholder information for den bruger som er logget ind:
+            var context = new ATTime_DBContext();
+            var currentid = ((int)Session["UserId"]);
+            var currentrole = ((string)Session["UserRole"]);
+            var school = ((int)Session["School"]);
+            var schoolname = context.Schools.FromSql("select * from school").Single().SchoolName;
+            var schoollogo = context.Schools.FromSql("select * from school").Single().Logo;
+            ViewData["id"] = currentid;
+            ViewData["Role"] = currentrole;
+            ViewData["Schoolname"] = schoolname;
+            ViewData["Logo"] = schoollogo;
+            ViewData["team"] = teamid;
+
+            //Tilføj koden her: 
+            var start_date = start.ToString("dd/MM/yyyy");
+            var end_date = end.ToString("dd/MM/yyyy");
+            var startid = context.Calenders.Where(s => s.CalenderName == start_date).Single().CalenderId;
+            var slutid = context.Calenders.Where(s => s.CalenderName == end_date).Single().CalenderId;
+            var teams_calender = context.CourseCalenders
+                           .Where(s => s.TeamId == teamid)
+                           .Where(s => s.CalenderId > startid)
+                           .Where(s => s.CalenderId < slutid)
+                           .Include(s => s.Course)
+                           .Include(s => s.Calender)
+                           .ToList();
+
+            var course_operator = context.TeamCourseOperators
+                 .Where(s => s.TeamId == teamid)
+                 .Include(s => s.Course)
+                 .ToList();
+
+            ViewBag.TO = teams_calender;
+            ViewBag.CO = course_operator;
+
+            //Sakffer routen for en bruger
+            if (currentrole == "Teacher" && currentid != 0)
+            {
+                return View("calender");
+            }
+            else
+            {
+                string url = LoginCheckViewModel.check(currentid, currentrole);
+                return RedirectToAction("Index", url);
+            }
+
+        }
+
 
         public ActionResult student(int teamid)
         {
-            //Her tjekker vi, som vi har en session med et id i:
-            if (Session["UserId"] == null)
+            //Her fanger vi alle sessions som indeholder information for den bruger som er logget ind:
+            var context = new ATTime_DBContext();
+            var currentid = ((int)Session["UserId"]);
+            var currentrole = ((string)Session["UserRole"]);
+            var school = ((int)Session["School"]);
+            var schoolname = context.Schools.FromSql("select * from school").Single().SchoolName;
+            var schoollogo = context.Schools.FromSql("select * from school").Single().Logo;
+            ViewData["id"] = currentid;
+            ViewData["Role"] = currentrole;
+            ViewData["Schoolname"] = schoolname;
+            ViewData["Logo"] = schoollogo;
+
+            //Tilføj koden her: 
+                    
+
+
+            //Sakffer routen for en bruger
+            if (currentrole == "Teacher" && currentid != 0)
             {
-                //får default route
-                string routeName = ControllerContext.RouteData.Values["Default"].ToString();
-                return View(routeName);
+                return View();
             }
             else
             {
-                //Her tjekker vi vores role, og sender en person til et andet vi, hvis de ikke har den rigtige role:
-                if (((string)Session["UserRole"]) == "Student")
-                {
-                    return View("~/StudentView/Index");
-                }
-                else if (((string)Session["UserRole"]) == "Admin")
-                {
-                    return View("~/AdminView/Index");
-                }
-                else if (((string)Session["UserRole"]) == "Teacher")
-                {
-                    //Her fanger vi alle sessions som indeholder information for den bruger som er logget ind:
-                    var context = new ATTime_DBContext();
-                    var currentid = ((int)Session["UserId"]);
-                    var currentrole = ((string)Session["UserRole"]);
-                    var school = ((int)Session["School"]);
-
-                    var schoolname = context.Schools.Where(s => s.SchoolId == school).Single().SchoolName;
-                    var schoollogo = context.Schools.Where(s => s.SchoolId == school).Single().Logo;
-
-                    ViewData["id"] = currentid;
-                    ViewData["Role"] = currentrole;
-                    ViewData["Schoolname"] = schoolname;
-                    ViewData["Logo"] = schoollogo;
-                    //Tilføj koden her: 
-                    
-
-                    //Koden skal slutte her
-                    return View();
-                }
-                else
-                {
-                    string routeName = ControllerContext.RouteData.Values["Default"].ToString();
-                    return View(routeName);
-                }
-            }
+                string url = LoginCheckViewModel.check(currentid, currentrole);
+                return RedirectToAction("Index", url);
+            }            
         }
 
         public ActionResult _Student_attend(int TeamID, int date)
@@ -221,9 +220,7 @@ namespace ATTime.Controllers
             //Her tjekker vi, som vi har en session med et id i:
             if (Session["UserId"] == null)
             {
-                //får default route
-                string routeName = ControllerContext.RouteData.Values["Default"].ToString();
-                return View(routeName);
+                return RedirectToAction("Index", "Login");
             }
             else
             {
@@ -239,7 +236,6 @@ namespace ATTime.Controllers
                     .OrderBy(s => s.AttendanceId);
                 ViewBag.ATT = Attended;
             }
-
             return PartialView("_Student_attend");
         }
     }

@@ -11,50 +11,23 @@ namespace ATTime.Controllers
 {
     public class StudentViewController : Controller
     {
-        public ViewResult Index()
+        public ActionResult Index()
         {
-            //Her tjekker vi, som vi har en session med et id i:
-            if (Session["UserId"] == null)
-            {
-                string routeName = ControllerContext.RouteData.Values["Default"].ToString();
-                return View(routeName);
-            }
-            else
-            {
-                //Her tjekker vi vores role, og sender en person til et andet vi, hvis de ikke har den rigtige role:
-                if (((string)Session["UserRole"]) == "Teacher")
-                {
-                    return View("~/TeacherView/Index");
-                }
-                else if (((string)Session["UserRole"]) == "Admin")
-                {
-                    return View("~/AdminView/Index");
-                }
-                else if (((string)Session["UserRole"]) == "Student")
-                {
-                    //Her fanger vi alle sessions som indeholder information for den bruger som er logget ind:
-                    var context = new ATTime_DBContext();
-                    var currentid = ((int)Session["UserId"]);
-                    var currentrole = ((string)Session["UserRole"]);
-                    var school = ((int)Session["School"]);
-                    var schoolname = context.Schools.FromSql("select * from school").Single().SchoolName;
-                    var schoollogo = context.Schools.FromSql("select * from school").Single().Logo;
-                    ViewData["id"] = currentid;
-                    ViewData["Role"] = currentrole;
-                    ViewData["Schoolname"] = schoolname;
-                    ViewData["Logo"] = schoollogo;
-                    //Tilføj koden her: 
+            //Her fanger vi alle sessions som indeholder information for den bruger som er logget ind:
+            var context = new ATTime_DBContext();
+            var currentid = ((int)Session["UserId"]);
+            var currentrole = ((string)Session["UserRole"]);
+            var school = ((int)Session["School"]);
+            var schoolname = context.Schools.FromSql("select * from school").Single().SchoolName;
+            var schoollogo = context.Schools.FromSql("select * from school").Single().Logo;
+            ViewData["id"] = currentid;
+            ViewData["Role"] = currentrole;
+            ViewData["Schoolname"] = schoolname;
+            ViewData["Logo"] = schoollogo;
 
-                    //Koden skal slutte her
+            string url = LoginCheckViewModel.check(currentid, currentrole);
 
-                    return View();
-                }
-                else
-                {
-                    string routeName = ControllerContext.RouteData.Values["Default"].ToString();
-                    return View(routeName);
-                }
-            }
+            return RedirectToAction("Index", url);
         }
     }
 }
