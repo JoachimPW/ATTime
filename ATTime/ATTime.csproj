@@ -235,9 +235,39 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminViewController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\OperatorController.cs" />
+    <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\SearchStudentController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Controllers\StudentViewController.cs" />
+    <Compile Include="Controllers\TeacherViewController.cs" />
+    <Compile Include="Controllers\TestSearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AdminViewModels\AddViewModel.cs" />
+    <Compile Include="Models\Attendance.cs" />
+    <Compile Include="Models\AttendanceCourseStudent.cs" />
+    <Compile Include="Models\ATTime_DBContext.cs" />
+    <Compile Include="Models\Calender.cs" />
+    <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\CourseCalender.cs" />
+    <Compile Include="Models\CourseCode.cs" />
+    <Compile Include="Models\LoginViewModels\LoginCheckViewModel.cs" />
+    <Compile Include="Models\LoginViewModels\LoginModel.cs" />
+    <Compile Include="Models\Operator.cs" />
+    <Compile Include="Models\Permission.cs" />
+    <Compile Include="Models\School.cs" />
+    <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\Team.cs" />
+    <Compile Include="Models\TeamCourseOperator.cs" />
+    <Compile Include="Models\TeamCourseStudent.cs" />
+    <Compile Include="Models\ViewModel\RegistorViewModel.cs" />
+    <Compile Include="Models\ViewModel\Studencount.cs" />
+    <Compile Include="Models\ViewModel\StudentVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\RepositoryStudent.cs" />
     <Compile Include="Startup1.cs" />
@@ -296,6 +326,39 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Views\AdminView\Add.cshtml" />
+    <Content Include="Views\AdminView\Calender.cshtml" />
+    <Content Include="Views\AdminView\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Operator\Index.cshtml" />
+    <Content Include="Views\Register\Admin.cshtml" />
+    <Content Include="Views\Register\Index.cshtml" />
+    <Content Include="Views\Register\Student.cshtml" />
+    <Content Include="Views\Register\Teacher.cshtml" />
+    <Content Include="Views\Register\Team.cshtml" />
+    <Content Include="Views\SearchStudent\Index.cshtml" />
+    <Content Include="Views\SearchStudent\Search.cshtml" />
+    <Content Include="Views\Shared\_AdminNav.cshtml" />
+    <Content Include="Views\Shared\_calender_teacher.cshtml" />
+    <Content Include="Views\Shared\_CheckUsername.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_SearchStudent.cshtml" />
+    <Content Include="Views\Shared\_Students.cshtml" />
+    <Content Include="Views\Shared\_Student_attend.cshtml" />
+    <Content Include="Views\Shared\_Teachers.cshtml" />
+    <Content Include="Views\Shared\_team.cshtml" />
+    <Content Include="Views\Shared\_Teams.cshtml" />
+    <Content Include="Views\Shared\_team_teacher.cshtml" />
+    <Content Include="Views\StudentView\Index.cshtml" />
+    <Content Include="Views\Student\Delete.cshtml" />
+    <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\Student\Search.cshtml" />
+    <Content Include="Views\Student\SearchStudent.cshtml" />
+    <Content Include="Views\TeacherView\calender.cshtml" />
+    <Content Include="Views\TeacherView\Index.cshtml" />
+    <Content Include="Views\TeacherView\student.cshtml" />
+    <Content Include="Views\TestSearch\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -317,8 +380,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
