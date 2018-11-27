@@ -117,20 +117,13 @@ namespace ATTime.Controllers
                         //Her laver vi et forloop, som tilføjer alle de datoer, som man gerne vil have med i sin kalender
                         for (int i = days_between_start; i < days_between_end; i++)
                         {
+
                             var param = new SqlParameter("@date_calender", DateTime.Now.AddDays(i).ToString("dd/MM/yyyy"));
                             var param1 = new SqlParameter("@school", school);
                             var param2 = new SqlParameter("@TeamID", team_id);
                             context.Database.ExecuteSqlCommand("exec add_calender @date_calender, @school, @TeamID", param, param1, param2);
                             context.SaveChanges();
                         }
-                        var all_c_c = context.CourseCalenders
-                         .FromSql("select * from course_calender")
-                         .Include(s => s.Calender)
-                         .Include(s => s.Course)
-                         .Where(s => s.SchoolId == school)
-                         .ToList();
-
-                        ViewBag.allcc = all_c_c;
                         return View("Calender");
                     }
                 }
@@ -171,17 +164,7 @@ namespace ATTime.Controllers
                     ViewData["Role"] = currentrole;
                     ViewData["Schoolname"] = schoolname;
                     ViewData["Logo"] = schoollogo;
-
-                    //Tilføj koden her: 
-                    //Skaffer alle datoer og fag
-                    var all_c_c = context.CourseCalenders
-                        .FromSql("select * from course_calender")
-                        .Include(s => s.Calender)
-                        .Include(s => s.Course)
-                        .Where(s => s.SchoolId == school)
-                        .ToList();
-
-                    ViewBag.allcc = all_c_c;
+                    //Tilføj koden her:                   
 
                     //Koden skal slutte her
                     return View();
