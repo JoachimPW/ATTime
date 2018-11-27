@@ -16,8 +16,6 @@ namespace ATTime.Controllers
         ATTime_DBContext db = new ATTime_DBContext();
         public ActionResult Index()
         {
-           
-
             //Her tjekker vi, som vi har en session med et id i:
             if (Session["UserId"] == null)
             {
@@ -53,7 +51,6 @@ namespace ATTime.Controllers
                     ViewData["schoolid"] = school;
                     //Tilføj koden her: 
 
-
                     //Koden skal slutte her
                     var schoolid = ((int)Session["School"]);
                     var team = db.Teams.Where(s => s.SchoolId == schoolid);
@@ -66,9 +63,12 @@ namespace ATTime.Controllers
                     string routeName = ControllerContext.RouteData.Values["Default"].ToString();
                     return View(routeName);
                 } 
+            }             
+        }
 
-            } 
-            
+        public ActionResult TeamSelect()
+        {
+            return View("Teacher");
         }
 
         public ActionResult AddCalender(DateTime start_date, DateTime end_date)

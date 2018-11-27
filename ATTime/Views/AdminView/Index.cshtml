@@ -21,10 +21,11 @@
 @Html.ActionLink("Teacher", "Teacher", "Register")
 @Html.ActionLink("Team", "Team", "Register")
 
-<div >    
+<div>    
         @foreach (ATTime.Models.Team team in ViewBag.team)
         {
             @Html.Partial("_Teams", team)
         }
 </div>
+
 

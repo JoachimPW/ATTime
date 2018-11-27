@@ -31,9 +31,20 @@ namespace ATTime.Controllers
             ViewBag.team = team;
             return View();
         }
+        [HttpPost]
+        public ActionResult SelectTeam(int teamid)
+        {
+            ViewBag.testTeamId = teamid;
+            Session["TeamId"] = 5;
+            return RedirectToAction("Student");
+        }
 
         public ActionResult Student()
         {
+            var teamId = ((int)Session["TeamId"]);
+            ViewBag.teamid = teamId;
+            ViewData["TEAMID"] = teamId;
+
             var schoolid = ((int)Session["School"]);
             var student = db.Students.Where(s => s.SchoolId == schoolid);
 
@@ -46,8 +57,10 @@ namespace ATTime.Controllers
             var adminLastname = db.Operators.Where(s => s.Username == adminUsername).Single().LastName;
             ViewData["adminFirstname"] = adminFirstname;
             ViewData["adminLastname"] = adminLastname;
+
             var studentList = db.Students.ToList();
             ViewBag.STUDENT = studentList;
+
             return View();
         }
 

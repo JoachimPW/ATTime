@@ -5,6 +5,8 @@
 
 <a href="/SearchStudent"> <button> Søg </button></a>
 
+@ViewBag.teamid 
+
 @foreach (ATTime.Models.Student student in ViewBag.student)
 {
     @Html.Partial("_Students", student)

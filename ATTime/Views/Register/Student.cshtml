@@ -8,8 +8,8 @@
 
 @Html.Partial("_AdminNav")
 
-<!-- -->
-<!--  <div class="container">
+
+<div class="container">
     <div class="form-group">
         <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
@@ -18,12 +18,14 @@
     </div>
 </div>
 <br />
-@foreach (ATTime.Models.Student student in ViewBag.STUDENT)
-{
-    @Html.Partial("_SearchStudent", student)
-}-->
+
 
 <h2>Create new student</h2>
+<h1>
+    @ViewBag.testTeamId
+    @ViewBag.teamid
+    @ViewData["TEAMID"]
+</h1>
 
 @using (Html.BeginForm("CreateStudent", "Register", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
@@ -57,7 +59,7 @@
             @Html.ValidationMessageFor(model => model.Username)
             <p id="Status"></p>
         </div>
-        
+
 
         <div class"">
             @Html.LabelFor(model => model.Psw, new { @class = "" })
@@ -77,14 +79,14 @@
 
 <br />
 
-    <div class="container" style="text-align:center;">
-        <div class="form-group">
-            <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                <input style="margin:0 auto;" type="text" id="Search" placeholder="Search" class="form-control" />
-            </div>
+<div class="container" style="text-align:center;">
+    <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+            <input style="margin:0 auto;" type="text" id="Search" placeholder="Search" class="form-control" />
         </div>
     </div>
+</div>
 
 <div class="container">
     <h2>Students</h2>
