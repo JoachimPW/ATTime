@@ -125,7 +125,16 @@ namespace ATTime.Controllers
                         //Her laver vi et forloop, som tilføjer alle de datoer, som man gerne vil have med i sin kalender
                         for (int i = days_between_start; i < days_between_end; i++)
                         {
-
+                            using (context)
+                            {
+                                var std = new Student()
+                                {
+                                    FirstName = "Bill",
+                                    LastName = "Gates"
+                                };
+                                context.Students.Add(new Calender() { });
+                                context.SaveChanges();
+                            }
                             var param = new SqlParameter("@date_calender", DateTime.Now.AddDays(i).ToString("dd/MM/yyyy"));
                             var param1 = new SqlParameter("@school", school);
                             var param2 = new SqlParameter("@TeamID", team_id);

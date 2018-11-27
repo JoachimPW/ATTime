@@ -33,7 +33,7 @@ namespace ATTime.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=tcp:attime-server.database.windows.net,1433;Initial Catalog=ATTime_DB;Persist Security Info=False;User ID=ATTime;Password=Asdf7890;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
@@ -61,6 +61,8 @@ namespace ATTime.Models
 
                 entity.Property(e => e.AttendanceId).HasColumnName("attendance_ID");
 
+                entity.Property(e => e.CalenderId).HasColumnName("calender_ID");
+
                 entity.Property(e => e.CourseId).HasColumnName("course_ID");
 
                 entity.Property(e => e.StudentId).HasColumnName("student_ID");
@@ -70,22 +72,27 @@ namespace ATTime.Models
                 entity.HasOne(d => d.Attendance)
                     .WithMany(p => p.AttendanceCourseStudent)
                     .HasForeignKey(d => d.AttendanceId)
-                    .HasConstraintName("FK__attendanc__atten__60C757A0");
+                    .HasConstraintName("FK__attendanc__atten__0CA5D9DE");
+
+                entity.HasOne(d => d.Calender)
+                    .WithMany(p => p.AttendanceCourseStudent)
+                    .HasForeignKey(d => d.CalenderId)
+                    .HasConstraintName("FK__attendanc__calen__10766AC2");
 
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.AttendanceCourseStudent)
                     .HasForeignKey(d => d.CourseId)
-                    .HasConstraintName("FK__attendanc__cours__61BB7BD9");
+                    .HasConstraintName("FK__attendanc__cours__0D99FE17");
 
                 entity.HasOne(d => d.Student)
                     .WithMany(p => p.AttendanceCourseStudent)
                     .HasForeignKey(d => d.StudentId)
-                    .HasConstraintName("FK__attendanc__stude__62AFA012");
+                    .HasConstraintName("FK__attendanc__stude__0E8E2250");
 
                 entity.HasOne(d => d.Team)
                     .WithMany(p => p.AttendanceCourseStudent)
                     .HasForeignKey(d => d.TeamId)
-                    .HasConstraintName("FK__attendanc__team___63A3C44B");
+                    .HasConstraintName("FK__attendanc__team___0F824689");
             });
 
             modelBuilder.Entity<Calender>(entity =>
@@ -131,22 +138,22 @@ namespace ATTime.Models
                 entity.HasOne(d => d.Calender)
                     .WithMany(p => p.CourseCalender)
                     .HasForeignKey(d => d.CalenderId)
-                    .HasConstraintName("FK__course_ca__calen__573DED66");
+                    .HasConstraintName("FK__course_ca__calen__031C6FA4");
 
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.CourseCalender)
                     .HasForeignKey(d => d.CourseId)
-                    .HasConstraintName("FK__course_ca__cours__5649C92D");
+                    .HasConstraintName("FK__course_ca__cours__02284B6B");
 
                 entity.HasOne(d => d.School)
                     .WithMany(p => p.CourseCalender)
                     .HasForeignKey(d => d.SchoolId)
-                    .HasConstraintName("FK__course_ca__schoo__5832119F");
+                    .HasConstraintName("FK__course_ca__schoo__041093DD");
 
                 entity.HasOne(d => d.Team)
                     .WithMany(p => p.CourseCalender)
                     .HasForeignKey(d => d.TeamId)
-                    .HasConstraintName("FK__course_ca__team___592635D8");
+                    .HasConstraintName("FK__course_ca__team___0504B816");
             });
 
             modelBuilder.Entity<CourseCode>(entity =>
@@ -165,7 +172,7 @@ namespace ATTime.Models
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.CourseCode)
                     .HasForeignKey(d => d.CourseId)
-                    .HasConstraintName("FK__course_co__cours__668030F6");
+                    .HasConstraintName("FK__course_co__cours__1352D76D");
             });
 
             modelBuilder.Entity<Operator>(entity =>
@@ -211,12 +218,12 @@ namespace ATTime.Models
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.Operator)
                     .HasForeignKey(d => d.RoleId)
-                    .HasConstraintName("FK__operator__role_I__4242D080");
+                    .HasConstraintName("FK__operator__role_I__6E2152BE");
 
                 entity.HasOne(d => d.School)
                     .WithMany(p => p.Operator)
                     .HasForeignKey(d => d.SchoolId)
-                    .HasConstraintName("FK__operator__school__4336F4B9");
+                    .HasConstraintName("FK__operator__school__6F1576F7");
             });
 
             modelBuilder.Entity<Permission>(entity =>
@@ -288,7 +295,7 @@ namespace ATTime.Models
                 entity.HasOne(d => d.School)
                     .WithMany(p => p.Student)
                     .HasForeignKey(d => d.SchoolId)
-                    .HasConstraintName("FK__student__school___4F9CCB9E");
+                    .HasConstraintName("FK__student__school___7B7B4DDC");
             });
 
             modelBuilder.Entity<Team>(entity =>
@@ -308,7 +315,7 @@ namespace ATTime.Models
                 entity.HasOne(d => d.School)
                     .WithMany(p => p.Team)
                     .HasForeignKey(d => d.SchoolId)
-                    .HasConstraintName("FK__team__school_ID__47FBA9D6");
+                    .HasConstraintName("FK__team__school_ID__73DA2C14");
             });
 
             modelBuilder.Entity<TeamCourseOperator>(entity =>
@@ -326,17 +333,17 @@ namespace ATTime.Models
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.TeamCourseOperator)
                     .HasForeignKey(d => d.CourseId)
-                    .HasConstraintName("FK__team_cour__cours__4BCC3ABA");
+                    .HasConstraintName("FK__team_cour__cours__77AABCF8");
 
                 entity.HasOne(d => d.Operator)
                     .WithMany(p => p.TeamCourseOperator)
                     .HasForeignKey(d => d.OperatorId)
-                    .HasConstraintName("FK__team_cour__opera__4CC05EF3");
+                    .HasConstraintName("FK__team_cour__opera__789EE131");
 
                 entity.HasOne(d => d.Team)
                     .WithMany(p => p.TeamCourseOperator)
                     .HasForeignKey(d => d.TeamId)
-                    .HasConstraintName("FK__team_cour__team___4AD81681");
+                    .HasConstraintName("FK__team_cour__team___76B698BF");
             });
 
             modelBuilder.Entity<TeamCourseStudent>(entity =>
@@ -354,17 +361,17 @@ namespace ATTime.Models
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.TeamCourseStudent)
                     .HasForeignKey(d => d.CourseId)
-                    .HasConstraintName("FK__team_cour__cours__5CF6C6BC");
+                    .HasConstraintName("FK__team_cour__cours__08D548FA");
 
                 entity.HasOne(d => d.Student)
                     .WithMany(p => p.TeamCourseStudent)
                     .HasForeignKey(d => d.StudentId)
-                    .HasConstraintName("FK__team_cour__stude__5DEAEAF5");
+                    .HasConstraintName("FK__team_cour__stude__09C96D33");
 
                 entity.HasOne(d => d.Team)
                     .WithMany(p => p.TeamCourseStudent)
                     .HasForeignKey(d => d.TeamId)
-                    .HasConstraintName("FK__team_cour__team___5C02A283");
+                    .HasConstraintName("FK__team_cour__team___07E124C1");
             });
         }
     }

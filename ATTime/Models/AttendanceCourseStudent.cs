@@ -10,8 +10,10 @@ namespace ATTime.Models
         public int? CourseId { get; set; }
         public int? StudentId { get; set; }
         public int? TeamId { get; set; }
+        public int? CalenderId { get; set; }
 
         public Attendance Attendance { get; set; }
+        public Calender Calender { get; set; }
         public Course Course { get; set; }
         public Student Student { get; set; }
         public Team Team { get; set; }
