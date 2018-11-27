@@ -35,7 +35,7 @@ namespace ATTime.Controllers
         public ActionResult SelectTeam(int teamid)
         {
             ViewBag.testTeamId = teamid;
-            Session["TeamId"] = 5;
+            Session["TeamId"] = teamid;
             return RedirectToAction("Student");
         }
 
