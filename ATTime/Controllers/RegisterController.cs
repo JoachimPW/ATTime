@@ -28,7 +28,6 @@ namespace ATTime.Controllers
         {
             var schoolid = ((int)Session["School"]);
             var team = db.Teams.Where(s => s.SchoolId == schoolid);
-
             ViewBag.team = team;
             return View();
         }

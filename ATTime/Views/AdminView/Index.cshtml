@@ -1,4 +1,5 @@
 ﻿@using ATTime.Models.LoginViewModels;
+@model ATTime.Models.Team
 @{
     ViewBag.Title = "Index";
 }
@@ -19,3 +20,10 @@
 @Html.ActionLink("Student", "Student", "Register")
 @Html.ActionLink("Teacher", "Teacher", "Register")
 @Html.ActionLink("Team", "Team", "Register")
+
+<tbody>
+    @foreach (ATTime.Models.Team team in ViewBag.team)
+    {
+        @Html.Partial("_Teams", team)
+    }
+</tbody>

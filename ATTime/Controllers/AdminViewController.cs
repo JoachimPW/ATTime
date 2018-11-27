@@ -7,6 +7,7 @@ using ATTime.Models.LoginViewModels;
 using Microsoft.EntityFrameworkCore;
 using ATTime.Models;
 using System.Data.SqlClient;
+using System.Text;
 
 namespace ATTime.Controllers
 {
@@ -15,11 +16,7 @@ namespace ATTime.Controllers
         ATTime_DBContext db = new ATTime_DBContext();
         public ActionResult Index()
         {
-
-            var schoolid = ((int)Session["School"]);
-            var team = db.Teams.Where(s => s.SchoolId == schoolid);
-
-            ViewBag.team = team;
+           
 
             //Her tjekker vi, som vi har en session med et id i:
             if (Session["UserId"] == null)
@@ -55,9 +52,12 @@ namespace ATTime.Controllers
                     ViewData["Logo"] = schoollogo;
                     ViewData["schoolid"] = school;
                     //Tilføj koden her: 
-                   
+
 
                     //Koden skal slutte her
+                    var schoolid = ((int)Session["School"]);
+                    var team = db.Teams.Where(s => s.SchoolId == schoolid);
+                    ViewBag.team = team;
                     return View();
                 }
                 else
@@ -65,9 +65,9 @@ namespace ATTime.Controllers
                     //får default route
                     string routeName = ControllerContext.RouteData.Values["Default"].ToString();
                     return View(routeName);
-                }
+                } 
 
-            }
+            } 
             
         }
 
