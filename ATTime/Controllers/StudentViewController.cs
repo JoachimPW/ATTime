@@ -20,14 +20,47 @@ namespace ATTime.Controllers
             var school = ((int)Session["School"]);
             var schoolname = context.Schools.FromSql("select * from school").Single().SchoolName;
             var schoollogo = context.Schools.FromSql("select * from school").Single().Logo;
+            var team = context.TeamCourseStudents.Where(s => s.StudentId == currentid).FirstOrDefault().TeamId;
             ViewData["id"] = currentid;
             ViewData["Role"] = currentrole;
             ViewData["Schoolname"] = schoolname;
             ViewData["Logo"] = schoollogo;
+            ViewData["team"] = team;
 
-            string url = LoginCheckViewModel.check(currentid, currentrole);
+            //Tilføj alt koden her
+            var today = DateTime.Now.ToString("dd/MM/yyyy");
+            var today_id = context.Calenders.Where(s => s.CalenderName == today).Single().CalenderId;
+            var today_course = context.CourseCalenders
+                .Where(s => s.CalenderId == today_id)
+                .Where(s => s.TeamId == team)
+                .Single().Course.CourseName;
+            var today_course_id = context.CourseCalenders
+              .Where(s => s.CalenderId == today_id)
+              .Where(s => s.TeamId == team)
+              .Single().Course.CourseId;
+            ViewData["TC"] = today_course;
+            ViewData["CID"] = today_course_id;
 
-            return RedirectToAction("Index", url);
+            var student_courses = context.TeamCourseStudents
+                .Where(s => s.StudentId == currentid)
+                .ToList();
+            ViewBag.Student_courses = student_courses;
+
+            var calender = context.CourseCalenders
+                .Where(s => s.TeamId == team)
+                .ToList();
+            ViewBag.calender = calender;
+
+            //Sakffer routen for en bruger
+            if (currentrole == "Student" && currentid != 0)
+            {
+                return View();
+            }
+            else
+            {
+                string url = LoginCheckViewModel.check(currentid, currentrole);
+                return RedirectToAction("Index", url);
+            }
         }
     }
 }

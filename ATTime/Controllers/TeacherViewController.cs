@@ -47,7 +47,7 @@ namespace ATTime.Controllers
             }
         }
 
-        public ActionResult AddCourse(int Courseid, int calendercourseid)
+        public ActionResult AddCourse(int Courseid, int calendercourseid, int teamid)
         {
             //Informationer 
             var context = new ATTime_DBContext();
@@ -72,18 +72,35 @@ namespace ATTime.Controllers
 
             using (context)
             {
-                var std = context.CourseCalenders
-                    .Where(s => s.CourseCalenderId == calendercourseid)
-                    .First<CourseCalender>();
-                std.CourseId = Courseid;
+                var calender = context.CourseCalenders.Where(s => s.CourseCalenderId == calendercourseid).Single().CalenderId;
+                var students = context.TeamCourseStudents
+                    .Where(s => s.TeamId == teamid)
+                    .ToList();
+                foreach (TeamCourseStudent s in students)
+                {
+                    var check = context.AttendanceCourseStudents.Where(d => d.CalenderId == calender).Where(h => h.StudentId == s.StudentId).Count();
+                    if (check > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        context.AttendanceCourseStudents.Add(new AttendanceCourseStudent() { AttendanceId = 1, CourseId = Courseid, StudentId = s.StudentId, TeamId = teamid, CalenderId = calender });
+                    }
+                }
+
+
 
                 var code = new CourseCode()
                 {
                     Code = authToken,
                     CourseId = Courseid
                 };
+                context.CourseCodes.Add(code);
                 context.SaveChanges();
             }
+
+
 
             //Return
             return View("calender");
