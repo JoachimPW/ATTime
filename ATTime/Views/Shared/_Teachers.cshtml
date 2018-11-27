@@ -1,6 +1,6 @@
-﻿@model ATTime.Models.Student
+﻿@model ATTime.Models.Operator
 @{
-    ViewBag.Title = "_Students";
+    ViewBag.Title = "_Teachers";
 }
 
 
@@ -9,13 +9,7 @@
     <td>@Model.LastName</td>
     <td>@Model.Username</td>
     <td> </td>
-    <td>
-        @using (Html.BeginForm("Delete", "Student", FormMethod.Post))
-        {
-            <input type="hidden" name="studentid" value="@Model.StudentId" />
-            <button type="submit" class="btn btn-default m-1 p-1 btn-danger">Delete</button>
-        }
-    </td>
+    
 </tr>
 
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>

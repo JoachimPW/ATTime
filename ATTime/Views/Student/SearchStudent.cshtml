@@ -3,8 +3,6 @@
     ViewBag.Title = "Search";
 }
 
-
-
 <h1> SØGEFUNKTION TEST</h1>
 
 <form action="" method="post" role="form">
@@ -25,15 +23,15 @@
                 <th>Username</th>
                 <th>Password</th>
             </tr>
-            @foreach (var s in Model)
-            {
+            
+            
                 <tr>
-                    <td>@s.FirstName</td>
+                    <td>@Model.FirstName</td>
                     <td>@s.LastName</td>
                     <td>@s.Username</td>
                     <td>@s.Psw</td>
                 </tr>
-            }
+            
         </table>
     }
 

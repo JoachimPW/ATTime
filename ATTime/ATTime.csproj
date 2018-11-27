@@ -353,7 +353,12 @@
     <Content Include="Views\Register\Student.cshtml" />
     <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Views\Shared\_AdminNav.cshtml" />
-    <Content Include="Views\Shared\_SearchWithJquery.cshtml" />
+    <Content Include="Views\Shared\_CheckUsername.cshtml" />
+    <Content Include="Views\Shared\_SearchStudent.cshtml" />
+    <Content Include="Views\TestSearch\Index.cshtml" />
+    <Content Include="Views\Shared\_team.cshtml" />
+    <Content Include="Views\Register\Teacher.cshtml" />
+    <Content Include="Views\Shared\_Teachers.cshtml" />
     <Content Include="Views\Shared\_team_teacher.cshtml" />
     <Content Include="Views\TeacherView\calender.cshtml" />
     <Content Include="Views\TeacherView\student.cshtml" />
