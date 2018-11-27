@@ -359,6 +359,8 @@
     <Content Include="Views\Register\Teacher.cshtml" />
     <Content Include="Views\Shared\_Teachers.cshtml" />
     <Content Include="Views\Shared\_team_teacher.cshtml" />
+    <Content Include="Views\Register\Team.cshtml" />
+    <Content Include="Views\Shared\_Teams.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

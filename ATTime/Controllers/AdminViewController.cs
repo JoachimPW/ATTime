@@ -12,8 +12,14 @@ namespace ATTime.Controllers
 {
     public class AdminViewController : Controller
     {
+        ATTime_DBContext db = new ATTime_DBContext();
         public ActionResult Index()
         {
+
+            var schoolid = ((int)Session["School"]);
+            var team = db.Teams.Where(s => s.SchoolId == schoolid);
+
+            ViewBag.team = team;
 
             //Her tjekker vi, som vi har en session med et id i:
             if (Session["UserId"] == null)
@@ -60,7 +66,9 @@ namespace ATTime.Controllers
                     string routeName = ControllerContext.RouteData.Values["Default"].ToString();
                     return View(routeName);
                 }
+
             }
+            
         }
 
         public ActionResult AddCalender(DateTime start_date, DateTime end_date, int team_id)

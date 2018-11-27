@@ -23,7 +23,16 @@ namespace ATTime.Controllers
         {
             return View();
         }
-        
+
+        public ActionResult Team()
+        {
+            var schoolid = ((int)Session["School"]);
+            var team = db.Teams.Where(s => s.SchoolId == schoolid);
+
+            ViewBag.team = team;
+            return View();
+        }
+
         public ActionResult Student()
         {
             var schoolid = ((int)Session["School"]);
@@ -100,7 +109,6 @@ namespace ATTime.Controllers
                     ViewBag.SuccessMessage = "The teacher: " + "<" + username + ">" + " has been created";
                     context.SaveChanges();
                 }
-
             }
             return RedirectToAction("Teacher");
         }
@@ -177,8 +185,29 @@ namespace ATTime.Controllers
             }
             return RedirectToAction("Student");
         }
+        
+        public ActionResult CreateTeam(string teamname)
 
+        {
+            using (var context = new ATTime_DBContext())
+            {
+                var schoolid = ((int)Session["School"]);
 
+                var team = new Team()
+                {
+                    TeamName = teamname,
+                    SchoolId = schoolid
+                };
+
+                if(ModelState.IsValid)
+                {
+                    context.Teams.Add(team);
+                    context.SaveChanges();
+                }
+            }    
+           
+        return RedirectToAction("Team");
+        }
         /* SØGEFUNKTION  
 
         [HttpPost]
