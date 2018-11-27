@@ -129,8 +129,11 @@ namespace ATTime.Controllers
                             context.Calenders.Add(new Calender() { CalenderName = DateTime.Now.AddDays(i).ToString("dd/MM/yyyy")});
                             context.SaveChanges();
                         }
-
-                        var date = context.Calenders.ToList();
+                        //Til dig joaquin, når du enedelig skal bruge det 
+                        //Du er lidt sej nogle gange 
+                        //Hilsen Tim Stroustrup
+                        //                  ^^
+                        /*var date = context.Calenders.ToList();
                         foreach (Calender c in date)
                         {
                             context.CourseCalenders.Add(new CourseCalender() {
@@ -139,8 +142,7 @@ namespace ATTime.Controllers
                                 SchoolId = school,
                                 TeamId = team
                             });
-
-                        }
+                        }*/
 
                         return View("Calender");
                     }
