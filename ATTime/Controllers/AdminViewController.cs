@@ -132,7 +132,7 @@ namespace ATTime.Controllers
                                     FirstName = "Bill",
                                     LastName = "Gates"
                                 };
-                                context.Students.Add(new Calender() { });
+                               /* context.Students.Add(new Calender() { }); */
                                 context.SaveChanges();
                             }
                             var param = new SqlParameter("@date_calender", DateTime.Now.AddDays(i).ToString("dd/MM/yyyy"));
