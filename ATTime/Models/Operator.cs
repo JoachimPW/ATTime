@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace ATTime.Models
 {
@@ -12,7 +11,6 @@ namespace ATTime.Models
         }
 
         public int OperatorId { get; set; }
-        [Required(ErrorMessage = "Please Enter Your First Name")]
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Username { get; set; }
