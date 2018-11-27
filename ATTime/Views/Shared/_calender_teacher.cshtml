@@ -1,0 +1,47 @@
+﻿@model ATTime.Models.CourseCalender
+@using ATTime.Models.ViewModel
+@using ATTime.Models
+
+
+<div class="" id="@Model.CourseCalenderId">
+    <div>
+        <h5>@Model.Calender.CalenderName</h5>
+    </div>
+    <div>
+        @if (Model.CourseId == 1)
+        {
+            @using (Html.BeginForm("AddCourse", "TeacherView", FormMethod.Post))
+             {
+                <input type="hidden" name="calendercourseid" value="@Model.CourseCalenderId" />
+                <select asp-action="" type="submit" name="Courseid">
+                    @foreach (Course c in ViewBag.CO)
+                    {
+                        <option value="@c.CourseId">@c.CourseName</option>
+                    }
+                </select>
+             } 
+
+        }
+        else
+        {
+            <h6>@Model.Course.CourseName</h6>
+        }
+    </div>
+</div>
+<script>
+    $("#@Model.CourseCalenderId").click(function () {
+        var TeamID = @Model.TeamId;
+        var date = @Model.CalenderId;
+        $.ajax({
+            url: "~/Views/Shared/_Student_attend",
+            data: {
+                TeamID: TeamID,
+                date: date
+            },
+            success: function (result) {
+                $(".Student").html(result);
+            }
+        });
+    });
+</script>
+
