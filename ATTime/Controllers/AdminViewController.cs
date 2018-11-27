@@ -71,7 +71,7 @@ namespace ATTime.Controllers
             
         }
 
-        public ActionResult AddCalender(DateTime start_date, DateTime end_date, int team_id)
+        public ActionResult AddCalender(DateTime start_date, DateTime end_date)
         {
             //tiløjer session data, for når denne action bliver brugt
             var context = new ATTime_DBContext();
@@ -124,23 +124,26 @@ namespace ATTime.Controllers
                     {
                         //Her laver vi et forloop, som tilføjer alle de datoer, som man gerne vil have med i sin kalender
                         for (int i = days_between_start; i < days_between_end; i++)
-                        {
-                            using (context)
-                            {
-                                var std = new Student()
-                                {
-                                    FirstName = "Bill",
-                                    LastName = "Gates"
-                                };
-                               /* context.Students.Add(new Calender() { }); */
-                                context.SaveChanges();
-                            }
-                            var param = new SqlParameter("@date_calender", DateTime.Now.AddDays(i).ToString("dd/MM/yyyy"));
-                            var param1 = new SqlParameter("@school", school);
-                            var param2 = new SqlParameter("@TeamID", team_id);
-                            context.Database.ExecuteSqlCommand("exec add_calender @date_calender, @school, @TeamID", param, param1, param2);
+                        {                           
+                            context.Calenders.Add(new Calender() { CalenderName = DateTime.Now.AddDays(i).ToString("dd/MM/yyyy")});
+
                             context.SaveChanges();
                         }
+                        //Til dig joaquin, når du enedelig skal bruge det 
+                        //Du er lidt sej nogle gange 
+                        //Hilsen Tim Stroustrup
+                        //                  ^^
+                        /*var date = context.Calenders.ToList();
+                        foreach (Calender c in date)
+                        {
+                            context.CourseCalenders.Add(new CourseCalender() {
+                                CourseId = 1,
+                                CalenderId = c.CalenderId,
+                                SchoolId = school,
+                                TeamId = team
+                            });
+                        }*/
+
                         return View("Calender");
                     }
                 }
@@ -154,8 +157,7 @@ namespace ATTime.Controllers
             if (Session["UserId"] == null)
             {
                 //får default route
-                string routeName = ControllerContext.RouteData.Values["Default"].ToString();
-                return View(routeName);
+                return RedirectToAction("Index", "Login");
             }
             else
             {
