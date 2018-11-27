@@ -1,0 +1,17 @@
+﻿@using ATTime.Models.LoginViewModels;
+@using ATTime.Models;
+@{
+}
+<h2>
+    @LoginCheckViewModel.Firstname(((int)ViewData["id"]), ((string)ViewData["Role"]))
+    @LoginCheckViewModel.Lastname(((int)ViewData["id"]), ((string)ViewData["Role"]))
+</h2>
+<h5>@ViewData["Role"]</h5>
+
+<div class="Student"></div>
+
+@foreach (CourseCalender course in ViewBag.TO)
+{
+    @Html.Partial("_calender_teacher", course)
+}
+
