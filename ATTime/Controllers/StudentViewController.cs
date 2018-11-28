@@ -20,7 +20,7 @@ namespace ATTime.Controllers
             var school = ((int)Session["School"]);
             var schoolname = context.Schools.FromSql("select * from school").Single().SchoolName;
             var schoollogo = context.Schools.FromSql("select * from school").Single().Logo;
-            var team = context.TeamCourseStudents.Where(s => s.StudentId == currentid).FirstOrDefault().TeamId;
+            var team = context.TeamStudents.Where(s => s.StudentId == currentid).FirstOrDefault().TeamId;
             ViewData["id"] = currentid;
             ViewData["Role"] = currentrole;
             ViewData["Schoolname"] = schoolname;
@@ -41,7 +41,7 @@ namespace ATTime.Controllers
             ViewData["TC"] = today_course;
             ViewData["CID"] = today_course_id;
 
-            var student_courses = context.TeamCourseStudents
+            var student_courses = context.CourseStudents
                 .Where(s => s.StudentId == currentid)
                 .ToList();
             ViewBag.Student_courses = student_courses;

@@ -27,12 +27,12 @@ namespace ATTime.Controllers
             ViewData["Logo"] = schoollogo;
 
             //Tilføj koden her: 
-            var teams_operator = context.TeamCourseOperators
-                .Where(s => s.OperatorId == currentid)
-                .Include(s => s.Team)
-                .ToList();
+            //var teams_operator = context.TeamCourseOperators
+              //  .Where(s => s.OperatorId == currentid)
+                //.Include(s => s.Team)
+                //.ToList();
 
-            ViewBag.TO = teams_operator;
+            //ViewBag.TO = teams_operator;
 
 
             //Sakffer routen for en bruger
@@ -73,10 +73,10 @@ namespace ATTime.Controllers
             using (context)
             {
                 var calender = context.CourseCalenders.Where(s => s.CourseCalenderId == calendercourseid).Single().CalenderId;
-                var students = context.TeamCourseStudents
+                var students = context.TeamStudents
                     .Where(s => s.TeamId == teamid)
                     .ToList();
-                foreach (TeamCourseStudent s in students)
+                foreach (TeamStudent s in students)
                 {
                     var check = context.AttendanceCourseStudents.Where(d => d.CalenderId == calender).Where(h => h.StudentId == s.StudentId).Count();
                     if (check > 0)
@@ -131,13 +131,13 @@ namespace ATTime.Controllers
                            .Include(s => s.Calender)
                            .ToList();
 
-            var course_operator = context.TeamCourseOperators
-                 .Where(s => s.TeamId == teamid)
-                 .Include(s => s.Course)
-                 .ToList();
+          // var course_operator = context.CourseOperators
+            //     .Where(s => s.TeamId == teamid)
+              //   .Include(s => s.Course)
+                // .ToList();
 
-            ViewBag.TO = teams_calender;
-            ViewBag.CO = course_operator;
+          //  ViewBag.TO = teams_calender;
+           // ViewBag.CO = course_operator;
 
             //Sakffer routen for en bruger
             if (currentrole == "Teacher" && currentid != 0)
@@ -180,13 +180,13 @@ namespace ATTime.Controllers
                            .Include(s => s.Calender)
                            .ToList();
 
-            var course_operator = context.TeamCourseOperators
-                 .Where(s => s.TeamId == teamid)
-                 .Include(s => s.Course)
-                 .ToList();
+         //   var course_operator = context.TeamOperators
+           //      .Where(s => s.TeamId == teamid)
+             //    .Include(s => s.Course)
+               //  .ToList();
 
             ViewBag.TO = teams_calender;
-            ViewBag.CO = course_operator;
+         //   ViewBag.CO = course_operator;
 
             //Sakffer routen for en bruger
             if (currentrole == "Teacher" && currentid != 0)
