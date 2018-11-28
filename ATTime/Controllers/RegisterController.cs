@@ -46,11 +46,11 @@ namespace ATTime.Controllers
             ViewData["TEAMID"] = teamId;
 
             var schoolid = ((int)Session["School"]);
-
             
             var test = db.TeamCourseStudents.Where(t => t.TeamId == teamId).ToList();
             var studentliste = db.Students.Where(s => s.SchoolId == schoolid);
             ViewBag.studentListe = studentliste;
+         
 
             /* if(tcs > 1)
              { 
@@ -69,12 +69,12 @@ namespace ATTime.Controllers
             var studentsInTable = db.Teams.Where(c => c.TeamId == teamId).SelectMany(c => c.TeamCourseStudent);
             ViewBag.tester = studentsInTable;
 
-            //var zzzz = db.TeamCourseStudents.Where(c => c.TeamId == teamId).SelectMany(c => c.Student);
+            var zzzz = db.TeamCourseStudents.Where(c => c.TeamId == teamId).SelectMany(c => c.Student);
 
             
 
 
-                // db.TeamCourseStudents.Where(s => s.TeamId == teamId).Where(db.Students.Where());
+                /db.TeamCourseStudents.Where(s => s.TeamId == teamId).Where(db.Students.Where());
 
 
                 // ViewBag.student = studenterliste;
@@ -214,7 +214,6 @@ namespace ATTime.Controllers
                     Username = username,
                     Psw = pasw,
                     SchoolId = schoolid,
-
                 };
 
                 context.Students.Add(student);
