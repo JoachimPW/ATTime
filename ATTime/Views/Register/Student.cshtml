@@ -26,6 +26,7 @@
     @ViewBag.teamid
     @ViewData["TEAMID"]
 </h1>
+<h3> @ViewBag.tester</h3>
 
 @using (Html.BeginForm("CreateStudent", "Register", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
@@ -96,11 +97,11 @@
             <tr>
                 <th>Firstname</th>
                 <th>Lastname</th>
-                <th>Courses</th>
+                <th>TEST</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (ATTime.Models.Student student in ViewBag.student)
+            @foreach (ATTime.Models.Student student in ViewBag.studentListe)
             {
                 @Html.Partial("_Students", student)
             }

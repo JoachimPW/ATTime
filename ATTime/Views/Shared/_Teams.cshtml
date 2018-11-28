@@ -6,13 +6,13 @@
 <h1>@ViewBag.testTeamId</h1>
 
 
-<div class="">
+<div class="" style="border:1px solid black; width:20%;">
     @using (Html.BeginForm("SelectTeam", "Register", FormMethod.Post))
     {
         <input type="hidden" name="teamid" value="@Model.TeamId" />
-        <button type="submit" class="btn btn-default m-1 p-1 btn-primary">@Model.TeamName</button>
+        <button style="width:100%;" type="submit" class="btn btn-default m-1 p-1 btn-primary">Team: @Model.TeamName</button>
     }
-    <hr />
+    
 
     @using (Html.BeginForm("student", "TeacherView", FormMethod.Post))
     {
@@ -20,6 +20,7 @@
         <button type="submit" class="btn btn-default m-1 p-1 btn-basic">Students @ATTime.Models.ViewModel.Studencount.student_count(@Model.TeamId)</button>
     }
 </div>
+<hr />
 
 
 

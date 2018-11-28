@@ -46,11 +46,40 @@ namespace ATTime.Controllers
             ViewData["TEAMID"] = teamId;
 
             var schoolid = ((int)Session["School"]);
+
+            
+            var test = db.TeamCourseStudents.Where(t => t.TeamId == teamId).ToList();
+            var studentliste = db.Students.Where(s => s.SchoolId == schoolid);
+            ViewBag.studentListe = studentliste;
+
+            /* if(tcs > 1)
+             { 
+             var student = db.Students.Where(s => s.StudentId == tcs);
+             ViewBag.studentListe = student;
+             } else
+             {
             var student = db.Students.Where(s => s.SchoolId == schoolid);
+                ViewBag.studentListe = student;
+                foreach (TeamCourseStudent s in students)
+            {
+                var student = db.Students.Where(a => a.SchoolId == schoolid);
+            }
+                */
 
-            ViewBag.student = student;
+            var studentsInTable = db.Teams.Where(c => c.TeamId == teamId).SelectMany(c => c.TeamCourseStudent);
+            ViewBag.tester = studentsInTable;
 
-            var schoolName = db.Schools.Where(s => s.SchoolId == schoolid).Single().SchoolName;
+            //var zzzz = db.TeamCourseStudents.Where(c => c.TeamId == teamId).SelectMany(c => c.Student);
+
+            
+
+
+                // db.TeamCourseStudents.Where(s => s.TeamId == teamId).Where(db.Students.Where());
+
+
+                // ViewBag.student = studenterliste;
+
+                var schoolName = db.Schools.Where(s => s.SchoolId == schoolid).Single().SchoolName;
             ViewData["schoolname"] = schoolName;
             var adminUsername = ((string)Session["adminName"]);
             var adminFirstname = db.Operators.Where(s => s.Username == adminUsername).Single().FirstName;
@@ -175,20 +204,31 @@ namespace ATTime.Controllers
             using (var context = new ATTime_DBContext())
             {
                 var schoolid = ((int)Session["School"]);
-               
+                var teamId = ((int)Session["TeamId"]);
+
                 var student = new Student()
-                
+
                 {
                     FirstName = firstname,
                     LastName = lastname,
                     Username = username,
-                    Psw = pasw,         
-                    SchoolId = schoolid
-            };
+                    Psw = pasw,
+                    SchoolId = schoolid,
+
+                };
+
+                context.Students.Add(student);
+                int latestStudentId = student.StudentId;
+                var teamCourseStudent = new TeamCourseStudent()
+                {
+                    TeamId = teamId,
+                    CourseId = 1,
+                    StudentId = latestStudentId
+                };
 
                 if (ModelState.IsValid)
                 {
-                    context.Students.Add(student);
+                    context.TeamCourseStudents.Add(teamCourseStudent);
                     ViewBag.SuccessMessage2 = "The student: " + "<" + username + ">" + " has been created";
                     context.SaveChanges();
                 }
