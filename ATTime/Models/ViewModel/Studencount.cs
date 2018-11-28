@@ -11,11 +11,11 @@ namespace ATTime.Models.ViewModel
         {
             var context = new ATTime_DBContext();
 
-            var team_student_count = context.TeamCourseStudents
+            var team_student_count = context.TeamStudents
                         .Where(s => s.TeamId == team_id)
                         .Count();
 
             return team_student_count;
-        }
+        } 
     }
 }

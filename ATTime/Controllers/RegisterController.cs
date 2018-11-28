@@ -49,14 +49,17 @@ namespace ATTime.Controllers
 
             var test = db.TeamStudents.Where(t => t.TeamId == teamId).Include(t => t.Student);
 
+            var courseName = db.CourseStudents.Where(t => t.CourseId == t.Course.CourseId).Include(t => t.Course);
+
+            var CourseName2 = db.CourseStudents.Where(t => t.StudentId == t.Student.StudentId).Include(t => t.Course);
+
+            ViewBag.CourseNAME = courseName;
+
             var studentliste = db.Students.Where(s => s.SchoolId == schoolid);
 
             ViewBag.studentListe = studentliste;
 
             ViewBag.tester = test;
-
-
-
 
             /* if(tcs > 1)
              { 
@@ -231,7 +234,7 @@ namespace ATTime.Controllers
 
                 var courseStudent = new CourseStudent()
                 {
-                    CourseId = 1,
+                    CourseId = 2,
                     StudentId = latestStudentId
                 };
 

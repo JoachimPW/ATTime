@@ -1,14 +1,15 @@
-﻿@model ATTime.Models.Student
+﻿@model ATTime.Models.TeamStudent
+@using ATTime.Models
 @{
     ViewBag.Title = "_Students";
 }
-
-
 <tr class="Search">
-    <td>@Model.FirstName</td>
-    <td>@Model.LastName</td>
-    <td>@Model.Username</td>
-    <td> </td>
+    <td>@Model.Student.FirstName</td>
+    <td>@Model.Student.LastName</td>
+    <td>
+      
+    </td>
+ 
     <td>
         @using (Html.BeginForm("Delete", "Student", FormMethod.Post))
         {
