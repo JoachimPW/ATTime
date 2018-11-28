@@ -7,7 +7,8 @@ namespace ATTime.Models
     {
         public Operator()
         {
-            TeamCourseOperator = new HashSet<TeamCourseOperator>();
+            CourseOperator = new HashSet<CourseOperator>();
+            TeamOperator = new HashSet<TeamOperator>();
         }
 
         public int OperatorId { get; set; }
@@ -21,6 +22,7 @@ namespace ATTime.Models
 
         public Permission Role { get; set; }
         public School School { get; set; }
-        public ICollection<TeamCourseOperator> TeamCourseOperator { get; set; }
+        public ICollection<CourseOperator> CourseOperator { get; set; }
+        public ICollection<TeamOperator> TeamOperator { get; set; }
     }
 }

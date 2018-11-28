@@ -10,8 +10,8 @@ namespace ATTime.Models
             AttendanceCourseStudent = new HashSet<AttendanceCourseStudent>();
             CourseCalender = new HashSet<CourseCalender>();
             CourseCode = new HashSet<CourseCode>();
-            TeamCourseOperator = new HashSet<TeamCourseOperator>();
-            TeamCourseStudent = new HashSet<TeamCourseStudent>();
+            CourseOperator = new HashSet<CourseOperator>();
+            CourseStudent = new HashSet<CourseStudent>();
         }
 
         public int CourseId { get; set; }
@@ -20,7 +20,7 @@ namespace ATTime.Models
         public ICollection<AttendanceCourseStudent> AttendanceCourseStudent { get; set; }
         public ICollection<CourseCalender> CourseCalender { get; set; }
         public ICollection<CourseCode> CourseCode { get; set; }
-        public ICollection<TeamCourseOperator> TeamCourseOperator { get; set; }
-        public ICollection<TeamCourseStudent> TeamCourseStudent { get; set; }
+        public ICollection<CourseOperator> CourseOperator { get; set; }
+        public ICollection<CourseStudent> CourseStudent { get; set; }
     }
 }

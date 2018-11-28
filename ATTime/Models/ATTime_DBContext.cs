@@ -21,13 +21,15 @@ namespace ATTime.Models
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<CourseCalender> CourseCalenders { get; set; }
         public virtual DbSet<CourseCode> CourseCodes { get; set; }
+        public virtual DbSet<CourseOperator> CourseOperators { get; set; }
+        public virtual DbSet<CourseStudent> CourseStudents { get; set; }
         public virtual DbSet<Operator> Operators { get; set; }
         public virtual DbSet<Permission> Permissions { get; set; }
         public virtual DbSet<School> Schools { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
-        public virtual DbSet<TeamCourseOperator> TeamCourseOperators { get; set; }
-        public virtual DbSet<TeamCourseStudent> TeamCourseStudents { get; set; }
+        public virtual DbSet<TeamOperator> TeamOperators { get; set; }
+        public virtual DbSet<TeamStudent> TeamStudents { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -72,27 +74,27 @@ namespace ATTime.Models
                 entity.HasOne(d => d.Attendance)
                     .WithMany(p => p.AttendanceCourseStudent)
                     .HasForeignKey(d => d.AttendanceId)
-                    .HasConstraintName("FK__attendanc__atten__0CA5D9DE");
+                    .HasConstraintName("FK__attendanc__atten__45DE573A");
 
                 entity.HasOne(d => d.Calender)
                     .WithMany(p => p.AttendanceCourseStudent)
                     .HasForeignKey(d => d.CalenderId)
-                    .HasConstraintName("FK__attendanc__calen__10766AC2");
+                    .HasConstraintName("FK__attendanc__calen__49AEE81E");
 
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.AttendanceCourseStudent)
                     .HasForeignKey(d => d.CourseId)
-                    .HasConstraintName("FK__attendanc__cours__0D99FE17");
+                    .HasConstraintName("FK__attendanc__cours__46D27B73");
 
                 entity.HasOne(d => d.Student)
                     .WithMany(p => p.AttendanceCourseStudent)
                     .HasForeignKey(d => d.StudentId)
-                    .HasConstraintName("FK__attendanc__stude__0E8E2250");
+                    .HasConstraintName("FK__attendanc__stude__47C69FAC");
 
                 entity.HasOne(d => d.Team)
                     .WithMany(p => p.AttendanceCourseStudent)
                     .HasForeignKey(d => d.TeamId)
-                    .HasConstraintName("FK__attendanc__team___0F824689");
+                    .HasConstraintName("FK__attendanc__team___48BAC3E5");
             });
 
             modelBuilder.Entity<Calender>(entity =>
@@ -138,22 +140,22 @@ namespace ATTime.Models
                 entity.HasOne(d => d.Calender)
                     .WithMany(p => p.CourseCalender)
                     .HasForeignKey(d => d.CalenderId)
-                    .HasConstraintName("FK__course_ca__calen__031C6FA4");
+                    .HasConstraintName("FK__course_ca__calen__39788055");
 
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.CourseCalender)
                     .HasForeignKey(d => d.CourseId)
-                    .HasConstraintName("FK__course_ca__cours__02284B6B");
+                    .HasConstraintName("FK__course_ca__cours__38845C1C");
 
                 entity.HasOne(d => d.School)
                     .WithMany(p => p.CourseCalender)
                     .HasForeignKey(d => d.SchoolId)
-                    .HasConstraintName("FK__course_ca__schoo__041093DD");
+                    .HasConstraintName("FK__course_ca__schoo__3A6CA48E");
 
                 entity.HasOne(d => d.Team)
                     .WithMany(p => p.CourseCalender)
                     .HasForeignKey(d => d.TeamId)
-                    .HasConstraintName("FK__course_ca__team___0504B816");
+                    .HasConstraintName("FK__course_ca__team___3B60C8C7");
             });
 
             modelBuilder.Entity<CourseCode>(entity =>
@@ -172,7 +174,49 @@ namespace ATTime.Models
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.CourseCode)
                     .HasForeignKey(d => d.CourseId)
-                    .HasConstraintName("FK__course_co__cours__1352D76D");
+                    .HasConstraintName("FK__course_co__cours__4C8B54C9");
+            });
+
+            modelBuilder.Entity<CourseOperator>(entity =>
+            {
+                entity.ToTable("course_operator");
+
+                entity.Property(e => e.CourseOperatorId).HasColumnName("course_operator_ID");
+
+                entity.Property(e => e.CourseId).HasColumnName("course_ID");
+
+                entity.Property(e => e.OperatorId).HasColumnName("operator_ID");
+
+                entity.HasOne(d => d.Course)
+                    .WithMany(p => p.CourseOperator)
+                    .HasForeignKey(d => d.CourseId)
+                    .HasConstraintName("FK__course_op__cours__2A363CC5");
+
+                entity.HasOne(d => d.Operator)
+                    .WithMany(p => p.CourseOperator)
+                    .HasForeignKey(d => d.OperatorId)
+                    .HasConstraintName("FK__course_op__opera__2B2A60FE");
+            });
+
+            modelBuilder.Entity<CourseStudent>(entity =>
+            {
+                entity.ToTable("course_student");
+
+                entity.Property(e => e.CourseStudentId).HasColumnName("course_student_ID");
+
+                entity.Property(e => e.CourseId).HasColumnName("course_ID");
+
+                entity.Property(e => e.StudentId).HasColumnName("student_ID");
+
+                entity.HasOne(d => d.Course)
+                    .WithMany(p => p.CourseStudent)
+                    .HasForeignKey(d => d.CourseId)
+                    .HasConstraintName("FK__course_st__cours__420DC656");
+
+                entity.HasOne(d => d.Student)
+                    .WithMany(p => p.CourseStudent)
+                    .HasForeignKey(d => d.StudentId)
+                    .HasConstraintName("FK__course_st__stude__4301EA8F");
             });
 
             modelBuilder.Entity<Operator>(entity =>
@@ -218,12 +262,12 @@ namespace ATTime.Models
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.Operator)
                     .HasForeignKey(d => d.RoleId)
-                    .HasConstraintName("FK__operator__role_I__6E2152BE");
+                    .HasConstraintName("FK__operator__role_I__21A0F6C4");
 
                 entity.HasOne(d => d.School)
                     .WithMany(p => p.Operator)
                     .HasForeignKey(d => d.SchoolId)
-                    .HasConstraintName("FK__operator__school__6F1576F7");
+                    .HasConstraintName("FK__operator__school__22951AFD");
             });
 
             modelBuilder.Entity<Permission>(entity =>
@@ -295,7 +339,7 @@ namespace ATTime.Models
                 entity.HasOne(d => d.School)
                     .WithMany(p => p.Student)
                     .HasForeignKey(d => d.SchoolId)
-                    .HasConstraintName("FK__student__school___7B7B4DDC");
+                    .HasConstraintName("FK__student__school___31D75E8D");
             });
 
             modelBuilder.Entity<Team>(entity =>
@@ -315,63 +359,49 @@ namespace ATTime.Models
                 entity.HasOne(d => d.School)
                     .WithMany(p => p.Team)
                     .HasForeignKey(d => d.SchoolId)
-                    .HasConstraintName("FK__team__school_ID__73DA2C14");
+                    .HasConstraintName("FK__team__school_ID__2759D01A");
             });
 
-            modelBuilder.Entity<TeamCourseOperator>(entity =>
+            modelBuilder.Entity<TeamOperator>(entity =>
             {
-                entity.ToTable("team_course_operator");
+                entity.ToTable("team_operator");
 
-                entity.Property(e => e.TeamCourseOperatorId).HasColumnName("team_course_operator_ID");
-
-                entity.Property(e => e.CourseId).HasColumnName("course_ID");
+                entity.Property(e => e.TeamOperatorId).HasColumnName("team_operator_ID");
 
                 entity.Property(e => e.OperatorId).HasColumnName("operator_ID");
 
                 entity.Property(e => e.TeamId).HasColumnName("team_ID");
 
-                entity.HasOne(d => d.Course)
-                    .WithMany(p => p.TeamCourseOperator)
-                    .HasForeignKey(d => d.CourseId)
-                    .HasConstraintName("FK__team_cour__cours__77AABCF8");
-
                 entity.HasOne(d => d.Operator)
-                    .WithMany(p => p.TeamCourseOperator)
+                    .WithMany(p => p.TeamOperator)
                     .HasForeignKey(d => d.OperatorId)
-                    .HasConstraintName("FK__team_cour__opera__789EE131");
+                    .HasConstraintName("FK__team_oper__opera__2EFAF1E2");
 
                 entity.HasOne(d => d.Team)
-                    .WithMany(p => p.TeamCourseOperator)
+                    .WithMany(p => p.TeamOperator)
                     .HasForeignKey(d => d.TeamId)
-                    .HasConstraintName("FK__team_cour__team___76B698BF");
+                    .HasConstraintName("FK__team_oper__team___2E06CDA9");
             });
 
-            modelBuilder.Entity<TeamCourseStudent>(entity =>
+            modelBuilder.Entity<TeamStudent>(entity =>
             {
-                entity.ToTable("team_course_student");
+                entity.ToTable("team_student");
 
-                entity.Property(e => e.TeamCourseStudentId).HasColumnName("team_course_student_ID");
-
-                entity.Property(e => e.CourseId).HasColumnName("course_ID");
+                entity.Property(e => e.TeamStudentId).HasColumnName("team_student_ID");
 
                 entity.Property(e => e.StudentId).HasColumnName("student_ID");
 
                 entity.Property(e => e.TeamId).HasColumnName("team_ID");
 
-                entity.HasOne(d => d.Course)
-                    .WithMany(p => p.TeamCourseStudent)
-                    .HasForeignKey(d => d.CourseId)
-                    .HasConstraintName("FK__team_cour__cours__08D548FA");
-
                 entity.HasOne(d => d.Student)
-                    .WithMany(p => p.TeamCourseStudent)
+                    .WithMany(p => p.TeamStudent)
                     .HasForeignKey(d => d.StudentId)
-                    .HasConstraintName("FK__team_cour__stude__09C96D33");
+                    .HasConstraintName("FK__team_stud__stude__3F3159AB");
 
                 entity.HasOne(d => d.Team)
-                    .WithMany(p => p.TeamCourseStudent)
+                    .WithMany(p => p.TeamStudent)
                     .HasForeignKey(d => d.TeamId)
-                    .HasConstraintName("FK__team_cour__team___07E124C1");
+                    .HasConstraintName("FK__team_stud__team___3E3D3572");
             });
         }
     }
