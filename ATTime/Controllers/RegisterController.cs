@@ -47,19 +47,30 @@ namespace ATTime.Controllers
 
             var schoolid = ((int)Session["School"]);
 
-            var test = db.TeamStudents.Where(t => t.TeamId == teamId).Include(t => t.Student);
+            var test = db.TeamStudents.Where(t => t.TeamId == teamId).Include(t => t.Student).ToList();
+           // var test1 = db.TeamStudents.Where(t => test.Contains(t.));
 
-            var courseName = db.CourseStudents.Where(t => t.CourseId == t.Course.CourseId).Include(t => t.Course);
+            var courseName = db.CourseStudents.Where(t => t.CourseId == t.Course.CourseId).Include(t => t.Course).ToList();
 
-            var CourseName2 = db.CourseStudents.Where(t => t.StudentId == t.Student.StudentId).Include(t => t.Course);
+            //var CourseName2 = db.CourseStudents.Where(r => test.Contains(r.StudentId));
+
+            var hej = db.TeamStudents.Where(t => t.TeamId == teamId).Include(a => a.Student).ThenInclude(b => b.CourseStudent).ToList();
+
+            foreach(CourseStudent item in courseName)
+            {
+                var matches = test.Where(row => item.StudentId == row.StudentId);
+                ViewBag.komnu = matches;
+            }
 
             ViewBag.CourseNAME = courseName;
-
             var studentliste = db.Students.Where(s => s.SchoolId == schoolid);
-
             ViewBag.studentListe = studentliste;
-
             ViewBag.tester = test;
+
+            // Teachers // 
+            
+            var oprtr = db.Operators.Where(s => s.SchoolId == schoolid).Where(i => i.RoleId == 2);
+            ViewBag.oprtr = oprtr;
 
             /* if(tcs > 1)
              { 
@@ -105,7 +116,7 @@ namespace ATTime.Controllers
         public ActionResult Teacher()
         {
             var schoolid = ((int)Session["School"]);
-            var oprtr = db.Operators.Where(s => s.SchoolId == schoolid);
+            var oprtr = db.Operators.Where(s => s.SchoolId == schoolid).Where(i => i.RoleId == 2) ;
             ViewBag.oprtr = oprtr;
 
             return View();
@@ -130,6 +141,20 @@ namespace ATTime.Controllers
             }
         }
 
+        public JsonResult CheckTeamNameAvailability(string userdata)
+        {
+            System.Threading.Thread.Sleep(200);
+            var SearchData = db.Teams.Where(x => x.TeamName == userdata).SingleOrDefault();
+            if (SearchData != null)
+            {
+                return Json(1);
+            }
+            else
+            {
+                return Json(0);
+            }
+        }
+
         [HttpPost]
         public ActionResult CreateTeacher(string firstname, string lastname, string username, string psw, string phone)
         {
@@ -138,6 +163,18 @@ namespace ATTime.Controllers
             encode = Encoding.UTF8.GetBytes(psw);
             pasw = Convert.ToBase64String(encode);
             var schoolid = ((int)Session["School"]);
+            var teamId = ((int)Session["TeamId"]);
+
+            // Til at generere username ud fra navn + 2 random tal //
+            string firstChars = firstname.Substring(0, 2);
+            string lastChars = lastname.Substring(0, 3);
+            var allChar = "0123456789";
+            var random = new Random();
+            var resultToken = new string(
+               Enumerable.Repeat(allChar, 2)
+               .Select(token => token[random.Next(token.Length)]).ToArray());
+            string rndmNumbers = resultToken.ToString();
+            string combineChars = firstChars + lastChars + rndmNumbers;
 
 
             using (var context = new ATTime_DBContext())
@@ -146,16 +183,34 @@ namespace ATTime.Controllers
                 {
                     FirstName = firstname,
                     LastName = lastname,
-                    Username = username,
+                    Username = combineChars,
                     Psw = pasw,
                     Phone = phone,
                     RoleId = 2,
                     SchoolId = schoolid
                 };
 
+                // Adder teacher til databasen før vi kan tilføje FK til team_operator
+                context.Operators.Add(teacher);
+                // Grabber operatorID fra den nylig tilføjede teacher
+                int latestTeacherId = teacher.OperatorId;               
+
+                var teamOperator = new TeamOperator()
+                {
+                    TeamId = teamId,
+                    OperatorId = latestTeacherId
+                };
+
+                var courseOperator = new CourseOperator()
+                {
+                    CourseId = 1,
+                    OperatorId = latestTeacherId
+                };
+
                 if (ModelState.IsValid)
                 {
-                    context.Operators.Add(teacher);
+                    context.TeamOperators.Add(teamOperator);
+                    context.CourseOperators.Add(courseOperator);
                     ViewBag.SuccessMessage = "The teacher: " + "<" + username + ">" + " has been created";
                     context.SaveChanges();
                 }
@@ -215,13 +270,25 @@ namespace ATTime.Controllers
                 var schoolid = ((int)Session["School"]);
                 var teamId = ((int)Session["TeamId"]);
 
+                // Genererer username ud fra de to første bogstaver i fornavn, tre første i efternavn og så to random cifre //
+                string firstChars = firstname.Substring(0, 2);
+                string lastChars = lastname.Substring(0, 3);
+                var allChar = "0123456789";
+                var random = new Random();
+                var resultToken = new string(
+                   Enumerable.Repeat(allChar, 2)
+                   .Select(token => token[random.Next(token.Length)]).ToArray());
+                string rndmNumbers = resultToken.ToString();
+                string combineChars = firstChars + lastChars + rndmNumbers;
+                
                 var student = new Student()
                 {
                     FirstName = firstname,
                     LastName = lastname,
-                    Username = username,
+                    Username = combineChars,
                     Psw = pasw,
                     SchoolId = schoolid,
+                    
                 };
 
                 context.Students.Add(student);
@@ -247,6 +314,9 @@ namespace ATTime.Controllers
                 }
                 var schoolName = context.Schools.Where(s => s.SchoolId == schoolid).Single().SchoolName;
                 ViewData["schoolname"] = schoolName;
+                
+                
+
             }
             return RedirectToAction("Student");
         }

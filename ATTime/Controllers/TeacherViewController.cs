@@ -90,14 +90,15 @@ namespace ATTime.Controllers
                 }
 
 
-
+                /*
                 var code = new CourseCode()
                 {
                     Code = authToken,
                     CourseId = Courseid
-                };
+                }; 
                 context.CourseCodes.Add(code);
                 context.SaveChanges();
+                */
             }
 
 

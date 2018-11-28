@@ -267,9 +267,11 @@
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\TeamOperator.cs" />
     <Compile Include="Models\TeamStudent.cs" />
+    <Compile Include="Models\ViewModel\CourseStudent.cs" />
     <Compile Include="Models\ViewModel\RegistorViewModel.cs" />
     <Compile Include="Models\ViewModel\Studencount.cs" />
     <Compile Include="Models\ViewModel\StudentVM.cs" />
+    <Compile Include="Models\ViewModel\TeacherCount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\RepositoryStudent.cs" />
     <Compile Include="Startup1.cs" />

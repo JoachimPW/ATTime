@@ -3,10 +3,10 @@
 @{
     ViewBag.Title = "_Students";
 }
-<tr class="Search">
+<tr class="SearchStudent">
     <td>@Model.Student.FirstName</td>
     <td>@Model.Student.LastName</td>
-    <td>
+    <td>@Model.Student.Username
       
     </td>
  
@@ -26,11 +26,23 @@
             if (text_one.indexOf(text_two) != -1)
                 return true;
         }
-        $("#Search").keyup(function () {
-            var searchText = $("#Search").val().toLowerCase();
-            $(".Search").each(function () {
+        $("#SearchStudent").keyup(function () {
+            var searchText = $("#SearchStudent").val().toLowerCase();
+            $(".SearchStudent").each(function () {
                 if (!Contains($(this).text().toLowerCase(), searchText)) {
                     $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+        });
+
+        $("#SearchTeacher").keyup(function () {
+            var searchText = $("#SearchTeacher").val().toLowerCase();
+            $(".SearchTeacher").each(function () {
+                if (!Contains($(this).text().toLowerCase(), searchText)) {
+                    $(this).fadeOut();
                 }
                 else {
                     $(this).show();
