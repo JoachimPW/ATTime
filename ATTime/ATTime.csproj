@@ -256,6 +256,8 @@
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\CourseCalender.cs" />
     <Compile Include="Models\CourseCode.cs" />
+    <Compile Include="Models\CourseOperator.cs" />
+    <Compile Include="Models\CourseStudent.cs" />
     <Compile Include="Models\LoginViewModels\LoginCheckViewModel.cs" />
     <Compile Include="Models\LoginViewModels\LoginModel.cs" />
     <Compile Include="Models\Operator.cs" />
@@ -263,8 +265,8 @@
     <Compile Include="Models\School.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\Team.cs" />
-    <Compile Include="Models\TeamCourseOperator.cs" />
-    <Compile Include="Models\TeamCourseStudent.cs" />
+    <Compile Include="Models\TeamOperator.cs" />
+    <Compile Include="Models\TeamStudent.cs" />
     <Compile Include="Models\ViewModel\RegistorViewModel.cs" />
     <Compile Include="Models\ViewModel\Studencount.cs" />
     <Compile Include="Models\ViewModel\StudentVM.cs" />
