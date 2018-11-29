@@ -1,14 +1,15 @@
-﻿@model ATTime.Models.Student
+﻿@model ATTime.Models.TeamStudent
+@using ATTime.Models
 @{
     ViewBag.Title = "_Students";
 }
-
-
-<tr class="Search">
-    <td>@Model.FirstName</td>
-    <td>@Model.LastName</td>
-    <td>@Model.Username</td>
-    <td> </td>
+<tr class="SearchStudent">
+    <td>@Model.Student.FirstName</td>
+    <td>@Model.Student.LastName</td>
+    <td>@Model.Student.Username
+      
+    </td>
+ 
     <td>
         @using (Html.BeginForm("Delete", "Student", FormMethod.Post))
         {
@@ -25,11 +26,23 @@
             if (text_one.indexOf(text_two) != -1)
                 return true;
         }
-        $("#Search").keyup(function () {
-            var searchText = $("#Search").val().toLowerCase();
-            $(".Search").each(function () {
+        $("#SearchStudent").keyup(function () {
+            var searchText = $("#SearchStudent").val().toLowerCase();
+            $(".SearchStudent").each(function () {
                 if (!Contains($(this).text().toLowerCase(), searchText)) {
                     $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+        });
+
+        $("#SearchTeacher").keyup(function () {
+            var searchText = $("#SearchTeacher").val().toLowerCase();
+            $(".SearchTeacher").each(function () {
+                if (!Contains($(this).text().toLowerCase(), searchText)) {
+                    $(this).fadeOut();
                 }
                 else {
                     $(this).show();

@@ -4,6 +4,10 @@
     ViewBag.Title = "Teacher";
 }
 
+@Html.ActionLink("Admin View", "Index", "AdminView")
+
+@Html.Partial("_AdminNav")
+
 @using (Html.BeginForm("CreateTeam", "Register", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
@@ -11,11 +15,11 @@
 
     <div class="">
 
-       
+
 
         <div class"">
             @Html.LabelFor(model => model.TeamName, new { @class = "" })
-            @Html.TextBoxFor(model => model.TeamName, new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.TeamName, new { @class = "form-control", @onkeyup = "UserCheck()" })
             @Html.ValidationMessageFor(model => model.TeamName)
             <p id="Status"></p>
         </div>
@@ -27,9 +31,25 @@
         </div>
     </div>
 }
-<tbody>
-@foreach (ATTime.Models.Team team in ViewBag.team)
-{
-    @Html.Partial("_Teams", team)
-}
-</tbody>
+
+<script>
+    function UserCheck() {
+        $("#Status").html("Checking...");
+        $.post("@Url.Action("CheckTeamNameAvailability", "Register")",
+            {
+                userdata: $("#TeamName").val()
+            },
+        function (data) {
+            if (data == 0) {
+                $("#Status").html('<font color="Green">Teamname is available.</font>');
+                $("#TeamName").css("border-color", "Green");
+                $("#submitForm").prop("disabled", false);
+            }
+            else {
+                $("#Status").html('<font color="Red">Team already exists.</font>');
+                $("#TeamName").css("border-color", "Red");
+                $("#submitForm").prop("disabled", true);
+            }
+        });
+    }
+</script>

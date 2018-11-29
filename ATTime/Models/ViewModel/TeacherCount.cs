@@ -5,17 +5,17 @@ using System.Web;
 
 namespace ATTime.Models.ViewModel
 {
-    public class Studencount
+    public class TeacherCount
     {
-        public static int student_count(int? team_id)
+        public static int teacher_count(int? team_id)
         {
             var context = new ATTime_DBContext();
 
-            var team_student_count = context.TeamStudents
+            var team_teacher_count = context.TeamOperators
                         .Where(s => s.TeamId == team_id)
                         .Count();
 
-            return team_student_count;
-        } 
+            return team_teacher_count;
+        }
     }
 }

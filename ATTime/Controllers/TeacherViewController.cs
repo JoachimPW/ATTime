@@ -26,7 +26,7 @@ namespace ATTime.Controllers
             ViewData["Schoolname"] = schoolname;
             ViewData["Logo"] = schoollogo;
 
-            //Tilføj koden her: 
+            //Tilføj koden her:
             var teams_operator = context.TeamOperators
                .Where(s => s.OperatorId == currentid)
                .Include(s => s.Team)
@@ -49,7 +49,7 @@ namespace ATTime.Controllers
 
         public ActionResult AddCourse(int Courseid, int calendercourseid, int teamid)
         {
-            //Informationer 
+            //Informationer
             var context = new ATTime_DBContext();
             var currentid = ((int)Session["UserId"]);
             var currentrole = ((string)Session["UserRole"]);
@@ -98,6 +98,7 @@ namespace ATTime.Controllers
                 };
                 context.CourseCodes.Add(code);
                 context.SaveChanges();
+                */
             }
             //Return
             return View("calender");
@@ -118,7 +119,7 @@ namespace ATTime.Controllers
             ViewData["Logo"] = schoollogo;
             ViewData["team"] = teamid;
 
-            //Tilføj koden her: 
+            //Tilføj koden her:
             var start_date = DateTime.Now.ToString("dd/MM/yyyy");
             var startid = context.Calenders.Where(s => s.CalenderName == start_date).Single().CalenderId;
             var teams_calender = context.CourseCalenders
@@ -146,7 +147,7 @@ namespace ATTime.Controllers
                 string url = LoginCheckViewModel.check(currentid, currentrole);
                 return RedirectToAction("Index", url);
             }
-           
+
         }
 
         public ActionResult between(int teamid, DateTime start, DateTime end)
@@ -164,7 +165,7 @@ namespace ATTime.Controllers
             ViewData["Logo"] = schoollogo;
             ViewData["team"] = teamid;
 
-            //Tilføj koden her: 
+            //Tilføj koden her:
             var start_date = start.ToString("dd/MM/yyyy");
             var end_date = end.ToString("dd/MM/yyyy");
             var startid = context.Calenders.Where(s => s.CalenderName == start_date).Single().CalenderId;
@@ -213,8 +214,8 @@ namespace ATTime.Controllers
             ViewData["Schoolname"] = schoolname;
             ViewData["Logo"] = schoollogo;
 
-            //Tilføj koden her: 
-                    
+            //Tilføj koden her:
+
 
 
             //Sakffer routen for en bruger
@@ -226,7 +227,7 @@ namespace ATTime.Controllers
             {
                 string url = LoginCheckViewModel.check(currentid, currentrole);
                 return RedirectToAction("Index", url);
-            }            
+            }
         }
 
         public ActionResult _Student_attend(int TeamID, int date)

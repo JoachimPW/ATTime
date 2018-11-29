@@ -27,7 +27,7 @@ namespace ATTime.Models
         public virtual DbSet<Permission> Permissions { get; set; }
         public virtual DbSet<School> Schools { get; set; }
         public virtual DbSet<Student> Students { get; set; }
-        public virtual DbSet<Team> Team { get; set; }
+        public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<TeamOperator> TeamOperators { get; set; }
         public virtual DbSet<TeamStudent> TeamStudents { get; set; }
 

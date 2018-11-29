@@ -1,4 +1,5 @@
 ﻿@model ATTime.Models.Student
+@using ATTime.Models
 
 @{
     ViewBag.Title = "Student";
@@ -8,35 +9,25 @@
 
 @Html.Partial("_AdminNav")
 
-
-<div class="container">
-    <div class="form-group">
-        <div class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-            <input type="text" id="Search" placeholder="Search" class="form-control" />
-        </div>
-    </div>
-</div>
 <br />
 
 
-<h2>Create new student</h2>
 <h1>
-    @ViewBag.testTeamId
-    @ViewBag.teamid
+    TeamID: @ViewBag.testTeamId
     @ViewData["TEAMID"]
-</h1>
-<h3> @ViewBag.tester</h3>
+    @ViewBag.komnu
 
+    @ViewBag.zeze
+</h1>
+<br />
+<h2>Create new student</h2>
 @using (Html.BeginForm("CreateStudent", "Register", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false)
 
-    <div class="">
-
-        <hr />
-        <br />
+    <div class="">      
+       
 
         <div class"">
             @Html.LabelFor(model => model.FirstName, new { @class = "" })
@@ -54,12 +45,6 @@
         </div>
         <br />
 
-        <div class"">
-            @Html.LabelFor(model => model.Username, new { @class = "" })
-            @Html.TextBoxFor(model => model.Username, new { @class = "form-control", @onkeydown = "UserCheck()" })
-            @Html.ValidationMessageFor(model => model.Username)
-            <p id="Status"></p>
-        </div>
 
 
         <div class"">
@@ -73,18 +58,23 @@
         <div class="form-group">
             <div class="">
                 <button type="submit" id="submitForm" class="btn btn-default m-1 p-1 btn-success" asp-action>Create</button>
+                <button class="btn btn-default m-1 p-1 btn-success">Get from efif</button>
+
             </div>
         </div>
+
     </div>
 }
 
-<br />
 
+
+<br />
+<br />
 <div class="container" style="text-align:center;">
     <div class="form-group">
         <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-            <input style="margin:0 auto;" type="text" id="Search" placeholder="Search" class="form-control" />
+            <input style="margin:0 auto;" type="text" id="SearchStudent" placeholder="Search" class="form-control" />
         </div>
     </div>
 </div>
@@ -97,17 +87,65 @@
             <tr>
                 <th>Firstname</th>
                 <th>Lastname</th>
-                <th>TEST</th>
+                <th>Course</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (ATTime.Models.Student student in ViewBag.studentListe)
+            @foreach (TeamStudent student in ViewBag.tester)
             {
                 @Html.Partial("_Students", student)
             }
+
+
         </tbody>
+
+        <tbody></tbody>
     </table>
 </div>
+
+<br />
+<br />
+
+<div class="container" style="text-align:center;">
+    <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+            <input style="margin:0 auto;" type="text" id="SearchTeacher" placeholder="Search" class="form-control" />
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <h2>Teachers</h2>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Username</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ATTime.Models.Operator oprtr in ViewBag.oprtr)
+            {
+                @Html.Partial("_Teachers", oprtr)
+            }
+
+
+        </tbody>
+
+        <tbody></tbody>
+    </table>
+</div>
+<br />
+<br />
+
+@foreach (CourseStudent course in ViewBag.CourseNAME)
+{
+    @Html.Partial("_CourseName", course)
+}
+
 
 <h1>@ViewBag.SuccessMessage2</h1>
 

@@ -54,6 +54,7 @@ namespace ATTime.Controllers
         [HttpPost]
         public ActionResult Delete(int studentid)
         {
+            
             if (studentid == 0)
             {
                 ViewData["msg"] = "Id not found";
@@ -62,13 +63,18 @@ namespace ATTime.Controllers
             using (var context = new ATTime_DBContext())
             {
                 var students = context.Students.FirstOrDefault(s => s.StudentId == studentid);
+                var teamStudents = context.TeamStudents.Single(s => s.StudentId == studentid);
+                var courseStudents = context.CourseStudents.Single(s => s.StudentId == studentid);
 
                 if (students == null)
                 {
                     ViewData["msg"] = "Student not found";
                 }
 
+                context.CourseStudents.Remove(courseStudents);
+                context.TeamStudents.Remove(teamStudents);
                 context.Students.Remove(students);
+                
                 context.SaveChanges();
             }
             return RedirectToAction("Student", "Register");

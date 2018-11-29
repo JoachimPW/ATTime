@@ -54,7 +54,7 @@
         <br />
         <div class"">
             @Html.LabelFor(model => model.Username, new { @class = "" })
-            @Html.TextBoxFor(model => model.Username, new { @class = "form-control", @onkeydown = "UserCheck()" })
+            @Html.TextBoxFor(model => model.Username, new { @class = "form-control", @onkeyup = "UserCheck()" })
             @Html.ValidationMessageFor(model => model.Username)
             <p id="Status"></p>
 
