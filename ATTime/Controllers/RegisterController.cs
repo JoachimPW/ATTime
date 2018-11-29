@@ -340,9 +340,27 @@ namespace ATTime.Controllers
                     context.Teams.Add(team);
                     context.SaveChanges();
                 }
-            }    
-           
-        return RedirectToAction("Team");
+            }
+
+            /*
+            var today = DateTime.Now.ToString("dd/MM/yyyy");
+            var today_id = db.Calenders.Where(s => s.CalenderName == today).Single().CalenderId;
+            var forward = db.Calenders.Where(s => s.CalenderId > today_id).ToList();
+            foreach (Calender c in forward)
+            {
+                var check = db.CourseCalenders.Where(d => d.TeamId == teamid).Count();
+                if (check > 0)
+                {
+
+                }
+                else
+                {
+                    db.CourseCalenders.Add(new CourseCalender() { CourseId = 1, CalenderId = c.CalenderId, SchoolId = schoolid, TeamId = teamid });
+                }
+            }*/
+
+
+            return RedirectToAction("Team");
         }
         /* SØGEFUNKTION  
 
@@ -353,6 +371,8 @@ namespace ATTime.Controllers
             var firstnamelist = db.Students.FromSql("select * from student where first_name=@p0", firstname).ToList();
             return View(firstnamelist);
         }*/
+
+
 
 
     }
