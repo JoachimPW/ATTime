@@ -20,6 +20,8 @@
     <hr />
     <br />
 
+    @Html.DropDownList("course_name", ViewBag.DROPDOWNCOURSES as SelectList, "Select Course")
+
     <div class"">
         @Html.LabelFor(model => model.FirstName, new { @class = "" })
         @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })

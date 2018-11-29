@@ -15,7 +15,7 @@
 <h1>
     TeamID: @ViewBag.testTeamId
     @ViewData["TEAMID"]
-    @ViewBag.komnu
+   
 
     @ViewBag.zeze
 </h1>
@@ -33,6 +33,15 @@
             @Html.LabelFor(model => model.FirstName, new { @class = "" })
             @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.FirstName)
+
+            @Html.DropDownListFor(model => model.TeamStudent, new SelectList(Model.FirstName, "" ))
+            @Html.DropDownList("DDL", ViewBag.)
+        
+
+            @Html.DropDownListFor(model => model.FirstName, new SelectList(Model.TeamStudent, "HEJ", "Value"))
+ {
+   
+ })
 
         </div>
         <br />

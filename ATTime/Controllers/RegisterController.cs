@@ -86,18 +86,11 @@ namespace ATTime.Controllers
                 var student = db.Students.Where(a => a.SchoolId == schoolid);
             }
                 */
-
             //var studentsInTable = db.Teams.Where(c => c.TeamId == teamId).SelectMany(c => c.TeamCourseStudent);
 
 
             //var zzzz = db.TeamCourseStudents.Where(c => c.TeamId == teamId).SelectMany(c => c.Student);
-
-
-
-
             //  /db.TeamCourseStudents.Where(s => s.TeamId == teamId).Where(db.Students.Where());
-
-
             // ViewBag.student = studenterliste;
 
             var schoolName = db.Schools.Where(s => s.SchoolId == schoolid).Single().SchoolName;
@@ -222,6 +215,11 @@ namespace ATTime.Controllers
         [HttpPost]        
         public ActionResult CreateOperator(string schoolname, string logo, string firstname, string lastname, string username, string psw, string phone)
         {
+
+            var getCourses = db.Courses.ToList();
+            SelectList studentLIST = new SelectList(getCourses, "course_id", "course_name");
+            ViewBag.DROPDOWNCOURSES = studentLIST;
+
             var pasw = string.Empty;
             byte[] encode = new byte[psw.Length];
             encode = Encoding.UTF8.GetBytes(psw);
@@ -261,6 +259,9 @@ namespace ATTime.Controllers
         [HttpPost]
         public ActionResult CreateStudent(string firstname, string lastname, string username, string psw)
         {
+
+            
+
             var pasw = string.Empty;
             byte[] encode = new byte[psw.Length];
             encode = Encoding.UTF8.GetBytes(psw);
