@@ -48,7 +48,8 @@ namespace ATTime.Controllers
             var schoolid = ((int)Session["School"]);
 
             var test = db.TeamStudents.Where(t => t.TeamId == teamId).Include(t => t.Student).ToList();
-           // var test1 = db.TeamStudents.Where(t => test.Contains(t.));
+
+            // var test1 = db.TeamStudents.Where(t => test.Contains(t.));
 
             var courseName = db.CourseStudents.Where(t => t.CourseId == t.Course.CourseId).Include(t => t.Course).ToList();
 

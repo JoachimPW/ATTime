@@ -16,6 +16,6 @@ namespace ATTime.Models.ViewModel
                         .Count();
 
             return team_student_count;
-        } 
+        }
     }
 }

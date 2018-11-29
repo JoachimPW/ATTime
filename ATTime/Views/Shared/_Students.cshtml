@@ -1,15 +1,35 @@
 ﻿@model ATTime.Models.TeamStudent
 @using ATTime.Models
+@using ATTime.Models.ViewModel.CourseStudent
+
 @{
     ViewBag.Title = "_Students";
 }
 <tr class="SearchStudent">
     <td>@Model.Student.FirstName</td>
     <td>@Model.Student.LastName</td>
-    <td>@Model.Student.Username
-      
+    <td>@Model.Student.Username</td>
+    <td>
+        @functions{
+            public List<CourseStudent> GetStudentCourse()
+            {
+                ATTime_DBContext db = new ATTime_DBContext();
+                var testtest = db.CourseStudents
+                    .Where(s => s.StudentId == Model.StudentId)
+                    .ToList();
+                return testtest;
+            }
+        }
+        @if (GetStudentCourse().Count() > 0)
+        {
+            foreach (var c in GetStudentCourse())
+            {
+            <p>@CourseStudent.course(c.CourseId)</p>
+            }
+         }
+
     </td>
- 
+
     <td>
         @using (Html.BeginForm("Delete", "Student", FormMethod.Post))
         {

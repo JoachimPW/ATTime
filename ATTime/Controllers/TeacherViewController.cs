@@ -119,7 +119,7 @@ namespace ATTime.Controllers
             ViewData["team"] = teamid;
 
             //Tilføj koden her:
-            var start_date = DateTime.Now.ToString("dd/MM/yyyy");
+            var start_date = DateTime.Now.ToString("dd-MM-yyyy");
             var startid = context.Calenders.Where(s => s.CalenderName == start_date).Single().CalenderId;
             var teams_calender = context.CourseCalenders
                            .Where(s => s.TeamId == teamid)
