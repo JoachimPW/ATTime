@@ -61,7 +61,9 @@ namespace ATTime.Controllers
             ViewData["Schoolname"] = schoolname;
             ViewData["Logo"] = schoollogo;
 
-            //Selven koden til funktionen 
+            //Selven koden til funktionen
+            var today = DateTime.Now.ToString("dd/MM/yyyy");
+            var today_id = context.Calenders.Where(s => s.CalenderName == today).Single().CalenderId;
             var allChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             var random = new Random();
             var resultToken = new string(
@@ -89,19 +91,14 @@ namespace ATTime.Controllers
                     }
                 }
 
-
-
                 var code = new CourseCode()
                 {
                     Code = authToken,
-                    CourseId = Courseid
+                    CalenderId = today_id
                 };
                 context.CourseCodes.Add(code);
                 context.SaveChanges();
             }
-
-
-
             //Return
             return View("calender");
         }

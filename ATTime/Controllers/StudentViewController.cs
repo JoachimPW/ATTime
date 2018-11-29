@@ -63,7 +63,7 @@ namespace ATTime.Controllers
             }
         }
 
-        public ActionResult attend(int acsID)
+        public ActionResult attend(string code_for_torday)
         {
             //Her fanger vi alle sessions som indeholder information for den bruger som er logget ind:
             var context = new ATTime_DBContext();
@@ -104,15 +104,28 @@ namespace ATTime.Controllers
             ViewBag.calender = calender;
 
             //Koden som denne action skal bruge
-            //var check_code = context.CourseCodes
-              //  .Where(s=> s.)
-            using (context)
+            var acsID = context.AttendanceCourseStudents
+                .Where(s => s.CalenderId == today_id)
+                .Where(d => d.StudentId == currentid)
+                .FirstOrDefault().AttendanceCourseStudentId;
+            var check_code = context.CourseCodes
+              .Where(s => s.CalenderId == today_id)
+              .Single().Code;
+            if (code_for_torday == check_code)
             {
-                var std = context.AttendanceCourseStudents
-                    .Where(s => s.AttendanceCourseStudentId == acsID)
-                    .FirstOrDefault();
-                std.AttendanceId = 2;
-                context.SaveChanges();
+                using (context)
+                {
+                    var std = context.AttendanceCourseStudents
+                        .Where(s => s.AttendanceCourseStudentId == acsID)
+                        .FirstOrDefault();
+                    std.AttendanceId = 2;
+                    context.SaveChanges();
+                }
+                ViewBag.msg = "You have attended the course.";
+            }
+            else
+            {
+                ViewBag.msg = "You didn't use the right code for todays course.";
             }
 
             //Sakffer routen for en bruger
