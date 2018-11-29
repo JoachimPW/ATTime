@@ -98,7 +98,6 @@ namespace ATTime.Controllers
                 };
                 context.CourseCodes.Add(code);
                 context.SaveChanges();
-                */
             }
             //Return
             return View("calender");
