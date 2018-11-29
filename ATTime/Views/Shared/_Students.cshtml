@@ -1,6 +1,5 @@
 ﻿@model ATTime.Models.TeamStudent
 @using ATTime.Models
-@using ATTime.Models.ViewModel.CourseStudent
 
 @{
     ViewBag.Title = "_Students";
@@ -24,7 +23,7 @@
         {
             foreach (var c in GetStudentCourse())
             {
-            <p>@CourseStudent.course(c.CourseId)</p>
+            <p>@Ccourse.course(c.CourseId)</p>
             }
          }
 
