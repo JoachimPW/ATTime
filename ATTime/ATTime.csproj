@@ -351,7 +351,6 @@
     <Content Include="Views\Shared\_Students.cshtml" />
     <Content Include="Views\Shared\_Student_attend.cshtml" />
     <Content Include="Views\Shared\_Teachers.cshtml" />
-    <Content Include="Views\Shared\_team.cshtml" />
     <Content Include="Views\Shared\_Teams.cshtml" />
     <Content Include="Views\Shared\_team_teacher.cshtml" />
     <Content Include="Views\StudentView\Index.cshtml" />
@@ -414,6 +413,7 @@
     <Content Include="Views\TeacherView\student.cshtml" />
     <Content Include="Views\TestSearch\Index.cshtml" />
     <Content Include="Views\Shared\_CourseName.cshtml" />
+    <Content Include="Views\Shared\_student_teacher.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

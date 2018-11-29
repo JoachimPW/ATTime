@@ -1,7 +1,11 @@
-﻿
+﻿@using ATTime.Models
 @{
     ViewBag.Title = "student";
 }
 
 <h2>student</h2>
+@foreach (Student student in ViewBag.students)
+ {
+    @Html.Partial("_student_teacher", student)
+ }
 
