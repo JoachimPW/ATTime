@@ -201,31 +201,43 @@ namespace ATTime.Controllers
 
         public ActionResult student(int teamid)
         {
-            //Her fanger vi alle sessions som indeholder information for den bruger som er logget ind:
-            var context = new ATTime_DBContext();
-            var currentid = ((int)Session["UserId"]);
-            var currentrole = ((string)Session["UserRole"]);
-            var school = ((int)Session["School"]);
-            var schoolname = context.Schools.FromSql("select * from school").Single().SchoolName;
-            var schoollogo = context.Schools.FromSql("select * from school").Single().Logo;
-            ViewData["id"] = currentid;
-            ViewData["Role"] = currentrole;
-            ViewData["Schoolname"] = schoolname;
-            ViewData["Logo"] = schoollogo;
-
-            //Tilføj koden her:
-
-
-
-            //Sakffer routen for en bruger
-            if (currentrole == "Teacher" && currentid != 0)
+            if (((int)Session["UserId"]) == 0)
             {
-                return View();
+                return RedirectToAction("Index", "Login");
             }
             else
             {
-                string url = LoginCheckViewModel.check(currentid, currentrole);
-                return RedirectToAction("Index", url);
+                //Her fanger vi alle sessions som indeholder information for den bruger som er logget ind:
+                var context = new ATTime_DBContext();
+                var currentid = ((int)Session["UserId"]);
+                var currentrole = ((string)Session["UserRole"]);
+                var school = ((int)Session["School"]);
+                var schoolname = context.Operators.Where(s => s.OperatorId == currentid).Single().School.SchoolName;
+                var schoollogo = context.Operators.Where(s => s.OperatorId == currentid).Single().School.Logo;
+                ViewData["id"] = currentid;
+                ViewData["Role"] = currentrole;
+                ViewData["Schoolname"] = schoolname;
+                ViewData["Logo"] = schoollogo;
+                ViewData["team"] = teamid;
+
+                //Tilføj koden her:
+                var every_student = context.TeamStudents
+                    .Where(s => s.TeamId == teamid)
+                    .ToList();
+
+                ViewBag.students = every_student;
+
+
+                //Sakffer routen for en bruger
+                if (currentrole == "Teacher" && currentid != 0)
+                {
+                    return View();
+                }
+                else
+                {
+                    string url = LoginCheckViewModel.check(currentid, currentrole);
+                    return RedirectToAction("Index", url);
+                }
             }
         }
 

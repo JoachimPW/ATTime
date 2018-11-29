@@ -1,0 +1,30 @@
+﻿@model ATTime.Models.Student
+@using ATTime.Models.ViewModel
+@using ATTime.Models
+@{
+    ViewBag.Title = "_student_teacher";
+}
+<div class="row">
+    <div class="col-3 border-dark">
+        <h3>@Model.FirstName @Model.LastName</h3>
+        <hr />
+        <p>Total absent: @Studencount.total_absent(Model.StudentId, ((int)ViewData["team"])) % </p>
+        @functions{
+            public List<CourseStudent> GetStudentCourse()
+            {
+                ATTime_DBContext db = new ATTime_DBContext();
+                var testtest = db.CourseStudents
+                    .Where(s => s.StudentId == Model.StudentId)
+                    .ToList();
+                return testtest;
+            }
+        }
+        @if (GetStudentCourse().Count() > 0)
+        {
+            foreach (var c in GetStudentCourse())
+            {
+        <p>Absense @Ccourse.course(c.CourseId):@Studencount.total_absent_course(Model.StudentId, c.CourseId) %</p>
+            }
+        }
+    </div>
+</div>
