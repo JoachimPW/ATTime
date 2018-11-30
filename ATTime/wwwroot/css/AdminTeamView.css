@@ -1,0 +1,21 @@
+﻿body {
+    margin:0;
+
+}
+
+.Team {
+    border:1px solid black;
+    border-radius: 5px;
+    width:20%;
+    display:inline-block;
+    float:left;
+    padding:0px;
+    margin:20px;
+}
+
+.TeamBtn {
+    background-color:white;
+    border:0px;
+    width:100%;
+    padding:0px;
+}

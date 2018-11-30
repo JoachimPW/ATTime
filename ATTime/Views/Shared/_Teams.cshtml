@@ -5,23 +5,24 @@
 
 <h1>@ViewBag.testTeamId</h1>
 
+@Styles.Render("~/wwwroot/css/AdminTeamView.css")
 
-<div class="" style="border:1px solid black; width:20%;">
+<div class="Team">
     @using (Html.BeginForm("SelectTeam", "Register", FormMethod.Post))
     {
         <input type="hidden" name="teamid" value="@Model.TeamId" />
-        <button style="width:100%;" type="submit" class="btn btn-default m-1 p-1 btn-primary">Team: @Model.TeamName</button>
+        <button type="submit" class="TeamBtn">
+            <h2> @Model.TeamName </h2>
+            <p> Students: @ATTime.Models.ViewModel.Studencount.student_count(@Model.TeamId) </p>
+            <p>Teachers: @ATTime.Models.ViewModel.TeacherCount.teacher_count(@Model.TeamId) </p>
+        </button>
     }
-    
 
     @using (Html.BeginForm("student", "TeacherView", FormMethod.Post))
     {
-        <input type="hidden" name="teamid" value="@Model.TeamId" />        
-        <p> Students: @ATTime.Models.ViewModel.Studencount.student_count(@Model.TeamId) </p>
-        <p>Teachers: @ATTime.Models.ViewModel.TeacherCount.teacher_count(@Model.TeamId) </p>
+        <input type="hidden" name="teamid" value="@Model.TeamId" />
     }
 </div>
-<hr />
 
 
 
