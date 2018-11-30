@@ -16,7 +16,7 @@ namespace ATTime.Models.ViewModel
             return team_student_count;
         }
 
-        public static int total_absent(int studentid, int teamid)
+        public static int total_absent(int? studentid, int teamid)
         {
             var context = new ATTime_DBContext();
             var today = DateTime.Now.ToString("dd/MM/yyyy");
@@ -32,8 +32,15 @@ namespace ATTime.Models.ViewModel
                         .Where(s => s.TeamId == teamid)
                         .Where(s => s.CalenderId < today_id)
                         .Count();
-            int absense = (all_courses_adsent / all_courses) * 100;
-            return absense;
+            if (all_courses > 0)
+            {
+                int absense = (all_courses_adsent / all_courses) * 100;
+                return absense;
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         public static int total_absent_course(int? studentid, int? courseid)
@@ -52,8 +59,36 @@ namespace ATTime.Models.ViewModel
                         .Where(s => s.CourseId == courseid)
                         .Where(s => s.CalenderId < today_id)
                         .Count();
-            int absense = (all_courses_adsent / all_courses) * 100;
-            return absense;
+            if (all_courses > 0)
+            {
+                int absense = (all_courses_adsent / all_courses) * 100;
+                return absense;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public static string firstname(int? studentid)
+        {
+            var context = new ATTime_DBContext();
+            var firstname = context.Students
+                .Where(s => s.StudentId == studentid)
+                .Single().FirstName;
+
+            return firstname;
+        }
+
+
+        public static string lastname(int? studentid)
+        {
+            var context = new ATTime_DBContext();
+            var lastname = context.Students
+                .Where(s => s.StudentId == studentid)
+                .Single().LastName;
+
+            return lastname;
         }
     }
 }

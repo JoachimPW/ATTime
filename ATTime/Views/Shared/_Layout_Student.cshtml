@@ -16,22 +16,24 @@
         <nav>
             @Html.ActionLink("Check in", "Index", "StudentView")
             @Html.ActionLink("Adsense", "procentage", "StudentView")
+            @Html.ActionLink("Log out", "logout", "Login")
         </nav>
     </header>
 
     <div class="container body-content">
         @RenderBody()
     </div>
+    @Html.Action("Log out", "logout", "Login")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     <script>
-    $("#Date_start").datepicker({
-        appendText: "(yyyy-mm-dd)"
-    });
-    $("#Date_end").datepicker({
-        appendText: "(yyyy-mm-dd)"
-    });
+        $("#Date_start").datepicker({
+            appendText: "(yyyy-mm-dd)"
+        });
+        $("#Date_end").datepicker({
+            appendText: "(yyyy-mm-dd)"
+        });
     </script>
 </body>
 </html>
