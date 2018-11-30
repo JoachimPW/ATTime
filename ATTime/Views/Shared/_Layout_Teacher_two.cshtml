@@ -23,8 +23,9 @@
             @using (Html.BeginForm("student", "TeacherView", FormMethod.Post))
             {
                 <input type="hidden" value="@ViewData["team"]" name="teamid" />
-                <button type="submit" class="btn btn-default m-1 p-1 btn-success">Calender</button>
+                <button type="submit" class="btn btn-default m-1 p-1 btn-success">Students</button>
             }
+            @Html.ActionLink("Log out", "logout", "Login")
         </nav>
     </header>
 
@@ -35,12 +36,12 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     <script>
-    $("#Date_start").datepicker({
-        appendText: "(yyyy-mm-dd)"
-    });
-    $("#Date_end").datepicker({
-        appendText: "(yyyy-mm-dd)"
-    });
+        $("#Date_start").datepicker({
+            appendText: "(yyyy-mm-dd)"
+        });
+        $("#Date_end").datepicker({
+            appendText: "(yyyy-mm-dd)"
+        });
     </script>
 </body>
 </html>

@@ -112,5 +112,14 @@ namespace ATTime.Controllers
             }
             return View("Index");
         }
+
+        public ActionResult logout()
+        {
+            Session["AdminName"] = "";
+            Session["UserId"] = 0;
+            Session["UserRole"] = "";
+            Session["School"] = 0;
+            return View("Index");
+        }
     }
 }

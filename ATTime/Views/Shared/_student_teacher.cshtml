@@ -1,12 +1,12 @@
-﻿@model ATTime.Models.Student
+﻿@model ATTime.Models.TeamStudent
 @using ATTime.Models.ViewModel
 @using ATTime.Models
 @{
     ViewBag.Title = "_student_teacher";
 }
 <div class="row">
-    <div class="col-3 border-dark">
-        <h3>@Model.FirstName @Model.LastName</h3>
+    <div class="col-3 border-dark float-left">
+        <h3>@Studencount.firstname(Model.StudentId) @Studencount.lastname(Model.StudentId)</h3>
         <hr />
         <p>Total absent: @Studencount.total_absent(Model.StudentId, ((int)ViewData["team"])) % </p>
         @functions{
@@ -23,7 +23,14 @@
         {
             foreach (var c in GetStudentCourse())
             {
+                if (c.CourseId == 1)
+                {
+
+                }
+                else
+                {
         <p>Absense @Ccourse.course(c.CourseId):@Studencount.total_absent_course(Model.StudentId, c.CourseId) %</p>
+                }
             }
         }
     </div>
