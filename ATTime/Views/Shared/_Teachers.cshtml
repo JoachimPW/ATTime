@@ -8,6 +8,7 @@
 <tr class="SearchTeacher">
     <td>@Model.Operator.FirstName</td>
     <td>@Model.Operator.LastName</td>
+    <td>@Model.Operator.Username</td>
     <td>
 
         @functions{
@@ -44,12 +45,12 @@
         }
         $("#Search").keyup(function () {
             var searchText = $("#Search").val().toLowerCase();
-            $(".Search").each(function () {
+            $(".SearchTeacher").each(function () {
                 if (!Contains($(this).text().toLowerCase(), searchText)) {
-                    $(this).hide();
+                    $(this).fadeOut();
                 }
                 else {
-                    $(this).show();
+                    $(this).fadeIn();
                 }
             });
         });
