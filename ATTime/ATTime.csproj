@@ -384,6 +384,7 @@
     <Content Include="Views\Shared\_Layout_Teacher.cshtml" />
     <Content Include="Views\Shared\_Layout_Teacher_two.cshtml" />
     <Content Include="Views\Shared\CreateCourse.cshtml" />
+    <Content Include="Views\TeacherView\_Student_attend.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

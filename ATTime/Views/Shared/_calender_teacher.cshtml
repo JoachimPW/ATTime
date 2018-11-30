@@ -3,7 +3,7 @@
 @using ATTime.Models
 
 
-<div class="col-2 float-left" id="@Model.CourseCalenderId">
+<div class="col-2 float-left" style="curser:pointer;">
     <div>
         <h5>@Model.Calender.CalenderName</h5>
     </div>
@@ -28,23 +28,26 @@
         else
         {
             <h6>@Model.Course.CourseName</h6>
+            <button id="@Model.CourseCalenderId">See attendance</button>
+            <script>
+                $("#@Model.CourseCalenderId").click(function () {
+                    var TeamID = @Model.TeamId;
+                    var date = @Model.CalenderId;
+                    $.ajax({
+                        type: "POST",
+                        url: "~/Views/_Student_attend.cshtml",
+                        data: {
+                            TeamID: TeamID,
+                            date: date
+                        },
+                        success: function (result) {
+                            $(".Student").html(result);
+                        }
+                    });
+                });
+            </script>
         }
     </div>
 </div>
-<script>
-    $("#@Model.CourseCalenderId").click(function () {
-        var TeamID = @Model.TeamId;
-        var date = @Model.CalenderId;
-        $.ajax({
-            url: "~/Views/Shared/_Student_attend",
-            data: {
-                TeamID: TeamID,
-                date: date
-            },
-            success: function (result) {
-                $(".Student").html(result);
-            }
-        });
-    });
-</script>
+
 

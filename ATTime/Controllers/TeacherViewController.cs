@@ -285,6 +285,8 @@ namespace ATTime.Controllers
             }
         }
 
+        [AllowAnonymous]
+        [HttpPost]
         public ActionResult _Student_attend(int TeamID, int date)
         {
             //Her tjekker vi, som vi har en session med et id i:
@@ -306,7 +308,7 @@ namespace ATTime.Controllers
                     .OrderBy(s => s.AttendanceId);
                 ViewBag.ATT = Attended;
             }
-            return PartialView("_Student_attend");
+            return PartialView("_Student_attend.cshtml");
         }
     }
 }

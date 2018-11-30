@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
 </head>
 <body style="margin:0; padding:0;">
     <header>
@@ -23,16 +24,7 @@
     <div class="container body-content">
         @RenderBody()
     </div>
-    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    <script>
-        $("#Date_start").datepicker({
-            appendText: "(yyyy-mm-dd)"
-        });
-        $("#Date_end").datepicker({
-            appendText: "(yyyy-mm-dd)"
-        });
-    </script>
 </body>
 </html>
