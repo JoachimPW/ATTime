@@ -1,16 +1,38 @@
-﻿@model ATTime.Models.Operator
+﻿@model ATTime.Models.TeamOperator
+@using ATTime.Models
+
 @{
     ViewBag.Title = "_Teachers";
 }
 
-
-
 <tr class="SearchTeacher">
-    <td>@Model.FirstName</td>
-    <td>@Model.LastName</td>
-    <td>@Model.Username</td>
-    <td> </td>
-    
+    <td>@Model.Operator.FirstName</td>
+    <td>@Model.Operator.LastName</td>
+    <td>
+
+        @functions{
+            public List<CourseOperator> GetOperatorCourse()
+            {
+                ATTime_DBContext db = new ATTime_DBContext();
+                var testtest = db.CourseOperators
+                    .Where(s => s.OperatorId == Model.OperatorId)
+                    .ToList();
+                return testtest;
+            }
+        }
+        @if (GetOperatorCourse().Count() > 0)
+        {
+            foreach (var c in GetOperatorCourse())
+            {
+                <p> @Ccourse.course(c.CourseId)</p>
+            }
+        }
+
+
+
+
+
+    </td>    
 </tr>
 
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>

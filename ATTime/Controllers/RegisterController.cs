@@ -48,6 +48,7 @@ namespace ATTime.Controllers
             var schoolid = ((int)Session["School"]);
 
             var test = db.TeamStudents.Where(t => t.TeamId == teamId).Include(t => t.Student).ToList();
+            var test2 = db.TeamOperators.Where(t => t.TeamId == teamId).Include(t => t.Operator).ToList();
 
             // var test1 = db.TeamStudents.Where(t => test.Contains(t.));
 
@@ -67,6 +68,8 @@ namespace ATTime.Controllers
             var studentliste = db.Students.Where(s => s.SchoolId == schoolid);
             ViewBag.studentListe = studentliste;
             ViewBag.tester = test;
+
+            ViewBag.tester2 = test2;
 
             // Teachers // 
             
@@ -103,15 +106,23 @@ namespace ATTime.Controllers
 
             var studentList = db.Students.ToList();
             ViewBag.STUDENT = studentList;
-
+            
             return View();
         }
 
         public ActionResult Teacher()
         {
+            var currentid = ((int)Session["UserId"]);
             var schoolid = ((int)Session["School"]);
             var oprtr = db.Operators.Where(s => s.SchoolId == schoolid).Where(i => i.RoleId == 2) ;
             ViewBag.oprtr = oprtr;
+
+            var test2 = db.TeamOperators.Include(t => t.Operator).ToList();
+
+            ViewBag.tester2 = test2;
+
+            var courses = db.Courses.ToList();
+            ViewBag.CourseNAME = courses;
 
             return View();
         }
@@ -150,7 +161,7 @@ namespace ATTime.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateTeacher(string firstname, string lastname, string username, string psw, string phone)
+        public ActionResult CreateTeacher(string firstname, string lastname, string username, string psw, string phone, int courseid)
         {
             var pasw = string.Empty;
             byte[] encode = new byte[psw.Length];
@@ -169,7 +180,6 @@ namespace ATTime.Controllers
                .Select(token => token[random.Next(token.Length)]).ToArray());
             string rndmNumbers = resultToken.ToString();
             string combineChars = firstChars + lastChars + rndmNumbers;
-
 
             using (var context = new ATTime_DBContext())
             {               
@@ -191,13 +201,12 @@ namespace ATTime.Controllers
 
                 var teamOperator = new TeamOperator()
                 {
-                    TeamId = teamId,
                     OperatorId = latestTeacherId
                 };
 
                 var courseOperator = new CourseOperator()
                 {
-                    CourseId = 1,
+                    CourseId = courseid,
                     OperatorId = latestTeacherId
                 };
 
@@ -210,6 +219,18 @@ namespace ATTime.Controllers
                 }
             }
             return RedirectToAction("Teacher");
+        }
+
+        [HttpPost]
+        public ActionResult UpdateTeacher(int operatorid)
+        {
+            var teamId = ((int)Session["TeamId"]);
+            var updatedTeacher = db.TeamOperators.Where(i => i.OperatorId == operatorid).First();
+            updatedTeacher.TeamId = teamId;
+
+            db.SaveChanges();
+
+            return RedirectToAction("Student");
         }
 
         [HttpPost]        

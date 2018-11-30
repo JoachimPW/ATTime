@@ -9,6 +9,7 @@
     <td>@Model.Student.LastName</td>
     <td>@Model.Student.Username</td>
     <td>
+
         @functions{
             public List<CourseStudent> GetStudentCourse()
             {
@@ -23,10 +24,10 @@
         {
             foreach (var c in GetStudentCourse())
             {
-            <p>@Ccourse.course(c.CourseId)</p>
+                <p> @Ccourse.course(c.CourseId)</p>
             }
-         }
-
+        }
+        
     </td>
 
     <td>
@@ -49,10 +50,10 @@
             var searchText = $("#SearchStudent").val().toLowerCase();
             $(".SearchStudent").each(function () {
                 if (!Contains($(this).text().toLowerCase(), searchText)) {
-                    $(this).hide();
+                    $(this).fadeOut();
                 }
                 else {
-                    $(this).show();
+                    $(this).fadeIn();
                 }
             });
         });
@@ -64,7 +65,7 @@
                     $(this).fadeOut();
                 }
                 else {
-                    $(this).show();
+                    $(this).fadeIn();
                 }
             });
         });
