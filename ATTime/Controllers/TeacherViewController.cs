@@ -19,8 +19,8 @@ namespace ATTime.Controllers
             var currentid = ((int)Session["UserId"]);
             var currentrole = ((string)Session["UserRole"]);
             var school = ((int)Session["School"]);
-            var schoolname = context.Schools.FromSql("select * from school").Single().SchoolName;
-            var schoollogo = context.Schools.FromSql("select * from school").Single().Logo;
+            var schoolname = context.Operators.Where(s => s.OperatorId == currentid).Single().School.SchoolName;
+            var schoollogo = context.Operators.Where(s => s.OperatorId == currentid).Single().School.Logo;
             ViewData["id"] = currentid;
             ViewData["Role"] = currentrole;
             ViewData["Schoolname"] = schoolname;
@@ -54,8 +54,8 @@ namespace ATTime.Controllers
             var currentid = ((int)Session["UserId"]);
             var currentrole = ((string)Session["UserRole"]);
             var school = ((int)Session["School"]);
-            var schoolname = context.Schools.Where(s => s.SchoolId == school).Single().SchoolName;
-            var schoollogo = context.Schools.Where(s => s.SchoolId == school).Single().Logo;
+            var schoolname = context.Operators.Where(s => s.OperatorId == currentid).Single().School.SchoolName;
+            var schoollogo = context.Operators.Where(s => s.OperatorId == currentid).Single().School.Logo;
             ViewData["id"] = currentid;
             ViewData["Role"] = currentrole;
             ViewData["Schoolname"] = schoolname;
@@ -110,8 +110,8 @@ namespace ATTime.Controllers
             var currentid = ((int)Session["UserId"]);
             var currentrole = ((string)Session["UserRole"]);
             var school = ((int)Session["School"]);
-            var schoolname = context.Schools.FromSql("select * from school").Single().SchoolName;
-            var schoollogo = context.Schools.FromSql("select * from school").Single().Logo;
+            var schoolname = context.Operators.Where(s => s.OperatorId == currentid).Single().School.SchoolName;
+            var schoollogo = context.Operators.Where(s => s.OperatorId == currentid).Single().School.Logo;
             ViewData["id"] = currentid;
             ViewData["Role"] = currentrole;
             ViewData["Schoolname"] = schoolname;
@@ -156,8 +156,8 @@ namespace ATTime.Controllers
             var currentid = ((int)Session["UserId"]);
             var currentrole = ((string)Session["UserRole"]);
             var school = ((int)Session["School"]);
-            var schoolname = context.Schools.FromSql("select * from school").Single().SchoolName;
-            var schoollogo = context.Schools.FromSql("select * from school").Single().Logo;
+            var schoolname = context.Operators.Where(s => s.OperatorId == currentid).Single().School.SchoolName;
+            var schoollogo = context.Operators.Where(s => s.OperatorId == currentid).Single().School.Logo;
             ViewData["id"] = currentid;
             ViewData["Role"] = currentrole;
             ViewData["Schoolname"] = schoolname;

@@ -414,6 +414,7 @@
     <Content Include="Views\TestSearch\Index.cshtml" />
     <Content Include="Views\Shared\_CourseName.cshtml" />
     <Content Include="Views\Shared\_student_teacher.cshtml" />
+    <Content Include="Views\StudentView\procentage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

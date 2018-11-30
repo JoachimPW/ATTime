@@ -18,9 +18,9 @@ namespace ATTime.Controllers
             var currentid = ((int)Session["UserId"]);
             var currentrole = ((string)Session["UserRole"]);
             var school = ((int)Session["School"]);
-            var schoolname = context.Schools.FromSql("select * from school").Single().SchoolName;
-            var schoollogo = context.Schools.FromSql("select * from school").Single().Logo;
-            var team = context.TeamStudents.Where(s => s.StudentId == currentid).FirstOrDefault().TeamId;
+            var schoolname = context.Students.Where(s => s.StudentId == currentid).Single().SchoolId;
+            var schoollogo = context.Students.Where(s => s.StudentId == currentid).Single().SchoolId;
+            int? team = context.TeamStudents.Where(s => s.StudentId == currentid).FirstOrDefault().TeamId;
             ViewData["id"] = currentid;
             ViewData["Role"] = currentrole;
             ViewData["Schoolname"] = schoolname;
@@ -28,11 +28,12 @@ namespace ATTime.Controllers
             ViewData["team"] = team;
 
             //Tilføj alt koden her
-            var today = DateTime.Now.ToString("dd/MM/yyyy");
+           var today = DateTime.Now.ToString("dd/MM/yyyy");
             var today_id = context.Calenders.Where(s => s.CalenderName == today).Single().CalenderId;
             var today_course = context.CourseCalenders
                 .Where(s => s.CalenderId == today_id)
                 .Where(s => s.TeamId == team)
+                .Include(s => s.Course)
                 .Single().Course.CourseName;
             var today_course_id = context.CourseCalenders
               .Where(s => s.CalenderId == today_id)
@@ -49,7 +50,7 @@ namespace ATTime.Controllers
             var calender = context.CourseCalenders
                 .Where(s => s.TeamId == team)
                 .ToList();
-            ViewBag.calender = calender;
+            ViewBag.calender = calender; 
 
             //Sakffer routen for en bruger
             if (currentrole == "Student" && currentid != 0)
@@ -70,9 +71,9 @@ namespace ATTime.Controllers
             var currentid = ((int)Session["UserId"]);
             var currentrole = ((string)Session["UserRole"]);
             var school = ((int)Session["School"]);
-            var schoolname = context.Schools.FromSql("select * from school").Single().SchoolName;
-            var schoollogo = context.Schools.FromSql("select * from school").Single().Logo;
-            var team = context.TeamStudents.Where(s => s.StudentId == currentid).FirstOrDefault().TeamId;
+            var schoolname = context.Students.Where(s => s.StudentId == currentid).Single().School.SchoolName;
+            var schoollogo = context.Students.Where(s => s.StudentId == currentid).Single().School.Logo;
+            int? team = context.TeamStudents.Where(s => s.StudentId == currentid).FirstOrDefault().TeamId;
             ViewData["id"] = currentid;
             ViewData["Role"] = currentrole;
             ViewData["Schoolname"] = schoolname;
@@ -82,7 +83,7 @@ namespace ATTime.Controllers
             //Koden er gengivet fra index af, så alt det samme information kommer med igen, når man trykker tilmeld.
             var today = DateTime.Now.ToString("dd/MM/yyyy");
             var today_id = context.Calenders.Where(s => s.CalenderName == today).Single().CalenderId;
-            var today_course = context.CourseCalenders
+            string today_course = context.CourseCalenders
                 .Where(s => s.CalenderId == today_id)
                 .Where(s => s.TeamId == team)
                 .Single().Course.CourseName;
@@ -132,6 +133,41 @@ namespace ATTime.Controllers
             if (currentrole == "Student" && currentid != 0)
             {
                 return View("index");
+            }
+            else
+            {
+                string url = LoginCheckViewModel.check(currentid, currentrole);
+                return RedirectToAction("Index", url);
+            }
+        }
+
+        public ActionResult procentage()
+        {
+            //Her fanger vi alle sessions som indeholder information for den bruger som er logget ind:
+            var context = new ATTime_DBContext();
+            var currentid = ((int)Session["UserId"]);
+            var currentrole = ((string)Session["UserRole"]);
+            var school = ((int)Session["School"]);
+            var schoolname = context.Students.Where(s => s.StudentId == currentid).Single().School.SchoolName;
+            var schoollogo = context.Students.Where(s => s.StudentId == currentid).Single().School.Logo;
+            int? team = context.TeamStudents.Where(s => s.StudentId == currentid).FirstOrDefault().TeamId;
+            ViewData["id"] = currentid;
+            ViewData["Role"] = currentrole;
+            ViewData["Schoolname"] = schoolname;
+            ViewData["Logo"] = schoollogo;
+            ViewData["team"] = team;
+
+            //Tilføj alt koden her
+            var courses = context.CourseStudents
+                .Where(s => s.StudentId == currentid)
+                .ToList();
+
+            ViewBag.course = courses;
+
+            //Sakffer routen for en bruger
+            if (currentrole == "Student" && currentid != 0)
+            {
+                return View();
             }
             else
             {

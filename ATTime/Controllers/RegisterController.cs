@@ -329,37 +329,39 @@ namespace ATTime.Controllers
             {
                 var schoolid = ((int)Session["School"]);
 
+                //Tilfæjer det nye team, som bliver oprettet.
                 var team = new Team()
                 {
                     TeamName = teamname,
                     SchoolId = schoolid
                 };
 
-                if(ModelState.IsValid)
+                //Skaffer data, som skal bruges til at få indsat id'er i junction tabel for fag for et team
+                int teamid = team.TeamId;
+                var today = DateTime.Now.ToString("dd/MM/yyyy");
+                var today_id = db.Calenders.Where(s => s.CalenderName == today).Single().CalenderId;
+                var forward = db.Calenders.Where(s => s.CalenderId > today_id).ToList();
+
+                //tjekker om modellen er valid, og hvis den er valid, 
+                //så bliver der tilføjet det nye team, samt id'er i junction tabellet.
+                if (ModelState.IsValid)
                 {
                     context.Teams.Add(team);
+                    foreach (Calender c in forward)
+                    {
+                        var check = db.CourseCalenders.Where(d => d.TeamId == teamid).Count();
+                        if (check > 0)
+                        {
+
+                        }
+                        else
+                        {
+                            context.CourseCalenders.Add(new CourseCalender() { CourseId = 1, CalenderId = c.CalenderId, SchoolId = schoolid, TeamId = teamid });
+                        }
+                    }
                     context.SaveChanges();
                 }
             }
-
-            /*
-            var today = DateTime.Now.ToString("dd/MM/yyyy");
-            var today_id = db.Calenders.Where(s => s.CalenderName == today).Single().CalenderId;
-            var forward = db.Calenders.Where(s => s.CalenderId > today_id).ToList();
-            foreach (Calender c in forward)
-            {
-                var check = db.CourseCalenders.Where(d => d.TeamId == teamid).Count();
-                if (check > 0)
-                {
-
-                }
-                else
-                {
-                    db.CourseCalenders.Add(new CourseCalender() { CourseId = 1, CalenderId = c.CalenderId, SchoolId = schoolid, TeamId = teamid });
-                }
-            }*/
-
-
             return RedirectToAction("Team");
         }
         /* SØGEFUNKTION  
