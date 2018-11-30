@@ -36,7 +36,7 @@ namespace ATTime.Models.ViewModel
             return absense;
         }
 
-        public static int total_absent_course(int studentid, int? courseid)
+        public static int total_absent_course(int? studentid, int? courseid)
         {
             var context = new ATTime_DBContext();
             var today = DateTime.Now.ToString("dd/MM/yyyy");

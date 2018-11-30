@@ -14,11 +14,11 @@
             {
                 <input type="hidden" value="@ViewData["team"]" name="teamid" />
                 <input type="hidden" name="calendercourseid" value="@Model.CourseCalenderId" />
-                <select asp-action="" type="submit" name="Courseid">
+                <select type="submit" name="Courseid">
                     @foreach (Course c in ViewBag.CO)
-                    {
+                     {
                         <option value="@c.CourseId">@c.CourseName</option>
-                    }
+                     }
                 </select>
             }
 

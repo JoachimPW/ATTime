@@ -2,6 +2,7 @@
 @using ATTime.Models;
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Teacher.cshtml";
 }
 <h2>
     @LoginCheckViewModel.Firstname(((int)ViewData["id"]), ((string)ViewData["Role"]))

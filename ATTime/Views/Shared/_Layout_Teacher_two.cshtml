@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body style="margin:0; padding:0;">
+    <header>
+        <div class="position-relative">
+            <img style="text-align:right; position:absolute; top:10px; right:15px;"
+                 src="~/wwwroot/images/@ViewData["Logo"]" />
+        </div>
+        <nav>
+            @Html.ActionLink("Teams", "Index", "TeacherView")
+            @using (Html.BeginForm("calender", "TeacherView", FormMethod.Post))
+            {
+                <input type="hidden" value="@ViewData["team"]" name="teamid" />
+                <button type="submit" class="btn btn-default m-1 p-1 btn-success">Calender</button>
+            }
+            @using (Html.BeginForm("student", "TeacherView", FormMethod.Post))
+            {
+                <input type="hidden" value="@ViewData["team"]" name="teamid" />
+                <button type="submit" class="btn btn-default m-1 p-1 btn-success">Calender</button>
+            }
+        </nav>
+    </header>
+
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script>
+    $("#Date_start").datepicker({
+        appendText: "(yyyy-mm-dd)"
+    });
+    $("#Date_end").datepicker({
+        appendText: "(yyyy-mm-dd)"
+    });
+    </script>
+</body>
+</html>

@@ -35,7 +35,6 @@ namespace ATTime.Controllers
                 var password = pasw;
 
                 var context = new ATTime_DBContext();
-                var AdminName = context.Operators.Where(s => s.Username == username).Single().Username;
                 var OperatorUsername = context.Operators
                             .Where(s => s.Username == username)
                             .Count();
@@ -49,6 +48,7 @@ namespace ATTime.Controllers
                             .Single().Psw;
                     if(operatormatch == password)
                     {
+                        var AdminName = context.Operators.Where(s => s.Username == username).Single().Username;
                         var operatorid = context.Operators
                             .Where(s => s.Username == username)
                             .Single().OperatorId;

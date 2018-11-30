@@ -14,36 +14,44 @@ namespace ATTime.Controllers
     {
         public ActionResult Index()
         {
-            //Her fanger vi alle sessions som indeholder information for den bruger som er logget ind:
-            var context = new ATTime_DBContext();
-            var currentid = ((int)Session["UserId"]);
-            var currentrole = ((string)Session["UserRole"]);
-            var school = ((int)Session["School"]);
-            var schoolname = context.Schools.FromSql("select * from school").Single().SchoolName;
-            var schoollogo = context.Schools.FromSql("select * from school").Single().Logo;
-            ViewData["id"] = currentid;
-            ViewData["Role"] = currentrole;
-            ViewData["Schoolname"] = schoolname;
-            ViewData["Logo"] = schoollogo;
-
-            //Tilføj koden her:
-            var teams_operator = context.TeamOperators
-               .Where(s => s.OperatorId == currentid)
-               .Include(s => s.Team)
-               .ToList();
-
-            ViewBag.TO = teams_operator;
-
-
-            //Sakffer routen for en bruger
-            if (currentrole == "Teacher" && currentid != 0)
+            if (((int)Session["UserId"]) == 0)
             {
-                return View();
+                return RedirectToAction("Index", "Login");
             }
             else
             {
-                string url = LoginCheckViewModel.check(currentid, currentrole);
-                return RedirectToAction("Index", url);
+                //Her fanger vi alle sessions som indeholder information for den bruger som er logget ind:
+                var context = new ATTime_DBContext();
+                var currentid = ((int)Session["UserId"]);
+                var currentrole = ((string)Session["UserRole"]);
+                var school = ((int)Session["School"]);
+                var schoolid = context.Operators.Where(s => s.OperatorId == currentid).Single().SchoolId;
+                var schoollogo = context.Schools.Where(s => s.SchoolId == schoolid).Single().Logo;
+                var schoolname = context.Schools.Where(s => s.SchoolId == schoolid).Single().SchoolName;
+                ViewData["id"] = currentid;
+                ViewData["Role"] = currentrole;
+                ViewData["Schoolname"] = schoolname;
+                ViewData["Logo"] = schoollogo;
+
+                //Tilføj koden her:
+                var teams_operator = context.TeamOperators
+                .Where(s => s.OperatorId == currentid)
+                .Include(s => s.Team)
+                .ToList();
+
+                ViewBag.TO = teams_operator;
+
+
+                //Sakffer routen for en bruger
+                if (currentrole == "Teacher" && currentid != 0)
+                {
+                    return View();
+                }
+                else
+                {
+                    string url = LoginCheckViewModel.check(currentid, currentrole);
+                    return RedirectToAction("Index", url);
+                }
             }
         }
 
@@ -54,8 +62,9 @@ namespace ATTime.Controllers
             var currentid = ((int)Session["UserId"]);
             var currentrole = ((string)Session["UserRole"]);
             var school = ((int)Session["School"]);
-            var schoolname = context.Schools.Where(s => s.SchoolId == school).Single().SchoolName;
-            var schoollogo = context.Schools.Where(s => s.SchoolId == school).Single().Logo;
+            var schoolid = context.Operators.Where(s => s.OperatorId == currentid).Single().SchoolId;
+            var schoollogo = context.Schools.Where(s => s.SchoolId == schoolid).Single().Logo;
+            var schoolname = context.Schools.Where(s => s.SchoolId == schoolid).Single().SchoolName;
             ViewData["id"] = currentid;
             ViewData["Role"] = currentrole;
             ViewData["Schoolname"] = schoolname;
@@ -64,6 +73,8 @@ namespace ATTime.Controllers
             //Selven koden til funktionen
             var today = DateTime.Now.ToString("dd/MM/yyyy");
             var today_id = context.Calenders.Where(s => s.CalenderName == today).Single().CalenderId;
+
+            //Skaffer en random kode, som kan bruges til at bekræfte man er der på dagen: 
             var allChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             var random = new Random();
             var resultToken = new string(
@@ -78,6 +89,14 @@ namespace ATTime.Controllers
                 var students = context.TeamStudents
                     .Where(s => s.TeamId == teamid)
                     .ToList();
+                //opdateret faget i coursecalender for teamet
+                var addcourse = context.CourseCalenders
+                        .Where(s => s.CourseCalenderId == calendercourseid)
+                        .Where(s => s.TeamId == teamid)
+                        .FirstOrDefault();
+                addcourse.CourseId = Courseid;
+
+                //Opdatere for hver studerende, at de ikke har været der endnu
                 foreach (TeamStudent s in students)
                 {
                     var check = context.AttendanceCourseStudents.Where(d => d.CalenderId == calender).Where(h => h.StudentId == s.StudentId).Count();
@@ -91,6 +110,8 @@ namespace ATTime.Controllers
                     }
                 }
 
+
+                //tilføjer en kode til dagen, så man kan tjekke ind:
                 var code = new CourseCode()
                 {
                     Code = authToken,
@@ -110,8 +131,9 @@ namespace ATTime.Controllers
             var currentid = ((int)Session["UserId"]);
             var currentrole = ((string)Session["UserRole"]);
             var school = ((int)Session["School"]);
-            var schoolname = context.Schools.FromSql("select * from school").Single().SchoolName;
-            var schoollogo = context.Schools.FromSql("select * from school").Single().Logo;
+            var schoolid = context.Operators.Where(s => s.OperatorId == currentid).Single().SchoolId;
+            var schoollogo = context.Schools.Where(s => s.SchoolId == schoolid).Single().Logo;
+            var schoolname = context.Schools.Where(s => s.SchoolId == schoolid).Single().SchoolName;
             ViewData["id"] = currentid;
             ViewData["Role"] = currentrole;
             ViewData["Schoolname"] = schoolname;
@@ -156,8 +178,9 @@ namespace ATTime.Controllers
             var currentid = ((int)Session["UserId"]);
             var currentrole = ((string)Session["UserRole"]);
             var school = ((int)Session["School"]);
-            var schoolname = context.Schools.FromSql("select * from school").Single().SchoolName;
-            var schoollogo = context.Schools.FromSql("select * from school").Single().Logo;
+            var schoolid = context.Operators.Where(s => s.OperatorId == currentid).Single().SchoolId;
+            var schoollogo = context.Schools.Where(s => s.SchoolId == schoolid).Single().Logo;
+            var schoolname = context.Schools.Where(s => s.SchoolId == schoolid).Single().SchoolName;
             ViewData["id"] = currentid;
             ViewData["Role"] = currentrole;
             ViewData["Schoolname"] = schoolname;
@@ -212,8 +235,9 @@ namespace ATTime.Controllers
                 var currentid = ((int)Session["UserId"]);
                 var currentrole = ((string)Session["UserRole"]);
                 var school = ((int)Session["School"]);
-                var schoolname = context.Operators.Where(s => s.OperatorId == currentid).Single().School.SchoolName;
-                var schoollogo = context.Operators.Where(s => s.OperatorId == currentid).Single().School.Logo;
+                var schoolid = context.Operators.Where(s => s.OperatorId == currentid).Single().SchoolId;
+                var schoollogo = context.Schools.Where(s => s.SchoolId == schoolid).Single().Logo;
+                var schoolname = context.Schools.Where(s => s.SchoolId == schoolid).Single().SchoolName;
                 ViewData["id"] = currentid;
                 ViewData["Role"] = currentrole;
                 ViewData["Schoolname"] = schoolname;
