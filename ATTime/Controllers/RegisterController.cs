@@ -76,6 +76,9 @@ namespace ATTime.Controllers
             var oprtr = db.Operators.Where(s => s.SchoolId == schoolid).Where(i => i.RoleId == 2);
             ViewBag.oprtr = oprtr;
 
+            var courses = db.Courses.ToList();
+            ViewBag.CourseNAME = courses;
+
             /* if(tcs > 1)
              { 
              var student = db.Students.Where(s => s.StudentId == tcs);
@@ -168,8 +171,7 @@ namespace ATTime.Controllers
             encode = Encoding.UTF8.GetBytes(psw);
             pasw = Convert.ToBase64String(encode);
             var schoolid = ((int)Session["School"]);
-            var teamId = ((int)Session["TeamId"]);
-
+            
             // Til at generere username ud fra navn + 2 random tal //
             string firstChars = firstname.Substring(0, 2);
             string lastChars = lastname.Substring(0, 3);
@@ -233,6 +235,29 @@ namespace ATTime.Controllers
             return RedirectToAction("Student");
         }
 
+        [HttpPost]
+        public ActionResult AddCourseStudent(int studentid, int courseId)
+        {
+            var updatedStudent = db.CourseStudents.Where(i => i.StudentId == studentid).First();
+
+            if (updatedStudent.CourseId == courseId)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                var studentAddedCourse = new CourseStudent()
+                {
+                    StudentId = studentid,
+                    CourseId = courseId
+                };
+                db.CourseStudents.Add(studentAddedCourse);
+                db.SaveChanges();
+            }  
+         
+            return RedirectToAction("Student");
+        }
+
         [HttpPost]        
         public ActionResult CreateOperator(string schoolname, string logo, string firstname, string lastname, string username, string psw, string phone)
         {
@@ -264,6 +289,7 @@ namespace ATTime.Controllers
                     Psw = pasw,
                     Phone = phone,
                     RoleId = 1,
+                    SchoolId = latestId
             };
 
                 if (ModelState.IsValid)
@@ -279,9 +305,7 @@ namespace ATTime.Controllers
 
         [HttpPost]
         public ActionResult CreateStudent(string firstname, string lastname, string username, string psw)
-        {
-
-            
+        {           
 
             var pasw = string.Empty;
             byte[] encode = new byte[psw.Length];
@@ -336,9 +360,7 @@ namespace ATTime.Controllers
                     context.SaveChanges();
                 }
                 var schoolName = context.Schools.Where(s => s.SchoolId == schoolid).Single().SchoolName;
-                ViewData["schoolname"] = schoolName;
-                
-                
+                ViewData["schoolname"] = schoolName;          
 
             }
             return RedirectToAction("Student");
@@ -357,7 +379,8 @@ namespace ATTime.Controllers
                     TeamName = teamname,
                     SchoolId = schoolid
                 };
-
+                context.Teams.Add(team);
+              
                 //Skaffer data, som skal bruges til at få indsat id'er i junction tabel for fag for et team
                 int teamid = team.TeamId;
                 var today = DateTime.Now.ToString("dd/MM/yyyy");
@@ -396,6 +419,53 @@ namespace ATTime.Controllers
             return View(firstnamelist);
         }*/
 
+
+        [HttpPost]
+        public ActionResult DeleteStudent(int studentid)
+        {
+
+            if (studentid == 0)
+            {
+                ViewData["msg"] = "Id not found";
+            }
+            using (var context = new ATTime_DBContext())
+            {
+                var students = context.Students.FirstOrDefault(s => s.StudentId == studentid);
+                var teamStudents = context.TeamStudents.Single(s => s.StudentId == studentid);
+                var courseStudents = context.CourseStudents.Single(s => s.StudentId == studentid);
+                if (students == null)
+                {
+                    ViewData["msg"] = "Student not found";
+                }
+                context.CourseStudents.Remove(courseStudents);
+                context.TeamStudents.Remove(teamStudents);
+                context.Students.Remove(students);
+
+                context.SaveChanges();
+            }
+            return RedirectToAction("Student", "Register");
+        }
+
+        [HttpPost]
+        public ActionResult CreateCourse(string coursename)
+        {            
+            try { 
+                var NewCourse = new Course()
+                {
+                    CourseName = coursename
+                };
+
+            db.Courses.Add(NewCourse);
+
+            db.SaveChanges();
+            }
+
+            catch
+            {
+
+            }
+            return RedirectToAction("Team");
+        }
 
 
 

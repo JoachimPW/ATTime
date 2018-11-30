@@ -14,9 +14,6 @@
     @Html.ValidationSummary(false)
 
     <div class="">
-
-
-
         <div class"">
             @Html.LabelFor(model => model.TeamName, new { @class = "" })
             @Html.TextBoxFor(model => model.TeamName, new { @class = "form-control", @onkeyup = "UserCheck()" })
@@ -31,6 +28,9 @@
         </div>
     </div>
 }
+
+@Html.Partial("CreateCourse")
+
 
 <script>
     function UserCheck() {

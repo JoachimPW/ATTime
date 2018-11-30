@@ -62,9 +62,6 @@
         </div>
     </div>
 }
-
-
-
 <br />
 <br />
 <div class="container" style="text-align:center;">
@@ -86,15 +83,18 @@
                 <th>Lastname</th>
                 <th>Username</th>
                 <th>Course</th>
+                <th>Add Course</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
             @foreach (TeamStudent student in ViewBag.tester)
             {
                 @Html.Partial("_Students", student)
-            }
+            }           
+            
         </tbody>
-
+        
         <tbody></tbody>
     </table>
 </div>
@@ -119,6 +119,7 @@
             <tr>
                 <th>Firstname</th>
                 <th>Lastname</th>
+                <th>Username</th>
                 <th>Teaches</th>
             </tr>
         </thead>
@@ -154,10 +155,6 @@
             </div>
         </div>
         }
-
-
-
-
     </div>
 <br />
 <br />

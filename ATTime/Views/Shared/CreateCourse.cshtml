@@ -1,0 +1,30 @@
+﻿@model ATTime.Models.Course
+
+@{
+    ViewBag.Title = "_Course";
+}
+
+@Html.ActionLink("Admin View", "Index", "AdminView")
+
+@Html.Partial("_AdminNav")
+
+@using (Html.BeginForm("CreateCourse", "Register", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+
+    <div class="">
+        <div class"">
+            @Html.LabelFor(model => model.CourseName, new { @class = "" })
+            @Html.TextBoxFor(model => model.CourseName, new { @class = "form-control", @onkeyup = "UserCheck()" })
+            @Html.ValidationMessageFor(model => model.CourseName)
+            <p id="Status"></p>
+        </div>
+        <br />
+    </div>
+    <div class="form-group">
+        <div class="">
+            <button type="submit" id="submitForm" class="btn btn-default m-1 p-1 btn-success" asp-action>Create</button>
+        </div>
+    </div>
+}

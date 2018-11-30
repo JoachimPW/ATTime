@@ -29,9 +29,46 @@
         }
         
     </td>
+    <th>
+
+        @functions {
+            ATTime_DBContext db = new ATTime_DBContext();
+            public ActionResult UpdateStudent()
+            {
+                var courses = db.Courses.ToList();
+                ViewBag.CourseNAME = courses;
+                return ViewBag.CourseNAME;
+
+            }
+        }
+
+        @using (Html.BeginForm("AddCourseStudent", "Register", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            <input type="hidden" value="@Model.Student.StudentId" id="studentid" name="studentid"/>
+            <select asp-action="" type="submit" name="Courseid">
+
+                @foreach (Course c in ViewBag.CourseNAME)
+                {
+                    <option value="@c.CourseId" name="Course" id="CourseId">
+                        @c.CourseName
+                    </option>
+                }
+            </select>
+
+
+            <div class="form-group">
+                <div class="">
+                    <button type="submit" id="submitForm" class="btn btn-default m-1 p-1 btn-success" asp-action>
+                        Add Course
+                    </button>
+                </div>
+            </div>
+        }
+
+    </th>
 
     <td>
-        @using (Html.BeginForm("Delete", "Student", FormMethod.Post))
+        @using (Html.BeginForm("DeleteStudent", "Register", FormMethod.Post))
         {
             <input type="hidden" name="studentid" value="@Model.StudentId" />
             <button type="submit" class="btn btn-default m-1 p-1 btn-danger">Delete</button>
@@ -42,32 +79,32 @@
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script>
     $(document).ready(function () {
-        function Contains(text_one, text_two) {
-            if (text_one.indexOf(text_two) != -1)
-                return true;
-        }
+            function Contains(text_one, text_two) {
+                if (text_one.indexOf(text_two) != -1)
+                    return true;
+            }
         $("#SearchStudent").keyup(function () {
-            var searchText = $("#SearchStudent").val().toLowerCase();
+                var searchText = $("#SearchStudent").val().toLowerCase();
             $(".SearchStudent").each(function () {
-                if (!Contains($(this).text().toLowerCase(), searchText)) {
+                    if (!Contains($(this).text().toLowerCase(), searchText)) {
                     $(this).fadeOut();
-                }
-                else {
+                    }
+                    else {
                     $(this).fadeIn();
-                }
+                    }
+                });
             });
-        });
 
         $("#SearchTeacher").keyup(function () {
-            var searchText = $("#SearchTeacher").val().toLowerCase();
+                var searchText = $("#SearchTeacher").val().toLowerCase();
             $(".SearchTeacher").each(function () {
-                if (!Contains($(this).text().toLowerCase(), searchText)) {
+                    if (!Contains($(this).text().toLowerCase(), searchText)) {
                     $(this).fadeOut();
-                }
-                else {
+                    }
+                    else {
                     $(this).fadeIn();
-                }
+                    }
+                });
             });
         });
-    });
 </script>
