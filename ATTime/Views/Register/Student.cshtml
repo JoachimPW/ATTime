@@ -9,13 +9,16 @@
 
 @Html.Partial("_AdminNav")
 
-<br />
+@Html.ActionLink("Teams", "Index", "AdminView") |
+@Html.ActionLink("Create Teacher", "Teacher", "Register") |
+@Html.ActionLink("Create Team", "Team", "Register")
 
+<br />
 
 <h1>
     TeamID: @ViewBag.testTeamId
     @ViewData["TEAMID"]
-   
+
 
     @ViewBag.zeze
 </h1>
@@ -26,23 +29,11 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false)
 
-    <div class="">      
-       
-
+    <div class="">
         <div class"">
             @Html.LabelFor(model => model.FirstName, new { @class = "" })
             @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.FirstName)
-
-            @Html.DropDownListFor(model => model.TeamStudent, new SelectList(Model.FirstName, "" ))
-            @Html.DropDownList("DDL", ViewBag.)
-        
-
-            @Html.DropDownListFor(model => model.FirstName, new SelectList(Model.TeamStudent, "HEJ", "Value"))
- {
-   
- })
-
         </div>
         <br />
 
@@ -53,8 +44,6 @@
 
         </div>
         <br />
-
-
 
         <div class"">
             @Html.LabelFor(model => model.Psw, new { @class = "" })
@@ -71,7 +60,6 @@
 
             </div>
         </div>
-
     </div>
 }
 
@@ -131,28 +119,48 @@
             <tr>
                 <th>Firstname</th>
                 <th>Lastname</th>
-                <th>Username</th>
+                <th>Teaches</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (ATTime.Models.Operator oprtr in ViewBag.oprtr)
+            @foreach (TeamOperator teach in ViewBag.tester2)
             {
-                @Html.Partial("_Teachers", oprtr)
+                @Html.Partial("_Teachers", teach)
             }
-
-
         </tbody>
 
         <tbody></tbody>
-    </table>
-</div>
-<br />
-<br />
 
-@foreach (CourseStudent course in ViewBag.CourseNAME)
-{
-    @Html.Partial("_CourseName", course)
-}
+
+    </table>
+
+    @using (Html.BeginForm("UpdateTeacher", "Register", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        <select asp-action="" type="submit" name="operatorid">
+
+            @foreach (Operator teach in ViewBag.oprtr)
+            {
+                <option value="@teach.OperatorId" name="operatorid" id="operatorid">
+                    @teach.FirstName @teach.LastName
+                </option>
+            }
+
+        </select>
+        <div class="form-group">
+            <div class="">
+                <button type="submit" id="submitForm" class="btn btn-default m-1 p-1 btn-success" asp-action>
+                    Add teacher
+                </button>
+            </div>
+        </div>
+        }
+
+
+
+
+    </div>
+<br />
+<br />
 
 
 <h1>@ViewBag.SuccessMessage2</h1>

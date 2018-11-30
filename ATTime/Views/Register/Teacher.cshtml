@@ -1,4 +1,5 @@
 ﻿@model ATTime.Models.Operator
+@using ATTime.Models
 
 @{
     ViewBag.Title = "Teacher";
@@ -20,7 +21,6 @@
     <hr />
     <br />
 
-    @Html.DropDownList("course_name", ViewBag.DROPDOWNCOURSES as SelectList, "Select Course")
 
     <div class"">
         @Html.LabelFor(model => model.FirstName, new { @class = "" })
@@ -39,14 +39,6 @@
     <br />
 
     <div class"">
-        @Html.LabelFor(model => model.Username, new { @class = "" })
-        @Html.TextBoxFor(model => model.Username, new { @class = "form-control", @onkeyup = "UserCheck()" })
-        @Html.ValidationMessageFor(model => model.Username)
-        <p id="Status"></p>
-    </div>
-    <br />
-
-    <div class"">
         @Html.LabelFor(model => model.Psw, new { @class = "" })
         @Html.TextBoxFor(model => model.Psw, new { @class = "form-control" })
         @Html.ValidationMessageFor(model => model.Psw)
@@ -60,7 +52,20 @@
         @Html.ValidationMessageFor(model => model.Phone)
 
     </div>
+    <br />
+    <select asp-action="" type="submit" name="Courseid">
 
+        @foreach (Course c in ViewBag.CourseNAME)
+        {
+            <option value="@c.CourseId" name="Course" id="CourseId">
+                @c.CourseName
+            </option>
+        }
+
+    </select>
+
+    <br />
+    <br />
     <div class="form-group">
         <div class="">
             <button type="submit" id="submitForm" class="btn btn-default m-1 p-1 btn-success" asp-action>Create</button>
@@ -92,9 +97,9 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (ATTime.Models.Operator oprtr in ViewBag.oprtr)
+            @foreach (TeamOperator teach in ViewBag.tester2)
             {
-                @Html.Partial("_Teachers", oprtr)
+                @Html.Partial("_Teachers", teach)
             }
         </tbody>
     </table>

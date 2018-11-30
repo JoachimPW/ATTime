@@ -18,9 +18,8 @@
 @Html.ActionLink("Calender", "Calender")
 @Html.ActionLink("Add", "Add")
 |
-@Html.ActionLink("Student", "Student", "Register")
-@Html.ActionLink("Teacher", "Teacher", "Register")
-@Html.ActionLink("Team", "Team", "Register")
+@Html.ActionLink("Create Teacher", "Teacher", "Register") |
+@Html.ActionLink("Create Team", "Team", "Register")
 
 <div>    
         @foreach (ATTime.Models.Team team in ViewBag.team)
