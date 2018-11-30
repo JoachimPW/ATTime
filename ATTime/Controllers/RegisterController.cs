@@ -228,8 +228,16 @@ namespace ATTime.Controllers
         {
             var teamId = ((int)Session["TeamId"]);
             var updatedTeacher = db.TeamOperators.Where(i => i.OperatorId == operatorid).First();
-            updatedTeacher.TeamId = teamId;
 
+            var TeachedrAddCourse = new TeamOperator()
+            {
+                OperatorId = operatorid,
+                TeamId = teamId
+            };
+
+
+            db.TeamOperators.Add(TeachedrAddCourse);
+           
             db.SaveChanges();
 
             return RedirectToAction("Student");

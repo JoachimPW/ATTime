@@ -4,10 +4,13 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
+
+<link href="~/wwwroot/css/AdminTeamView.css" type="text/css" />
 <h2>
     @LoginCheckViewModel.Firstname(((int)ViewData["id"]), ((string)ViewData["Role"]))
     @LoginCheckViewModel.Lastname(((int)ViewData["id"]), ((string)ViewData["Role"]))
 </h2>
+
 <h5>@ViewData["Role"]</h5>
 @ViewData["id"]
 @ViewData["Role"]
@@ -21,11 +24,13 @@
 @Html.ActionLink("Create Teacher", "Teacher", "Register") |
 @Html.ActionLink("Create Team", "Team", "Register")
 
-<div>    
+<h1> Teams </h1>
+
+  
         @foreach (ATTime.Models.Team team in ViewBag.team)
         {
             @Html.Partial("_Teams", team)
         }
-</div>
+
 
 
