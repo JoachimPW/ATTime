@@ -21,7 +21,7 @@ namespace ATTime.Controllers
             var schoolid = context.Students.Where(s => s.StudentId == currentid).Single().SchoolId;
             var schoollogo = context.Schools.Where(s => s.SchoolId == schoolid).Single().Logo;
             var schoolname = context.Schools.Where(s => s.SchoolId == schoolid).Single().SchoolName;
-            int? team = context.TeamStudents.Where(s => s.StudentId == currentid).FirstOrDefault().TeamId;
+            int? team = context.TeamStudents.Where(s => s.StudentId == currentid).Single().TeamId;
             ViewData["id"] = currentid;
             ViewData["Role"] = currentrole;
             ViewData["Schoolname"] = schoolname;
@@ -29,30 +29,29 @@ namespace ATTime.Controllers
             ViewData["team"] = team;
 
             //Tilføj alt koden her
-           var today = DateTime.Now.ToString("dd/MM/yyyy");
+           var today = DateTime.Now.ToString("dd-MM-yyyy");
             var today_id = context.Calenders.Where(s => s.CalenderName == today).Single().CalenderId;
             var today_course = context.CourseCalenders
-                .Where(s => s.CalenderId == today_id)
-                .Where(s => s.TeamId == team)
-                .Include(s => s.Course)
-                .Single().Course.CourseName;
-            var today_course_id = context.CourseCalenders
-              .Where(s => s.CalenderId == today_id)
-              .Where(s => s.TeamId == team)
-              .Single().Course.CourseId;
-            ViewData["TC"] = today_course;
-            ViewData["CID"] = today_course_id;
+                 .Where(s => s.CalenderId == today_id)
+                 .Where(s => s.TeamId == team)
+                 .Single().CourseId;
+             var today_course_id = context.CourseCalenders
+               .Where(s => s.CalenderId == today_id)
+               .Where(s => s.TeamId == team)
+               .Single().CourseId;
+             ViewData["TC"] = today_course;
+             ViewData["CID"] = today_course_id;
 
-            var student_courses = context.CourseStudents
-                .Where(s => s.StudentId == currentid)
-                .ToList();
-            ViewBag.Student_courses = student_courses;
+             var student_courses = context.CourseStudents
+                 .Where(s => s.StudentId == currentid)
+                 .ToList();
+             ViewBag.Student_courses = student_courses;
 
-            var calender = context.CourseCalenders
-                .Where(s => s.TeamId == team)
-                .ToList();
+             var calender = context.CourseCalenders
+                 .Where(s => s.TeamId == team)
+                 .ToList();
             ViewBag.calender = calender; 
-
+       
             //Sakffer routen for en bruger
             if (currentrole == "Student" && currentid != 0)
             {
@@ -75,7 +74,7 @@ namespace ATTime.Controllers
             var schoolid = context.Students.Where(s => s.StudentId == currentid).Single().SchoolId;
             var schoollogo = context.Schools.Where(s => s.SchoolId == schoolid).Single().Logo;
             var schoolname = context.Schools.Where(s => s.SchoolId == schoolid).Single().SchoolName;
-            int? team = context.TeamStudents.Where(s => s.StudentId == currentid).FirstOrDefault().TeamId;
+            int? team = context.TeamStudents.Where(s => s.StudentId == currentid).Single().TeamId;
             ViewData["id"] = currentid;
             ViewData["Role"] = currentrole;
             ViewData["Schoolname"] = schoolname;
@@ -153,7 +152,7 @@ namespace ATTime.Controllers
             var schoolid = context.Students.Where(s => s.StudentId == currentid).Single().SchoolId;
             var schoollogo = context.Schools.Where(s => s.SchoolId == schoolid).Single().Logo;
             var schoolname = context.Schools.Where(s => s.SchoolId == schoolid).Single().SchoolName;
-            int? team = context.TeamStudents.Where(s => s.StudentId == currentid).FirstOrDefault().TeamId;
+            int? team = context.TeamStudents.Where(s => s.StudentId == currentid).Single().TeamId;
             ViewData["id"] = currentid;
             ViewData["Role"] = currentrole;
             ViewData["Schoolname"] = schoolname;
@@ -163,6 +162,7 @@ namespace ATTime.Controllers
             //Tilføj alt koden her
             var courses = context.CourseStudents
                 .Where(s => s.StudentId == currentid)
+                .Include(s => s.Course)
                 .ToList();
 
             ViewBag.course = courses;

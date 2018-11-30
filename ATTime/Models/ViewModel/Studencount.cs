@@ -25,12 +25,12 @@ namespace ATTime.Models.ViewModel
                         .Where(s => s.StudentId == studentid)
                         .Where(s => s.TeamId == teamid)
                         .Where(s => s.AttendanceId == 1)
-                        .Where(s => s.CalenderId < today_id)
+                        .Where(s => s.CalenderId <= today_id)
                         .Count();
             var all_courses = context.AttendanceCourseStudents
                         .Where(s => s.StudentId == studentid)
                         .Where(s => s.TeamId == teamid)
-                        .Where(s => s.CalenderId < today_id)
+                        .Where(s => s.CalenderId <= today_id)
                         .Count();
             if (all_courses > 0)
             {
@@ -52,12 +52,12 @@ namespace ATTime.Models.ViewModel
                         .Where(s => s.StudentId == studentid)
                         .Where(s => s.CourseId == courseid)
                         .Where(s => s.AttendanceId == 1)
-                        .Where(s => s.CalenderId < today_id)
+                        .Where(s => s.CalenderId <= today_id)
                         .Count();
             var all_courses = context.AttendanceCourseStudents
                         .Where(s => s.StudentId == studentid)
                         .Where(s => s.CourseId == courseid)
-                        .Where(s => s.CalenderId < today_id)
+                        .Where(s => s.CalenderId <= today_id)
                         .Count();
             if (all_courses > 0)
             {
@@ -89,6 +89,17 @@ namespace ATTime.Models.ViewModel
                 .Single().LastName;
 
             return lastname;
+        }
+
+        public static int count_courses(int studentid, int courseid)
+        {
+            var context = new ATTime_DBContext();
+            var student_courses = context.CourseStudents
+                .Where(s => s.StudentId == studentid)
+                .Where(s => s.CourseId == courseid)
+                .Count();
+
+            return student_courses;
         }
     }
 }

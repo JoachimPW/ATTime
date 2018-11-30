@@ -3,23 +3,25 @@
 @using ATTime.Models
 
 
-<div class="" id="@Model.CourseCalenderId">
+<div class="col-2 float-left" id="@Model.CourseCalenderId">
     <div>
         <h5>@Model.Calender.CalenderName</h5>
     </div>
     <div>
         @if (Model.CourseId == 1)
         {
-            @using (Html.BeginForm("AddCourse", "TeacherView", FormMethod.Post))
+            <p>No courses for this day, add yours:</p>
+            using (Html.BeginForm("AddCourse", "TeacherView", FormMethod.Post))
             {
                 <input type="hidden" value="@ViewData["team"]" name="teamid" />
                 <input type="hidden" name="calendercourseid" value="@Model.CourseCalenderId" />
                 <select type="submit" name="Courseid">
-                    @foreach (Course c in ViewBag.CO)
-                     {
-                        <option value="@c.CourseId">@c.CourseName</option>
-                     }
+                    @foreach (CourseOperator c in ViewBag.CO)
+                    {
+                        <option value="@c.CourseId">@c.Course.CourseName</option>
+                    }
                 </select>
+                <button type="submit" class="btn btn-default m-1 p-1 btn-success">Add</button>
             }
 
         }

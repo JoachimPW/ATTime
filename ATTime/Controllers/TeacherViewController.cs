@@ -70,6 +70,25 @@ namespace ATTime.Controllers
             ViewData["Schoolname"] = schoolname;
             ViewData["Logo"] = schoollogo;
 
+            //Koden fra calender
+            var start_date = DateTime.Now.ToString("dd-MM-yyyy");
+            var startid = context.Calenders.Where(s => s.CalenderName == start_date).Single().CalenderId;
+            var teams_calender = context.CourseCalenders
+                           .Where(s => s.TeamId == teamid)
+                           .Where(s => s.CalenderId >= startid)
+                           .Include(s => s.Course)
+                           .Include(s => s.Calender)
+                            .OrderBy(s => s.CalenderId)
+                           .ToList();
+
+            var course_operator = context.CourseOperators
+                   .Where(s => s.OperatorId == currentid)
+                   .Include(s => s.Course)
+                   .ToList();
+
+            ViewBag.TO = teams_calender;
+            ViewBag.CO = course_operator;
+
             //Selven koden til funktionen
             var today = DateTime.Now.ToString("dd/MM/yyyy");
             var today_id = context.Calenders.Where(s => s.CalenderName == today).Single().CalenderId;
@@ -145,9 +164,10 @@ namespace ATTime.Controllers
             var startid = context.Calenders.Where(s => s.CalenderName == start_date).Single().CalenderId;
             var teams_calender = context.CourseCalenders
                            .Where(s => s.TeamId == teamid)
-                           .Where(s => s.CalenderId > startid)
+                           .Where(s => s.CalenderId >= startid)
                            .Include(s => s.Course)
                            .Include(s => s.Calender)
+                           .OrderBy(s => s.CalenderId)
                            .ToList();
 
           var course_operator = context.CourseOperators
