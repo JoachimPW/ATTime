@@ -1,0 +1,14 @@
+﻿body {
+}
+
+.SelectList {
+    background-color: transparent;
+    border: 1px solid black;
+    float: left;
+    width: 60%;
+}
+
+.tableHead {
+    background-color: #7B9BA6;
+    color: white;
+}

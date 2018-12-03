@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = "Teacher";
 }
-
+@Styles.Render("~/wwwroot/css/AdminStudentView.css")
 @Html.ActionLink("Admin View", "Index", "AdminView")
 
 @Html.Partial("_AdminNav")
@@ -16,61 +16,61 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false)
 
-<div class="">
+    <div class="">
 
-    <hr />
-    <br />
+        <hr />
+        <br />
 
-    <div class"">
-        @Html.LabelFor(model => model.FirstName, new { @class = "" })
-        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.FirstName)
+        <div class"">
+            @Html.Label("First name", new { @class = "" })
+            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.FirstName)
 
-    </div>
-    <br />
+        </div>
+        <br />
 
-    <div class"">
-        @Html.LabelFor(model => model.LastName, new { @class = "" })
-        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.LastName)
+        <div class"">
+            @Html.Label("Last name", new { @class = "" })
+            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.LastName)
 
-    </div>
-    <br />
+        </div>
+        <br />
 
-    <div class"">
-        @Html.LabelFor(model => model.Psw, new { @class = "" })
-        @Html.TextBoxFor(model => model.Psw, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Psw)
+        <div class"">
+            @Html.Label("Password", new { @class = "" })
+            @Html.TextBoxFor(model => model.Psw, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Psw)
 
-    </div>
-    <br />
+        </div>
+        <br />
 
-    <div class"">
-        @Html.LabelFor(model => model.Phone, new { @class = "" })
-        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Phone)
+        <div class"">
+            @Html.Label("Phone", new { @class = "" })
+            @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Phone)
 
-    </div>
-    <br />
-    <select name="Courseid">
+        </div>
+        <br />
+        <select name="Courseid" class="form-control selectList">
 
-        @foreach (Course c in ViewBag.CourseNAME)
-        {
-            <option value="@c.CourseId" name="Course" id="CourseId">
-                @c.CourseName
-            </option>
-        }
+            @foreach (Course c in ViewBag.CourseNAME)
+            {
+                <option value="@c.CourseId" name="Course" id="CourseId">
+                    @c.CourseName
+                </option>
+            }
 
-    </select>
+        </select>
 
-    <br />
-    <br />
-    <div class="form-group">
-        <div class="">
-            <button type="submit" id="submitForm" class="btn btn-default m-1 p-1 btn-success" asp-action>Create</button>
+        <br />
+        <br />
+        <div class="form-group">
+            <div class="">
+                <button type="submit" id="submitForm" class="btn btn-default m-1 p-1 btn-success" asp-action>Create teacher</button>
+            </div>
         </div>
     </div>
-</div>
 }
 
 <br />
@@ -88,12 +88,11 @@
     <h2>Teachers</h2>
 
     <table class="table table-hover">
-        <thead>
+        <thead class="tableHead">
             <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
+                <th>Name</th>
                 <th>Username</th>
-                <th>Courses</th>
+                <th>Teaches</th>
             </tr>
         </thead>
         <tbody>
