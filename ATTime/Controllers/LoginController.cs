@@ -12,6 +12,8 @@ namespace ATTime.Controllers
 {
     public class LoginController : Controller
     {
+        private int? school;
+
         public ActionResult Index(LoginModel model)
         {
             ViewBag.msg = "";
@@ -23,6 +25,7 @@ namespace ATTime.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model)
         {
+            var context = new ATTime_DBContext();
             if (ModelState.IsValid)
             {
                 var username = model.Username;
@@ -34,7 +37,6 @@ namespace ATTime.Controllers
 
                 var password = pasw;
 
-                var context = new ATTime_DBContext();
                 var OperatorUsername = context.Operators
                             .Where(s => s.Username == username)
                             .Count();

@@ -2,12 +2,15 @@
 @using ATTime.Models.ViewModel
 @using ATTime.Models
 
+<style>
+
+</style>
 
 <div class="col-2 float-left" style="curser:pointer;">
-    <div>
+    <div class="row b_blue">
         <h5>@Model.Calender.CalenderName</h5>
     </div>
-    <div>
+    <div id="@Model.CalenderId" class="row @Model.CalenderId">
         @if (Model.CourseId == 1)
         {
             <p>No courses for this day, add yours:</p>
@@ -15,6 +18,7 @@
             {
                 <input type="hidden" value="@ViewData["team"]" name="teamid" />
                 <input type="hidden" name="calendercourseid" value="@Model.CourseCalenderId" />
+                <input type="hidden" name="courseid" value="@Model.CourseId" />
                 <select type="submit" name="Courseid">
                     @foreach (CourseOperator c in ViewBag.CO)
                     {
@@ -30,22 +34,27 @@
             <h6>@Model.Course.CourseName</h6>
             <button id="@Model.CourseCalenderId">See attendance</button>
             <script>
-                $("#@Model.CourseCalenderId").click(function () {
-                    var TeamID = @Model.TeamId;
-                    var date = @Model.CalenderId;
-                    $.ajax({
-                        type: "POST",
-                        url: "@Url.Content("~/TeacherView/attend")",
-                        data: {TeamID: TeamID, date: date},
-                    success: function (response) {
-                        $("#data").html(response);
-                        $("#data").addClass("show");
-                    }
-                    });
-                });
+        $("#@Model.CourseCalenderId").click(function () {
+            var TeamID = @Model.TeamId;
+            var date = @Model.CalenderId;
+            $.ajax({
+                type: "POST",
+                url: "@Url.Content("~/TeacherView/attend")",
+                data: {TeamID: TeamID, date: date},
+            success: function (response) {
+                $("#data").html(response);
+                $("#data").addClass("show");
+            }
+            });
+        });
             </script>
         }
     </div>
 </div>
+<script>
+    if (@Model.CalenderId == @ViewBag.today) {
+        $("#@Model.CalenderId").addClass("d_blue");
+    }
+</script>
 
 

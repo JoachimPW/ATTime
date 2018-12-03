@@ -281,6 +281,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="wwwroot\css\style.css" />
     <Content Include="wwwroot\css\TeacherView.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />

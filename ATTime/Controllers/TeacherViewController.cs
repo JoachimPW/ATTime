@@ -69,6 +69,7 @@ namespace ATTime.Controllers
             ViewData["Role"] = currentrole;
             ViewData["Schoolname"] = schoolname;
             ViewData["Logo"] = schoollogo;
+            ViewData["team"] = teamid;
 
             //Koden fra calender
             var start_date = DateTime.Now.ToString("dd-MM-yyyy");
@@ -88,6 +89,8 @@ namespace ATTime.Controllers
 
             ViewBag.TO = teams_calender;
             ViewBag.CO = course_operator;
+            var tid = context.Calenders.Where(s => s.CalenderName == start_date).Single().CalenderId;
+            ViewBag.today = tid;
 
             //Selven koden til funktionen
             var today = DateTime.Now.ToString("dd/MM/yyyy");
@@ -131,10 +134,15 @@ namespace ATTime.Controllers
 
 
                 //tilføjer en kode til dagen, så man kan tjekke ind:
+                var calender_day = context.CourseCalenders
+                    .Where(s => s.CourseCalenderId == calendercourseid)
+                    .Single().CalenderId;
                 var code = new CourseCode()
                 {
                     Code = authToken,
-                    CalenderId = today_id
+                    CalenderId = calender_day,
+                    TeamId = teamid
+
                 };
                 context.CourseCodes.Add(code);
                 context.SaveChanges();
@@ -177,6 +185,8 @@ namespace ATTime.Controllers
 
           ViewBag.TO = teams_calender;
           ViewBag.CO = course_operator;
+            var tid = context.Calenders.Where(s => s.CalenderName == start_date).Single().CalenderId;
+            ViewBag.today = tid;
 
             //Sakffer routen for en bruger
             if (currentrole == "Teacher" && currentid != 0)
@@ -206,6 +216,9 @@ namespace ATTime.Controllers
             ViewData["Schoolname"] = schoolname;
             ViewData["Logo"] = schoollogo;
             ViewData["team"] = teamid;
+            var today = DateTime.Now.ToString("dd-MM-yyyy");
+            var tid = context.Calenders.Where(s => s.CalenderName == today).Single().CalenderId;
+            ViewBag.today = tid;
 
             //Tilføj koden her:
             if (start == null || end == null)
@@ -357,7 +370,7 @@ namespace ATTime.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult attend(int TeamID, int date)
+        public ActionResult attend(int TeamID, int date, int courseid)
         {
             //Kode
             var context = new ATTime_DBContext();
@@ -380,8 +393,9 @@ namespace ATTime.Controllers
                 .Where(s => s.TeamId == TeamID)
                 .Single().TeamName;
             var code = context.CourseCodes
-                .Where(s => s.CalenderId == date)
+                .Where(s => s.CalenderId == date && s.TeamId == TeamID)
                 .Single().Code;
+            ViewBag.cid = courseid;
             ViewBag.code = code;
             ViewBag.team = team_name;
             ViewBag.course = course;

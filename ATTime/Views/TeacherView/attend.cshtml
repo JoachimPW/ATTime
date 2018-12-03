@@ -7,21 +7,24 @@
     <h4>Code: @ViewBag.code</h4>
     @foreach (ATTime.Models.AttendanceCourseStudent a in ViewBag.ATT)
     {
-        <div class="row">
-            <div class="col-6">@a.Student.FirstName @a.Student.LastName</div>
-            <div class="col-6">
-                @if (a.AttendanceId == 1)
-                {
-                    <div class="didn"></div>
-                    <p>Didn't Attend</p>
-                }
-                else
-                {
-                    <div class="didn"></div>
-                    <p>Attended</p>
-                }
+        @if (Studencount.count_courses(((int)Model.StudentId), ((int)Model.CourseId)) > 0)
+        {
+            <div class="row">
+                <div class="col-6">@a.Student.FirstName @a.Student.LastName</div>
+                <div class="col-6">
+                    @if (a.AttendanceId == 1)
+                    {
+                        <div class="didn"></div>
+                        <p>Didn't Attend</p>
+                    }
+                    else
+                    {
+                        <div class="did"></div>
+                        <p>Attended</p>
+                    }
+                </div>
             </div>
-        </div>
+        }
     }
 </div>
 <script>
