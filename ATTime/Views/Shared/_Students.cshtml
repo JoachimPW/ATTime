@@ -4,9 +4,11 @@
 @{
     ViewBag.Title = "_Students";
 }
+
+@Styles.Render("~/wwwroot/css/AdminTeamView.css")
+@Styles.Render("~/wwwroot/css/AdminStudentView.css")
 <tr class="SearchStudent">
-    <td>@Model.Student.FirstName</td>
-    <td>@Model.Student.LastName</td>
+    <td>@Model.Student.FirstName @Model.Student.LastName</td>    
     <td>@Model.Student.Username</td>
     <td>
 
@@ -24,12 +26,12 @@
         {
             foreach (var c in GetStudentCourse())
             {
-                <p> @Ccourse.course(c.CourseId)</p>
+        <li style="display:inline;"> @Ccourse.course(c.CourseId) |</li>
             }
         }
         
     </td>
-    <th>
+    <td id="addCourseTD">
 
         @functions {
             ATTime_DBContext db = new ATTime_DBContext();
@@ -42,10 +44,11 @@
             }
         }
 
-        @using (Html.BeginForm("AddCourseStudent", "Register", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("AddCourseStudent", "Register", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @id = "addCourse", role = "form" }))
         {
-            <input type="hidden" value="@Model.Student.StudentId" id="studentid" name="studentid"/>
-            <select asp-action="" type="submit" name="Courseid">
+            <input type="hidden" value="@Model.Student.StudentId" id="studentid" name="studentid" />
+            <select class="form-control selectList" name="Courseid">
+                <option value="" selected disabled hidden id="defaultOption">Select Course</option>
 
                 @foreach (Course c in ViewBag.CourseNAME)
                 {
@@ -54,18 +57,12 @@
                     </option>
                 }
             </select>
-
-
-            <div class="form-group">
-                <div class="">
-                    <button type="submit" id="submitForm" class="btn btn-default m-1 p-1 btn-success" asp-action>
-                        Add Course
-                    </button>
-                </div>
-            </div>
+            <button type="submit" id="submitForm" class="btn btn-default m-1 p-1 btn-success modalBtn haps" asp-action>
+                Add
+            </button>
         }
 
-    </th>
+    </td>
 
     <td>
         @using (Html.BeginForm("DeleteStudent", "Register", FormMethod.Post))
@@ -76,35 +73,38 @@
     </td>
 </tr>
 
+
+
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script>
+       
     $(document).ready(function () {
-            function Contains(text_one, text_two) {
-                if (text_one.indexOf(text_two) != -1)
-                    return true;
-            }
+        function Contains(text_one, text_two) {
+            if (text_one.indexOf(text_two) != -1)
+                return true;
+        }
         $("#SearchStudent").keyup(function () {
-                var searchText = $("#SearchStudent").val().toLowerCase();
+            var searchText = $("#SearchStudent").val().toLowerCase();
             $(".SearchStudent").each(function () {
-                    if (!Contains($(this).text().toLowerCase(), searchText)) {
+                if (!Contains($(this).text().toLowerCase(), searchText)) {
                     $(this).fadeOut();
-                    }
-                    else {
+                }
+                else {
                     $(this).fadeIn();
-                    }
-                });
-            });
-
-        $("#SearchTeacher").keyup(function () {
-                var searchText = $("#SearchTeacher").val().toLowerCase();
-            $(".SearchTeacher").each(function () {
-                    if (!Contains($(this).text().toLowerCase(), searchText)) {
-                    $(this).fadeOut();
-                    }
-                    else {
-                    $(this).fadeIn();
-                    }
-                });
+                }
             });
         });
+
+        $("#SearchTeacher").keyup(function () {
+            var searchText = $("#SearchTeacher").val().toLowerCase();
+            $(".SearchTeacher").each(function () {
+                if (!Contains($(this).text().toLowerCase(), searchText)) {
+                    $(this).fadeOut();
+                }
+                else {
+                    $(this).fadeIn();
+                }
+            });
+        });
+    });
 </script>

@@ -4,8 +4,7 @@
 @{
     ViewBag.Title = "Student";
 }
-
-
+@Styles.Render("~/wwwroot/css/AdminStudentView.css")
 
 @Html.ActionLink("Admin View", "Index", "AdminView")
 
@@ -17,75 +16,93 @@
 
 <br />
 
-<h1>
-    TeamID: @ViewBag.testTeamId
-    @ViewData["TEAMID"]
-
-
-    @ViewBag.zeze
-</h1>
+<h1>@ViewBag.TeamName</h1>
 <br />
-<h2>Create new student</h2>
-@using (Html.BeginForm("CreateStudent", "Register", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(false)
 
-    <div class="">
-        <div class"">
-            @Html.LabelFor(model => model.FirstName, new { @class = "" })
-            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.FirstName)
-        </div>
-        <br />
+<button type="button" class="btn btn-info btn-lg modalBtn" data-toggle="modal" data-target="#myModal">Add student to team</button>
 
-        <div class"">
-            @Html.LabelFor(model => model.LastName, new { @class = "" })
-            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.LastName)
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
-        </div>
-        <br />
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Create new student</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("CreateStudent", "Register", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @id = "studentForm", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(false)
 
-        <div class"">
-            @Html.LabelFor(model => model.Psw, new { @class = "" })
-            @Html.TextBoxFor(model => model.Psw, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Psw)
+                    <div class="">
+                        <div class"">
+                            @Html.Label("First name", new { @class = "" })
+                            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.FirstName)
+                        </div>
+                        <br />
 
-        </div>
-        <br />
+                        <div class"">
+                            @Html.Label("Last name", new { @class = "" })
+                            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.LastName)
 
-        <div class="form-group">
-            <div class="">
-                <button type="submit" id="submitForm" class="btn btn-default m-1 p-1 btn-success" asp-action>Create</button>
-                <button class="btn btn-default m-1 p-1 btn-success">Get from efif</button>
+                        </div>
+                        <br />
 
+                        <div class"">
+                            @Html.Label("Password", new { @class = "" })
+                            @Html.TextBoxFor(model => model.Psw, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Psw)
+
+                        </div>
+                        <br />
+
+                        <div class="form-group">
+                            <div class="">
+                                <button type="submit" id="submitForm" class="btn btn-default m-1 p-1 btn-success modalBtn">Create</button>
+                                <button class="btn btn-default m-1 p-1 btn-success modalBtn">Get from efif</button>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
-}
+</div>
 <br />
 <br />
+
+<!-- SEARCH FOR STUDENT -->
 <div class="container" style="text-align:center;">
     <div class="form-group">
-        <div class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-            <input style="margin:0 auto;" type="text" id="SearchStudent" placeholder="Search" class="form-control" />
-        </div>
+        
     </div>
 </div>
 
+
+<!-- STUDENT TABLE START -->
 <div class="container">
-    <h2>Students</h2>
+    
+    <div class="input-group">
+        <h2>Students</h2> <p></p>
+        <span class="input-group-addon glyphicon glyphicon-search"></span>
+        <input type="text" id="SearchStudent" placeholder="Search" class="form-control" />
+    </div>
 
     <table class="table table-hover">
-        <thead>
+        <thead class="tableHead">
             <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
+                <th>Name</th>
                 <th>Username</th>
                 <th>Course</th>
-                <th>Add Course</th>
+                <th>Add Course </th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -93,34 +110,31 @@
             @foreach (TeamStudent student in ViewBag.tester)
             {
                 @Html.Partial("_Students", student)
-            }           
-            
+            }
+
         </tbody>
-        
+
         <tbody></tbody>
     </table>
 </div>
+<!-- STUDENT TABLE SLUT-->
 
 <br />
 <br />
+<!-- SEARCH FOR TEACHER -->
 
-<div class="container" style="text-align:center;">
-    <div class="form-group">
-        <div class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-            <input style="margin:0 auto;" type="text" id="SearchTeacher" placeholder="Search" class="form-control" />
-        </div>
+
+<!-- TEACHER TABLE START -->
+<div class="container">    
+    <div class="input-group">
+        <h2>Teachers</h2>
+        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+        <input type="text" id="SearchTeacher" placeholder="Search" class="form-control" />
     </div>
-</div>
-
-<div class="container">
-    <h2>Teachers</h2>
-
     <table class="table table-hover">
-        <thead>
+        <thead class="tableHead">
             <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
+                <th>Name</th>
                 <th>Username</th>
                 <th>Teaches</th>
             </tr>
@@ -136,27 +150,30 @@
 
     </table>
 
+    <!-- TEACHER TABLE SLUT -->
+    <!-- ADD TEACHER START-->
+
     @using (Html.BeginForm("UpdateTeacher", "Register", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
-        <select asp-action="" type="submit" name="operatorid">
-
+        <select class="form-control selectList" name="operatorid">
+            <option value="" selected disabled hidden>--Select Teacher--</option>
             @foreach (Operator teach in ViewBag.oprtr)
             {
                 <option value="@teach.OperatorId" name="operatorid" id="operatorid">
                     @teach.FirstName @teach.LastName
                 </option>
-            }
-
+            } selectList"
+            sdsa
         </select>
         <div class="form-group">
             <div class="">
-                <button type="submit" id="submitForm" class="btn btn-default m-1 p-1 btn-success" asp-action>
+                <button type="submit" id="submitForm" class="btn btn-default m-1 p-1 btn-success modalBtn" asp-action>
                     Add teacher
                 </button>
             </div>
         </div>
-        }
-    </div>
+    }
+</div>
 <br />
 <br />
 

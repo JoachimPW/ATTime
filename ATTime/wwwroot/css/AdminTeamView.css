@@ -1,21 +1,65 @@
 ﻿body {
-    margin:0;
-
+    margin: 0;
 }
 
 .Team {
-    border:1px solid black;
-    border-radius: 5px;
-    width:20%;
-    display:inline-block;
-    float:left;
-    padding:0px;
-    margin:20px;
+    width: 20%;
+    display: inline-block;
+    float: left;
+    padding: 0px;
+    margin: 20px;
+}
+
+#addCourse {
+  
 }
 
 .TeamBtn {
-    background-color:white;
-    border:0px;
-    width:100%;
-    padding:0px;
+    background-color: white;
+    width: 100%;
+    padding: 10px 5px 5px 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px grey;
+    transition: all 0.2s;
+    cursor: pointer;
 }
+
+    .TeamBtn:hover {
+        background-color: #F9F9F9;
+    }
+
+    .TeamBtn span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+    }
+
+.TeamBtn:focus {
+    outline: 0;
+}
+
+        .TeamBtn span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+
+    .TeamBtn:hover span {
+        padding-right: 25px;
+    }
+
+        .TeamBtn:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+
+    .TeamBtn:active {
+        color:white;
+        background-color:#233656;
+        transition: 0.1s;
+    }

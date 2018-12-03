@@ -12,8 +12,8 @@
     {
         <input type="hidden" name="teamid" value="@Model.TeamId" />
         <button type="submit" class="TeamBtn">
-            <h2> @Model.TeamName </h2>
-            <p> Students: @ATTime.Models.ViewModel.Studencount.student_count(@Model.TeamId) </p>
+            <h2>  <span>@Model.TeamName</span></h2>
+            <p>Students: @ATTime.Models.ViewModel.Studencount.student_count(@Model.TeamId) </p>
             <p>Teachers: @ATTime.Models.ViewModel.TeacherCount.teacher_count(@Model.TeamId) </p>
         </button>
     }

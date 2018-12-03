@@ -13,7 +13,8 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false)
 
-    <div class="">
+    <div class="display-5">
+        <h2> Create Team </h2>
         <div class"">
             @Html.LabelFor(model => model.TeamName, new { @class = "" })
             @Html.TextBoxFor(model => model.TeamName, new { @class = "form-control", @onkeyup = "UserCheck()" })

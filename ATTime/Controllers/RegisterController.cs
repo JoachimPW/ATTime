@@ -107,6 +107,9 @@ namespace ATTime.Controllers
             ViewData["adminFirstname"] = adminFirstname;
             ViewData["adminLastname"] = adminLastname;
 
+            var TeamName = db.Teams.Where(i => i.TeamId == teamId).Single().TeamName;
+            ViewBag.TeamName = TeamName;
+
             var studentList = db.Students.ToList();
             ViewBag.STUDENT = studentList;
             
@@ -151,7 +154,7 @@ namespace ATTime.Controllers
 
         public JsonResult CheckTeamNameAvailability(string userdata)
         {
-            System.Threading.Thread.Sleep(200);
+            System.Threading.Thread.Sleep(500);
             var SearchData = db.Teams.Where(x => x.TeamName == userdata).SingleOrDefault();
             if (SearchData != null)
             {
@@ -435,21 +438,25 @@ namespace ATTime.Controllers
             if (studentid == 0)
             {
                 ViewData["msg"] = "Id not found";
-            }
+            } else{
+            
             using (var context = new ATTime_DBContext())
             {
                 var students = context.Students.FirstOrDefault(s => s.StudentId == studentid);
                 var teamStudents = context.TeamStudents.Single(s => s.StudentId == studentid);
-                var courseStudents = context.CourseStudents.Single(s => s.StudentId == studentid);
+                // var courseStudents = context.CourseStudents.Where(s => s.StudentId == studentid).ToList();
+                
                 if (students == null)
                 {
                     ViewData["msg"] = "Student not found";
                 }
-                context.CourseStudents.Remove(courseStudents);
+
+                context.CourseStudents.RemoveRange(context.CourseStudents.Where(s => s.StudentId == studentid));
                 context.TeamStudents.Remove(teamStudents);
                 context.Students.Remove(students);
 
                 context.SaveChanges();
+            }
             }
             return RedirectToAction("Student", "Register");
         }

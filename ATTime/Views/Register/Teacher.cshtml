@@ -21,7 +21,6 @@
     <hr />
     <br />
 
-
     <div class"">
         @Html.LabelFor(model => model.FirstName, new { @class = "" })
         @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
@@ -53,7 +52,7 @@
 
     </div>
     <br />
-    <select asp-action="" type="submit" name="Courseid">
+    <select name="Courseid">
 
         @foreach (Course c in ViewBag.CourseNAME)
         {

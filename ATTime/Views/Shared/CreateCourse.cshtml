@@ -8,6 +8,8 @@
 
 @Html.Partial("_AdminNav")
 
+<h2> Create Course</h2>
+
 @using (Html.BeginForm("CreateCourse", "Register", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
