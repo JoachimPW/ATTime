@@ -1,10 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@using ATTime.Models.LoginViewModels
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/wwwroot/css/TeacherView.css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
 </head>
@@ -15,6 +17,11 @@
                  src="~/wwwroot/images/@ViewData["Logo"]" />
         </div>
         <nav>
+            <h2>
+                @LoginCheckViewModel.Firstname(((int)ViewData["id"]), ((string)ViewData["Role"]))
+                @LoginCheckViewModel.Lastname(((int)ViewData["id"]), ((string)ViewData["Role"]))
+            </h2>
+            <h5>@ViewData["Role"]</h5>
             @Html.ActionLink("Teams", "Index", "TeacherView")
             @using (Html.BeginForm("calender", "TeacherView", FormMethod.Post))
             {

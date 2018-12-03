@@ -4,12 +4,6 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_Teacher.cshtml";
 }
-<h2>
-    @LoginCheckViewModel.Firstname(((int)ViewData["id"]), ((string)ViewData["Role"]))
-    @LoginCheckViewModel.Lastname(((int)ViewData["id"]), ((string)ViewData["Role"]))
-</h2>
-<h5>@ViewData["Role"]</h5>
-
 @foreach (TeamOperator team in ViewBag.TO)
  {
     @Html.Partial("_team_teacher", team)

@@ -3,23 +3,19 @@
 @{
     Layout = "~/Views/Shared/_Layout_Teacher_two.cshtml";
 }
-<h2>
-    @LoginCheckViewModel.Firstname(((int)ViewData["id"]), ((string)ViewData["Role"]))
-    @LoginCheckViewModel.Lastname(((int)ViewData["id"]), ((string)ViewData["Role"]))
-</h2>
-<h5>@ViewData["Role"]</h5>
 
-<div class="Student"></div>
+<div id="data" class="data"></div>
+<p>@ViewBag.msg</p>
 @using (Html.BeginForm("between", "TeacherView", FormMethod.Post))
 {
     <input type="hidden" value="@ViewData["team"]" name="teamid" />
     <label>Start date</label>
-    <input type="date" name="start" id="Date_start" class="hasDatepicker" />
+    <input type="date" name="start" id="Date_start" class="hasDatepicker" value="2018-11-01"/>
     <label>End date</label>
-    <input type="date" name="end" id="Date_end" class="hasDatepicker" />
+    <input type="date" name="end" id="Date_end" class="hasDatepicker" value="2019-01-29"/>
     <button type="submit" class="btn btn-default m-1 p-1 btn-success">Add calender</button>
 }
-
+@Html.ActionLink("Hey", "attend", "TeacherView")
 @foreach (CourseCalender course in ViewBag.TO)
 {
     @Html.Partial("_calender_teacher", course)

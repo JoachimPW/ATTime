@@ -281,6 +281,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="wwwroot\css\TeacherView.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -369,7 +370,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_SearchStudent.cshtml" />
     <Content Include="Views\Shared\_Students.cshtml" />
-    <Content Include="Views\Shared\_Student_attend.cshtml" />
     <Content Include="Views\Shared\_Teachers.cshtml" />
     <Content Include="Views\Shared\_Teams.cshtml" />
     <Content Include="Views\Shared\_team_teacher.cshtml" />
@@ -386,8 +386,8 @@
     <Content Include="Views\Shared\_Layout_Teacher.cshtml" />
     <Content Include="Views\Shared\_Layout_Teacher_two.cshtml" />
     <Content Include="Views\Shared\CreateCourse.cshtml" />
-    <Content Include="Views\TeacherView\_Student_attend.cshtml" />
     <Content Include="Views\Shared\_TeamName.cshtml" />
+    <Content Include="Views\TeacherView\attend.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

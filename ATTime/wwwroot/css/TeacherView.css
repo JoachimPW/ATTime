@@ -1,0 +1,25 @@
+﻿body {
+}
+.show {
+    position: fixed;
+    width: 400px;
+    left: calc(50% - 150px);
+    top: 200px;
+    border: 1px solid #808080;
+    background-color:white;
+    z-index: 1000;
+    padding: 20px;
+}
+.did {
+    width:20px;
+    height: 20px;
+    border-radius: 200px;
+    background-color: green;
+    
+}
+.didn {
+    width: 20px;
+    height: 20px;
+    border-radius: 200px;
+    background-color: red;
+}

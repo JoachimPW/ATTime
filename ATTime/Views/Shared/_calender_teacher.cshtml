@@ -35,14 +35,12 @@
                     var date = @Model.CalenderId;
                     $.ajax({
                         type: "POST",
-                        url: "~/Views/_Student_attend.cshtml",
-                        data: {
-                            TeamID: TeamID,
-                            date: date
-                        },
-                        success: function (result) {
-                            $(".Student").html(result);
-                        }
+                        url: "@Url.Content("~/TeacherView/attend")",
+                        data: {TeamID: TeamID, date: date},
+                    success: function (response) {
+                        $("#data").html(response);
+                        $("#data").addClass("show");
+                    }
                     });
                 });
             </script>

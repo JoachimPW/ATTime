@@ -1,0 +1,32 @@
+﻿@model ATTime.Models.AttendanceCourseStudent
+@using ATTime.Models.ViewModel
+
+<div class="">
+    <h3 style="width: 90%; float:left;">@ViewBag.team, @ViewBag.course d. @ViewBag.date</h3>
+    <p class="close" style="width:9%;">X</p>
+    <h4>Code: @ViewBag.code</h4>
+    @foreach (ATTime.Models.AttendanceCourseStudent a in ViewBag.ATT)
+    {
+        <div class="row">
+            <div class="col-6">@a.Student.FirstName @a.Student.LastName</div>
+            <div class="col-6">
+                @if (a.AttendanceId == 1)
+                {
+                    <div class="didn"></div>
+                    <p>Didn't Attend</p>
+                }
+                else
+                {
+                    <div class="didn"></div>
+                    <p>Attended</p>
+                }
+            </div>
+        </div>
+    }
+</div>
+<script>
+    $(".close").click(function () {
+        $("#data").empty();
+        $("#data").removeClass("show");
+    });
+</script>
