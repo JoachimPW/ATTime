@@ -2,59 +2,61 @@
 @using ATTime.Models.ViewModel
 @using ATTime.Models
 
-<style>
 
-</style>
 
-<div class="col-2 float-left" style="curser:pointer;">
-    <div class="row b_blue">
-        <h5>@Model.Calender.CalenderName</h5>
+<td class="blue_tab border-dark" style="curser:pointer;">
+    <div class="calender_header row l_blue text-center pt-1 pb-1 border-left border-dark">
+        <h5 class="m-auto">@Model.Calender.CalenderName</h5>
     </div>
-    <div id="@Model.CalenderId" class="row @Model.CalenderId">
+    <div id="@Model.CalenderId" class="row @Model.CalenderId blue_tab_under">
         @if (Model.CourseId == 1)
         {
-            <p>No courses for this day, add yours:</p>
-            using (Html.BeginForm("AddCourse", "TeacherView", FormMethod.Post))
-            {
-                <input type="hidden" value="@ViewData["team"]" name="teamid" />
-                <input type="hidden" name="calendercourseid" value="@Model.CourseCalenderId" />
-                <input type="hidden" name="courseid" value="@Model.CourseId" />
-                <select type="submit" name="Courseid">
-                    @foreach (CourseOperator c in ViewBag.CO)
-                    {
-                        <option value="@c.CourseId">@c.Course.CourseName</option>
-                    }
-                </select>
-                <button type="submit" class="btn btn-default m-1 p-1 btn-success">Add</button>
-            }
+            <p class="m-auto">Add course:</p>
+            <div class="m-auto">
+                @using (Html.BeginForm("AddCourse", "TeacherView", FormMethod.Post))
+                 {
+                    <input type="hidden" value="@ViewData["team"]" name="teamid" />
+                    <input type="hidden" name="calendercourseid" value="@Model.CourseCalenderId" />
+                    <select name="Courseid" class="SelectList p-2 bg-transparent haps">
+                        @foreach (CourseOperator c in ViewBag.CO)
+                        {
+                            <option value="@c.CourseId">@c.Course.CourseName</option>
+                        }
+                    </select>
+                    <button type="submit" class="btn btn-default m-1 p-1 modalBtn text-light haps">Add</button>
+                 }
+            </div>
 
         }
         else
         {
-            <h6>@Model.Course.CourseName</h6>
-            <button id="@Model.CourseCalenderId">See attendance</button>
+            <h6 class="m-auto">@Model.Course.CourseName</h6>
+            <button id="@Model.CourseCalenderId" class="m-auto modalBtn text-light">See attendance</button>
             <script>
-        $("#@Model.CourseCalenderId").click(function () {
-            var TeamID = @Model.TeamId;
-            var date = @Model.CalenderId;
-            $.ajax({
-                type: "POST",
-                url: "@Url.Content("~/TeacherView/attend")",
-                data: {TeamID: TeamID, date: date},
-            success: function (response) {
-                $("#data").html(response);
-                $("#data").addClass("show");
-            }
+            $("#@Model.CourseCalenderId").click(function () {
+                var TeamID = @Model.TeamId;
+                var date = @Model.CalenderId;
+                var courseid = @Model.CourseId;
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Content("~/TeacherView/attend")",
+                    data: { TeamID: TeamID, date: date, courseid: courseid },
+                success: function (response) {
+                    $("#data").html(response);
+                    $("#data").addClass("show");
+                }
+                });
             });
-        });
             </script>
         }
     </div>
-</div>
-<script>
+    <script>
     if (@Model.CalenderId == @ViewBag.today) {
-        $("#@Model.CalenderId").addClass("d_blue");
+        $("#@Model.CalenderId").addClass("d_blue text-light");
+        $(".SelectList").addClass("text-light");
     }
 </script>
+</td>
+
 
 

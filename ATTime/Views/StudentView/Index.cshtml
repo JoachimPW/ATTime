@@ -4,37 +4,36 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_Student.cshtml";
 }
-
-
-<h2>
-    @LoginCheckViewModel.Firstname(((int)ViewData["id"]), ((string)ViewData["Role"]))
-    @LoginCheckViewModel.Lastname(((int)ViewData["id"]), ((string)ViewData["Role"]))
-</h2>
-<h5>@ViewData["Role"]</h5>
-<br />
-@if (Studencount.count_courses(((int)ViewData["CID"]), ((int)ViewData["id"])) > 0)
+@if (ViewBag.att == 2)
+ {
+    <h2>You have attended todays course.</h2>
+ }
+else
 {
-    if (((int)ViewData["CID"]) == 1)
+    if (Studencount.count_courses(((int)ViewData["id"]), ((int)ViewData["CID"])) > 0)
+    {
+        if (((int)ViewData["CID"]) == 1)
+        {
+            <h2>You have study day today.</h2>
+        }
+        else
+        {
+            <h2>Check in</h2>
+            <h3>Todays course is @ViewData["TC"]</h3>
+
+            using (Html.BeginForm("attend", "StudentView", FormMethod.Post))
+            {
+                <input type="text" name="code_for_torday" />
+                <button type="submit" class="btn btn-default m-1 p-1 btn-success">Check in</button>
+            }
+        }
+    }
+    else if (((int)ViewData["CID"]) == 1)
     {
         <h2>You have study day today.</h2>
     }
     else
     {
-        <h2>Check in</h2>
-        <h3>Todays course is @ViewData["TC"]</h3>
-
-        using (Html.BeginForm("attend", "StudentView", FormMethod.Post))
-        {
-            <input type="text" name="code_for_torday" />
-            <button type="submit" class="btn btn-default m-1 p-1 btn-success">Check in</button>
-        }
+        <h3>You are currently not on a Team</h3>
     }
-}
-else if (((int)ViewData["CID"]) == 1)
-{
-    <h2>You have study day today.</h2>
-}
-else
-{
-    <h3>You are currently not on a Team</h3>
 }

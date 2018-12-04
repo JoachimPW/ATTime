@@ -7,7 +7,7 @@
     <h4>Code: @ViewBag.code</h4>
     @foreach (ATTime.Models.AttendanceCourseStudent a in ViewBag.ATT)
     {
-        @if (Studencount.count_courses(((int)Model.StudentId), ((int)Model.CourseId)) > 0)
+        if (Studencount.count_courses(((int)a.StudentId), ((int)a.CourseId)) > 0)
         {
             <div class="row">
                 <div class="col-6">@a.Student.FirstName @a.Student.LastName</div>

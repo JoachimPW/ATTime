@@ -166,6 +166,8 @@ namespace ATTime.Controllers
             ViewData["Schoolname"] = schoolname;
             ViewData["Logo"] = schoollogo;
             ViewData["team"] = teamid;
+            var teamname = context.Teams.Where(s => s.TeamId == teamid).FirstOrDefault().TeamName;
+            ViewBag.teamname = teamname;
 
             //Tilføj koden her:
             var start_date = DateTime.Now.ToString("dd-MM-yyyy");
@@ -219,6 +221,8 @@ namespace ATTime.Controllers
             var today = DateTime.Now.ToString("dd-MM-yyyy");
             var tid = context.Calenders.Where(s => s.CalenderName == today).Single().CalenderId;
             ViewBag.today = tid;
+            var teamname = context.Teams.Where(s => s.TeamId == teamid).FirstOrDefault().TeamName;
+            ViewBag.teamname = teamname;
 
             //Tilføj koden her:
             if (start == null || end == null)
@@ -376,10 +380,11 @@ namespace ATTime.Controllers
             var context = new ATTime_DBContext();
             var course_date = context.Calenders
                 .Where(s => s.CalenderId == date)
-                .Single().CalenderName;
+                .FirstOrDefault().CalenderName;
             var Attended = context.AttendanceCourseStudents
                 .Where(s => s.TeamId == TeamID)
-                .Where(s => s.Calender.CalenderName == course_date)
+                .Where(s => s.CourseId == courseid)
+                .Where(s => s.CalenderId == date)
                 .Include(s => s.Student)
                 .ToList()
                 .OrderBy(s => s.AttendanceId);
@@ -388,13 +393,14 @@ namespace ATTime.Controllers
                 .Where(s => s.CalenderId == date)
                 .Where(s => s.TeamId == TeamID)
                 .Include(s => s.Course)
-                .Single().Course.CourseName;
+                .FirstOrDefault().Course.CourseName;
             var team_name = context.Teams
                 .Where(s => s.TeamId == TeamID)
-                .Single().TeamName;
+                .FirstOrDefault().TeamName;
             var code = context.CourseCodes
-                .Where(s => s.CalenderId == date && s.TeamId == TeamID)
-                .Single().Code;
+                .Where(s => s.CalenderId == date)
+                .Where(s => s.TeamId == TeamID)
+                .FirstOrDefault().Code;
             ViewBag.cid = courseid;
             ViewBag.code = code;
             ViewBag.team = team_name;
