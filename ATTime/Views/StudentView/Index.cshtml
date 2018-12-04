@@ -12,7 +12,7 @@
 </h2>
 <h5>@ViewData["Role"]</h5>
 <br />
-@if (Studencount.count_courses(((int)ViewData["CID"]), ((int)ViewData["id"])) > 0)
+@if (Studencount.count_courses(((int)ViewData["id"]), ((int)ViewData["CID"])) > 0)
 {
     if (((int)ViewData["CID"]) == 1)
     {

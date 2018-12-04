@@ -18,8 +18,7 @@
             {
                 <input type="hidden" value="@ViewData["team"]" name="teamid" />
                 <input type="hidden" name="calendercourseid" value="@Model.CourseCalenderId" />
-                <input type="hidden" name="courseid" value="@Model.CourseId" />
-                <select type="submit" name="Courseid" class="SelectList p-1 text-dark">
+                <select name="Courseid" class="SelectList p-1 text-dark">
                     @foreach (CourseOperator c in ViewBag.CO)
                     {
                         <option value="@c.CourseId">@c.Course.CourseName</option>
@@ -34,19 +33,20 @@
             <h6>@Model.Course.CourseName</h6>
             <button id="@Model.CourseCalenderId">See attendance</button>
             <script>
-        $("#@Model.CourseCalenderId").click(function () {
-            var TeamID = @Model.TeamId;
-            var date = @Model.CalenderId;
-            $.ajax({
-                type: "POST",
-                url: "@Url.Content("~/TeacherView/attend")",
-                data: {TeamID: TeamID, date: date},
-            success: function (response) {
-                $("#data").html(response);
-                $("#data").addClass("show");
-            }
+            $("#@Model.CourseCalenderId").click(function () {
+                var TeamID = @Model.TeamId;
+                var date = @Model.CalenderId;
+                var courseid = @Model.CourseId;
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Content("~/TeacherView/attend")",
+                    data: { TeamID: TeamID, date: date, courseid: courseid },
+                success: function (response) {
+                    $("#data").html(response);
+                    $("#data").addClass("show");
+                }
+                });
             });
-        });
             </script>
         }
     </div>

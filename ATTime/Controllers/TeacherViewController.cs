@@ -376,7 +376,7 @@ namespace ATTime.Controllers
             var context = new ATTime_DBContext();
             var course_date = context.Calenders
                 .Where(s => s.CalenderId == date)
-                .Single().CalenderName;
+                .FirstOrDefault().CalenderName;
             var Attended = context.AttendanceCourseStudents
                 .Where(s => s.TeamId == TeamID)
                 .Where(s => s.Calender.CalenderName == course_date)
@@ -388,13 +388,14 @@ namespace ATTime.Controllers
                 .Where(s => s.CalenderId == date)
                 .Where(s => s.TeamId == TeamID)
                 .Include(s => s.Course)
-                .Single().Course.CourseName;
+                .FirstOrDefault().Course.CourseName;
             var team_name = context.Teams
                 .Where(s => s.TeamId == TeamID)
-                .Single().TeamName;
+                .FirstOrDefault().TeamName;
             var code = context.CourseCodes
-                .Where(s => s.CalenderId == date && s.TeamId == TeamID)
-                .Single().Code;
+                .Where(s => s.CalenderId == date)
+                .Where(s => s.TeamId == TeamID)
+                .FirstOrDefault().Code;
             ViewBag.cid = courseid;
             ViewBag.code = code;
             ViewBag.team = team_name;
