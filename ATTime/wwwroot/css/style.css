@@ -36,3 +36,66 @@
 .l_light_text {
     color: #EEF4F2;
 }
+
+.modalBtn {
+    background-color: #415B76;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border: 0;
+    border-radius: 5px;
+    padding: 8px 16px 8px 16px !important;
+}
+
+.modalBtn:hover {
+    background-color: #233656;
+}
+
+
+.TeamBtn {
+    background-color: white;
+    width: 100%;
+    padding: 10px 5px 5px 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px grey;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.TeamBtn:hover {
+    background-color: #F9F9F9;
+}
+
+.TeamBtn span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.TeamBtn:focus {
+    outline: 0;
+}
+
+.TeamBtn span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.TeamBtn:hover span {
+    padding-right: 25px;
+}
+
+    .TeamBtn:hover span:after {
+        opacity: 1;
+        right: 0;
+    }
+
+.TeamBtn:active {
+    color: white;
+    background-color: #233656;
+    transition: 0.1s;
+}

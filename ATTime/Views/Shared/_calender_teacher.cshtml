@@ -13,19 +13,19 @@
     <div id="@Model.CalenderId" class="row @Model.CalenderId">
         @if (Model.CourseId == 1)
         {
-            <p>No courses for this day, add yours:</p>
+            <p>Add course:</p>
             using (Html.BeginForm("AddCourse", "TeacherView", FormMethod.Post))
             {
                 <input type="hidden" value="@ViewData["team"]" name="teamid" />
                 <input type="hidden" name="calendercourseid" value="@Model.CourseCalenderId" />
                 <input type="hidden" name="courseid" value="@Model.CourseId" />
-                <select type="submit" name="Courseid">
+                <select type="submit" name="Courseid" class="SelectList p-1 text-dark">
                     @foreach (CourseOperator c in ViewBag.CO)
                     {
                         <option value="@c.CourseId">@c.Course.CourseName</option>
                     }
                 </select>
-                <button type="submit" class="btn btn-default m-1 p-1 btn-success">Add</button>
+                <button type="submit" class="btn btn-default m-1 p-1 modalBtn">Add</button>
             }
 
         }
