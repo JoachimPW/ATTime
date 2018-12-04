@@ -166,6 +166,8 @@ namespace ATTime.Controllers
             ViewData["Schoolname"] = schoolname;
             ViewData["Logo"] = schoollogo;
             ViewData["team"] = teamid;
+            var teamname = context.Teams.Where(s => s.TeamId == teamid).FirstOrDefault().TeamName;
+            ViewBag.teamname = teamname;
 
             //Tilføj koden her:
             var start_date = DateTime.Now.ToString("dd-MM-yyyy");
@@ -219,6 +221,8 @@ namespace ATTime.Controllers
             var today = DateTime.Now.ToString("dd-MM-yyyy");
             var tid = context.Calenders.Where(s => s.CalenderName == today).Single().CalenderId;
             ViewBag.today = tid;
+            var teamname = context.Teams.Where(s => s.TeamId == teamid).FirstOrDefault().TeamName;
+            ViewBag.teamname = teamname;
 
             //Tilføj koden her:
             if (start == null || end == null)

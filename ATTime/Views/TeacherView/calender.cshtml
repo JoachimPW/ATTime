@@ -5,6 +5,7 @@
 }
 
 <div id="data" class="data"></div>
+<h2>@ViewBag.teamname</h2>
 <p>@ViewBag.msg</p>
 @using (Html.BeginForm("between", "TeacherView", FormMethod.Post))
 {
@@ -13,10 +14,27 @@
     <input type="date" name="start" id="Date_start" class="hasDatepicker" value="2018-11-01"/>
     <label>End date</label>
     <input type="date" name="end" id="Date_end" class="hasDatepicker" value="2019-01-29"/>
-    <button type="submit" class="btn btn-default m-1 p-1 btn-success">Add calender</button>
+    <button type="submit" class="btn btn-default m-1 p-1 btn-success">Between these dates</button>
 }
-@foreach (CourseCalender course in ViewBag.TO)
-{
-    @Html.Partial("_calender_teacher", course)
-}
+    <table>
+        <thead>
+            <tr>
+                <th> Man. </th>
+                <th> Man. </th>
+                <th> Man. </th>
+                <th> Man. </th>
+                <th> Man. </th>
+                <th> Man. </th>
+                <th> Man. </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @foreach (CourseCalender course in ViewBag.TO)
+                {
+                    @Html.Partial("_calender_teacher", course)
+                }
+            </tr>
+        </tbody>
+    </table>
 

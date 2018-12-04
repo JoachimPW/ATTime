@@ -34,7 +34,8 @@ namespace ATTime.Controllers
             var today_course = context.CourseCalenders
                  .Where(s => s.CalenderId == today_id)
                  .Where(s => s.TeamId == team)
-                 .Single().CourseId;
+                 .Include(s => s.Course)
+                 .Single().Course.CourseName;
              var today_course_id = context.CourseCalenders
                .Where(s => s.CalenderId == today_id)
                .Where(s => s.TeamId == team)

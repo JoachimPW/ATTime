@@ -2,8 +2,10 @@
 @using ATTime.Models.ViewModel
 @using ATTime.Models
 
-<div class="col-2 float-left blue_tab" style="curser:pointer;">
-    <div class="row l_blue text-center">
+
+
+<td class="blue_tab border-dark" style="curser:pointer;">
+    <div class="calender_header row l_blue text-center pt-1 pb-1 border-left border-dark">
         <h5 class="m-auto">@Model.Calender.CalenderName</h5>
     </div>
     <div id="@Model.CalenderId" class="row @Model.CalenderId blue_tab_under">
@@ -15,7 +17,7 @@
                  {
                     <input type="hidden" value="@ViewData["team"]" name="teamid" />
                     <input type="hidden" name="calendercourseid" value="@Model.CourseCalenderId" />
-                    <select name="Courseid" class="SelectList p-2 text-dark bg-transparent haps">
+                    <select name="Courseid" class="SelectList p-2 bg-transparent haps">
                         @foreach (CourseOperator c in ViewBag.CO)
                         {
                             <option value="@c.CourseId">@c.Course.CourseName</option>
@@ -51,9 +53,10 @@
     <script>
     if (@Model.CalenderId == @ViewBag.today) {
         $("#@Model.CalenderId").addClass("d_blue text-light");
+        $(".SelectList").addClass("text-light");
     }
 </script>
-</div>
+</td>
 
 
 
