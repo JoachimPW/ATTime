@@ -3,35 +3,35 @@
 @{
     ViewBag.Title = "Teacher";
 }
+@Styles.Render("~/wwwroot/css/AdminStudentView.css")
 
 @Html.ActionLink("Admin View", "Index", "AdminView")
-
 @Html.Partial("_AdminNav")
 
-@using (Html.BeginForm("CreateTeam", "Register", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(false)
+<div class="CreateDiv">
 
-    <div class="display-5">
-        <h2> Create Team </h2>
-        <div class"">
-            @Html.LabelFor(model => model.TeamName, new { @class = "" })
-            @Html.TextBoxFor(model => model.TeamName, new { @class = "form-control", @onkeyup = "UserCheck()" })
-            @Html.ValidationMessageFor(model => model.TeamName)
-            <p id="Status"></p>
+    @using (Html.BeginForm("CreateTeam", "Register", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(false)
+
+        <div class="display-5">
+            <h2> Create Team </h2>
+            <div class"">               
+                @Html.TextBoxFor(model => model.TeamName, new { placeholder ="Team name", @class = "form-control", @onkeyup = "UserCheck()" })
+                @Html.ValidationMessageFor(model => model.TeamName)
+                <p id="Status"></p>
+            </div>
+            <br />
         </div>
-        <br />
-    </div>
-    <div class="form-group">
-        <div class="">
-            <button type="submit" id="submitForm" class="btn btn-default m-1 p-1 btn-success" asp-action>Create</button>
+        <div class="form-group">
+            <button type="submit" id="submitForm" class="btn btn-default m-1 p-1 btn-default modalBtn" asp-action>Create</button>
         </div>
-    </div>
-}
-
-@Html.Partial("CreateCourse")
-
+    }
+</div>
+<div class="CreateDiv">
+    @Html.Partial("CreateCourse")
+</div>
 
 <script>
     function UserCheck() {
@@ -53,4 +53,26 @@
             }
         });
     }
+
+    function UserCheck2() {
+        $("#Status1").html("Checking...");
+        $.post("@Url.Action("CheckCourseNameAvailability", "Register")",
+            {
+                userdata2: $("#CourseName").val()
+            },
+        function (data1) {
+            if (data1 == 0) {
+                $("#Status1").html('<font color="Green">Course name is available.</font>');
+                $("#CourseName").css("border-color", "Green");
+                $("#submitForm1").prop("disabled", false);
+            }
+            else {
+                $("#Status1").html('<font color="Red">Course already exists.</font>');
+                $("#CourseName").css("border-color", "Red");
+                $("#submitForm1").prop("disabled", true);
+            }
+        });
+    }
+
+
 </script>

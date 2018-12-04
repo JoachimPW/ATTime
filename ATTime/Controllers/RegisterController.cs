@@ -166,6 +166,20 @@ namespace ATTime.Controllers
             }
         }
 
+        public JsonResult CheckCourseNameAvailability(string userdata2)
+        {
+            System.Threading.Thread.Sleep(500);
+            var SearchData1 = db.Courses.Where(x => x.CourseName == userdata2).SingleOrDefault();
+            if (SearchData1 != null)
+            {
+                return Json(1);
+            }
+            else
+            {
+                return Json(0);
+            }
+        }
+
         [HttpPost]
         public ActionResult CreateTeacher(string firstname, string lastname, string username, string psw, string phone, int courseid)
         {
@@ -237,7 +251,6 @@ namespace ATTime.Controllers
                 OperatorId = operatorid,
                 TeamId = teamId
             };
-
 
             db.TeamOperators.Add(TeachedrAddCourse);
            

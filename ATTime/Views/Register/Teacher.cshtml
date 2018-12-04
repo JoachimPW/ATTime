@@ -17,15 +17,10 @@
     @Html.ValidationSummary(false)
 
     <div class="">
-
-        <hr />
-        <br />
-
         <div class"">
             @Html.Label("First name", new { @class = "" })
             @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.FirstName)
-
         </div>
         <br />
 
@@ -67,7 +62,7 @@
         <br />
         <div class="form-group">
             <div class="">
-                <button type="submit" id="submitForm" class="btn btn-default m-1 p-1 btn-success" asp-action>Create teacher</button>
+                <button type="submit" id="submitForm" class="btn btn-default m-1 p-1 btn-success modalBtn haps" asp-action>Create teacher</button>
             </div>
         </div>
     </div>

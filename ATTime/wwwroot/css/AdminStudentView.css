@@ -62,5 +62,14 @@ tbody tr:nth-child(even) {
 .haps {
     display: inline-block;
     float: left;
-    margin: 0px 5px 6px 6px !important;
+    margin: 0px 5px 8px 6px !important;
+}
+
+.CreateDiv {
+    display:inline-block;
+    float:left;
+}
+
+.CreateDiv {
+    margin:50px;
 }
