@@ -379,7 +379,8 @@ namespace ATTime.Controllers
                 .FirstOrDefault().CalenderName;
             var Attended = context.AttendanceCourseStudents
                 .Where(s => s.TeamId == TeamID)
-                .Where(s => s.Calender.CalenderName == course_date)
+                .Where(s => s.CourseId == courseid)
+                .Where(s => s.CalenderId == date)
                 .Include(s => s.Student)
                 .ToList()
                 .OrderBy(s => s.AttendanceId);

@@ -91,7 +91,7 @@ namespace ATTime.Models.ViewModel
             return lastname;
         }
 
-        public static int count_courses(int studentid, int courseid)
+        public static int count_courses(int? studentid, int? courseid)
         {
             var context = new ATTime_DBContext();
             var student_courses = context.CourseStudents
