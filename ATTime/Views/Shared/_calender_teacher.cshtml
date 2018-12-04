@@ -2,36 +2,34 @@
 @using ATTime.Models.ViewModel
 @using ATTime.Models
 
-<style>
-
-</style>
-
-<div class="col-2 float-left" style="curser:pointer;">
-    <div class="row b_blue">
-        <h5>@Model.Calender.CalenderName</h5>
+<div class="col-2 float-left blue_tab" style="curser:pointer;">
+    <div class="row l_blue text-center">
+        <h5 class="m-auto">@Model.Calender.CalenderName</h5>
     </div>
-    <div id="@Model.CalenderId" class="row @Model.CalenderId">
+    <div id="@Model.CalenderId" class="row @Model.CalenderId blue_tab_under">
         @if (Model.CourseId == 1)
         {
-            <p>Add course:</p>
-            using (Html.BeginForm("AddCourse", "TeacherView", FormMethod.Post))
-            {
-                <input type="hidden" value="@ViewData["team"]" name="teamid" />
-                <input type="hidden" name="calendercourseid" value="@Model.CourseCalenderId" />
-                <select name="Courseid" class="SelectList p-1 text-dark">
-                    @foreach (CourseOperator c in ViewBag.CO)
-                    {
-                        <option value="@c.CourseId">@c.Course.CourseName</option>
-                    }
-                </select>
-                <button type="submit" class="btn btn-default m-1 p-1 modalBtn">Add</button>
-            }
+            <p class="m-auto">Add course:</p>
+            <div class="m-auto">
+                @using (Html.BeginForm("AddCourse", "TeacherView", FormMethod.Post))
+                 {
+                    <input type="hidden" value="@ViewData["team"]" name="teamid" />
+                    <input type="hidden" name="calendercourseid" value="@Model.CourseCalenderId" />
+                    <select name="Courseid" class="SelectList p-2 text-dark bg-transparent haps">
+                        @foreach (CourseOperator c in ViewBag.CO)
+                        {
+                            <option value="@c.CourseId">@c.Course.CourseName</option>
+                        }
+                    </select>
+                    <button type="submit" class="btn btn-default m-1 p-1 modalBtn text-light haps">Add</button>
+                 }
+            </div>
 
         }
         else
         {
-            <h6>@Model.Course.CourseName</h6>
-            <button id="@Model.CourseCalenderId">See attendance</button>
+            <h6 class="m-auto">@Model.Course.CourseName</h6>
+            <button id="@Model.CourseCalenderId" class="m-auto modalBtn text-light">See attendance</button>
             <script>
             $("#@Model.CourseCalenderId").click(function () {
                 var TeamID = @Model.TeamId;
@@ -50,11 +48,12 @@
             </script>
         }
     </div>
-</div>
-<script>
+    <script>
     if (@Model.CalenderId == @ViewBag.today) {
-        $("#@Model.CalenderId").addClass("d_blue");
+        $("#@Model.CalenderId").addClass("d_blue text-light");
     }
 </script>
+</div>
+
 
 

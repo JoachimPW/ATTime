@@ -42,7 +42,12 @@ namespace ATTime.Controllers
              ViewData["TC"] = today_course;
              ViewData["CID"] = today_course_id;
 
-             var student_courses = context.CourseStudents
+            var attendance = context.AttendanceCourseStudents
+               .Where(s => s.StudentId == currentid && s.TeamId == team && s.CalenderId == today_id)
+               .FirstOrDefault().AttendanceId;
+            ViewBag.att = attendance;
+
+            var student_courses = context.CourseStudents
                  .Where(s => s.StudentId == currentid)
                  .ToList();
              ViewBag.Student_courses = student_courses;
@@ -87,13 +92,20 @@ namespace ATTime.Controllers
             string today_course = context.CourseCalenders
                 .Where(s => s.CalenderId == today_id)
                 .Where(s => s.TeamId == team)
+                .Include(s => s.Course)
                 .Single().Course.CourseName;
             var today_course_id = context.CourseCalenders
               .Where(s => s.CalenderId == today_id)
               .Where(s => s.TeamId == team)
+              .Include(s => s.Course)
               .Single().Course.CourseId;
             ViewData["TC"] = today_course;
             ViewData["CID"] = today_course_id;
+
+            var attendance = context.AttendanceCourseStudents
+                .Where(s => s.StudentId == currentid && s.TeamId == team && s.CalenderId == today_id)
+                .FirstOrDefault().AttendanceId;
+            ViewBag.att = attendance;
 
             var student_courses = context.CourseStudents
                 .Where(s => s.StudentId == currentid)

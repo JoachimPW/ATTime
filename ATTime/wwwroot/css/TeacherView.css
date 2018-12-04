@@ -4,7 +4,7 @@
     position: fixed;
     width: 400px;
     left: calc(50% - 150px);
-    top: 200px;
+    top: 100px;
     border: 1px solid #808080;
     background-color:white;
     z-index: 1000;
@@ -22,4 +22,14 @@
     height: 20px;
     border-radius: 200px;
     background-color: red;
+}
+.blue_tab_under {
+    min-height:100px;
+    text-align:center;
+}
+.blue_tab:nth-child(odd) {
+    background-color: #CDD6D5;
+}
+.blue_tab:nth-child(even) {
+    background-color: #DDE3E1;
 }
