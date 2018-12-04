@@ -8,6 +8,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/wwwroot/css/style.css")
+    <link href="https://cdn.rawgit.com/h-ibaldo/Raleway_Fixed_Numerals/master/css/rawline.css" rel="stylesheet">
 
 </head>
 <body style="margin:0; padding:0;">
@@ -20,13 +21,6 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    <script>
-    $("#Date_start").datepicker({
-        appendText: "(yyyy-mm-dd)"
-    });
-    $("#Date_end").datepicker({
-        appendText: "(yyyy-mm-dd)"
-    });
-    </script>
+ 
 </body>
 </html>
