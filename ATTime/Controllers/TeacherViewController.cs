@@ -169,6 +169,14 @@ namespace ATTime.Controllers
             var teamname = context.Teams.Where(s => s.TeamId == teamid).FirstOrDefault().TeamName;
             ViewBag.teamname = teamname;
 
+            //Dage i ugen 
+            List<Days> dage = new List<Days>();
+            for (int i = 0; i < 7; i++)
+            {
+                dage.Add(new Days() { dag = DateTime.Now.AddDays(i).ToString("dddd") });
+            }
+            ViewBag.dage = dage;
+
             //Tilføj koden her:
             var start_date = DateTime.Now.ToString("dd-MM-yyyy");
             var startid = context.Calenders.Where(s => s.CalenderName == start_date).Single().CalenderId;
@@ -246,6 +254,14 @@ namespace ATTime.Controllers
                 ViewBag.TO = teams_calender;
                 ViewBag.CO = course_operator;
 
+                //Dage i ugen 
+                List<Days> dage = new List<Days>();
+                for (int i = 0; i < 7; i++)
+                {
+                    dage.Add(new Days() { dag = DateTime.Now.AddDays(i).ToString("dddd") });
+                }
+                ViewBag.dage = dage;
+
                 //Sakffer routen for en bruger
                 if (currentrole == "Teacher" && currentid != 0)
                 {
@@ -282,6 +298,14 @@ namespace ATTime.Controllers
                     ViewBag.TO = teams_calender;
                     ViewBag.CO = course_operator;
 
+                    //Dage i ugen 
+                    List<Days> dage = new List<Days>();
+                    for (int i = 0; i < 7; i++)
+                    {
+                        dage.Add(new Days() { dag = DateTime.Now.AddDays(i).ToString("dddd") });
+                    }
+                    ViewBag.dage = dage;
+
                     //Sakffer routen for en bruger
                     if (currentrole == "Teacher" && currentid != 0)
                     {
@@ -313,6 +337,18 @@ namespace ATTime.Controllers
 
                     ViewBag.TO = teams_calender;
                     ViewBag.CO = course_operator;
+
+                    //Dage i ugen 
+                    var today_st = DateTime.Now.ToString("dd-MM-yyyy");
+                    var today_id = context.Calenders.Where(s => s.CalenderName == today_st).Single().CalenderId;
+                    int minus = startid - today_id - 1;
+                    int minuotte = minus + 7;
+                    List<Days> dage = new List<Days>();
+                    for (int i = minus; i < minuotte; i++)
+                    {
+                        dage.Add(new Days() { dag = DateTime.Now.AddDays(i).ToString("dddd") });
+                    }
+                    ViewBag.dage = dage;
 
                     //Sakffer routen for en bruger
                     if (currentrole == "Teacher" && currentid != 0)

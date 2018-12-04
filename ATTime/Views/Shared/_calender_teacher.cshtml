@@ -4,11 +4,11 @@
 
 
 
-<td class="blue_tab border-dark" style="curser:pointer;">
-    <div class="calender_header row l_blue text-center pt-1 pb-1 border-left border-dark">
-        <h5 class="m-auto">@Model.Calender.CalenderName</h5>
+<div class="col_7 blue_tab border-dark row" style="curser:pointer;">
+    <div class="calender_header l_blue text-center pt-1 pb-1 border-dark col-12">
+        <h5 class="m-auto mt-1">@Model.Calender.CalenderName</h5>
     </div>
-    <div id="@Model.CalenderId" class="row @Model.CalenderId blue_tab_under">
+    <div id="@Model.CalenderId" class="@Model.CalenderId blue_tab_under w-100">
         @if (Model.CourseId == 1)
         {
             <p class="m-auto">Add course:</p>
@@ -30,33 +30,40 @@
         }
         else
         {
-            <h6 class="m-auto">@Model.Course.CourseName</h6>
-            <button id="@Model.CourseCalenderId" class="m-auto modalBtn text-light">See attendance</button>
-            <script>
-            $("#@Model.CourseCalenderId").click(function () {
-                var TeamID = @Model.TeamId;
-                var date = @Model.CalenderId;
-                var courseid = @Model.CourseId;
-                $.ajax({
-                    type: "POST",
-                    url: "@Url.Content("~/TeacherView/attend")",
-                    data: { TeamID: TeamID, date: date, courseid: courseid },
-                success: function (response) {
-                    $("#data").html(response);
-                    $("#data").addClass("show");
-                }
-                });
-            });
-            </script>
+           <div class="m-auto">
+                <h6 class="m-auto mt-1">@Model.Course.CourseName</h6>
+                <p id="@Model.CourseCalenderId" class="att_text">See attendance</p>
+                <script>
+                    $("#@Model.CourseCalenderId").click(function () {
+                        var TeamID = @Model.TeamId;
+                        var date = @Model.CalenderId;
+                        var courseid = @Model.CourseId;
+                        $.ajax({
+                            type: "POST",
+                            url: "@Url.Content("~/TeacherView/attend")",
+                            data: { TeamID: TeamID, date: date, courseid: courseid },
+                            success: function (response) {
+                                $("#data").html(response);
+                                $("#data").addClass("show");
+                        }
+                        });
+                    });
+                </script>
+            </div>
         }
     </div>
     <script>
-    if (@Model.CalenderId == @ViewBag.today) {
-        $("#@Model.CalenderId").addClass("d_blue text-light");
-        $(".SelectList").addClass("text-light");
-    }
+        if (@Model.CalenderId == @ViewBag.today) {
+            $("#@Model.CalenderId").addClass("d_blue text-light w-100");
+            $(".SelectList").addClass("text-light");
+            $(".att_text").addClass("text-light");
+        }
+        else if (@Model.CalenderId < @ViewBag.today) {
+            $(".SelectList").addClass("text-dark");
+            $(".att_text").addClass("text-dark");
+        }
 </script>
-</td>
+</div>
 
 
 

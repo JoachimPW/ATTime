@@ -17,6 +17,12 @@
     background-color: green;
     
 }
+.pending {
+    width: 20px;
+    height: 20px;
+    border-radius: 200px;
+    background-color: yellow;
+}
 .didn {
     width: 20px;
     height: 20px;
@@ -24,7 +30,7 @@
     background-color: red;
 }
 .blue_tab_under {
-    min-height: 100px;
+    min-height: 120px;
     text-align: center;
 }
 .blue_tab:nth-child(odd) {
@@ -33,10 +39,38 @@
 .blue_tab:nth-child(even) {
     background-color: #DDE3E1;
 }
+.blue_tab:nth-child(1), .blue_tab:nth-child(2), .blue_tab:nth-child(3), .blue_tab:nth-child(4), .blue_tab:nth-child(5),
+.blue_tab:nth-child(6), .blue_tab:nth-child(7) {
+    border-top: solid 0.5px;
+}
+.blue_tab:nth-child(7n) {
+    border-right: solid 0.5px;
+}
+.blue_tab:last-child {
+    border-right: solid 0.5px;
+}
 .blue_tab {
     border-left: solid 0.5px;
     border-bottom: solid 0.5px;
 }
 .calender_header {
-
+    max-width: 100%;
+}
+.calender_header:nth-child(even) {
+    border-right: solid 0.5px;
+}
+.col_7 {
+    grid-column: 1fr;
+    max-width:100%;
+}
+.row_d {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+.att_text {
+    cursor:pointer !important;
+}
+.att_text:hover {
+    text-decoration:underline;
+    transition: 0.5S;
 }

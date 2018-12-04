@@ -257,6 +257,7 @@
     <Compile Include="Models\CourseCode.cs" />
     <Compile Include="Models\CourseOperator.cs" />
     <Compile Include="Models\CourseStudent.cs" />
+    <Compile Include="Models\Days.cs" />
     <Compile Include="Models\LoginViewModels\LoginCheckViewModel.cs" />
     <Compile Include="Models\LoginViewModels\LoginModel.cs" />
     <Compile Include="Models\Operator.cs" />

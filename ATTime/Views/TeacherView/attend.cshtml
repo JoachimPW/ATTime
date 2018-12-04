@@ -1,5 +1,16 @@
 ﻿@model ATTime.Models.AttendanceCourseStudent
 @using ATTime.Models.ViewModel
+@using ATTime.Models
+
+@functions{
+    public int today_id()
+    {
+        ATTime_DBContext context = new ATTime_DBContext();
+        var today = DateTime.Now.ToString("dd/MM/yyyy");
+        var today_id = context.Calenders.Where(s => s.CalenderName == today).Single().CalenderId;
+        return today_id;
+    }
+}
 
 <div class="">
     <h3 style="width: 90%; float:left;">@ViewBag.team, @ViewBag.course d. @ViewBag.date</h3>
@@ -12,7 +23,12 @@
             <div class="row">
                 <div class="col-6">@a.Student.FirstName @a.Student.LastName</div>
                 <div class="col-6">
-                    @if (a.AttendanceId == 1)
+                    @if (a.AttendanceId == 1 && a.CalenderId >= today_id())
+                    {
+                        <div class="pending"></div>
+                        <p>Pending</p>
+                    }
+                    else if (a.AttendanceId == 1)
                     {
                         <div class="didn"></div>
                         <p>Didn't Attend</p>
