@@ -1,6 +1,10 @@
 ﻿body {
+    font-family: 'rawline', sans-serif;
 }
 
+h1, h2, h3, h4 {
+    font-family: 'Lato', sans-serif;
+}
 
 .modal-body {
     margin:0 auto;
@@ -50,5 +54,14 @@ tbody tr:nth-child(even) {
 .haps {
     display: inline-block;
     float: left;
-    margin: 0px 5px 6px 6px !important;
+    margin: 0px 5px 8px 6px !important;
+}
+
+.CreateDiv {
+    display:inline-block;
+    float:left;
+}
+
+.CreateDiv {
+    margin:50px;
 }
