@@ -108,6 +108,17 @@
 
  /*-------------------------------------------- Navigation -------------------------------------------*/
 
+ h1, h2, h3, h4 {
+     font-family:"Lato";
+ }
+
+body {
+    font-family: 'rawline', sans-serif;
+}
+a {
+    font-family: 'rawline', sans-serif;
+}
+
 .navigation-left {
     background-color: #415B76;
     height: 100%;
@@ -135,7 +146,7 @@
     text-decoration: none;
     color: white;
     display: block;
-    font-family: 'raleway';
+    font-family: 'rawline';
     font-size: 18px;
 }
 
@@ -182,4 +193,11 @@
 
 .fa-unlock-alt, .fa-user-alt {
     padding: 0 10px;
+}
+
+
+/*  ------------------------------------------- Student ------------------------------------------ */
+.body-student {
+    text-align: center;
+    padding-top: 100px;
 }
