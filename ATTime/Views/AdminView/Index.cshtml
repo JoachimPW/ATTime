@@ -6,14 +6,8 @@
 }
 
 <link href="~/wwwroot/css/AdminTeamView.css" type="text/css" />
-<h2>
-    @LoginCheckViewModel.Firstname(((int)ViewData["id"]), ((string)ViewData["Role"]))
-    @LoginCheckViewModel.Lastname(((int)ViewData["id"]), ((string)ViewData["Role"]))
-</h2>
 
-<h5>@ViewData["Role"]</h5>
-
-<h1> Teams </h1>
+<h1>Teams</h1>
 
   
         @foreach (ATTime.Models.Team team in ViewBag.team)
