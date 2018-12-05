@@ -27,18 +27,18 @@
             <img class="front-logo" src="~/wwwroot/images/EAAA.png" />
         </div>
 
-      
+
         <div class="form-group">
             @*@Html.LabelFor(model => model.Username, new { @class = "col-form-label" })*@
             <i class="fas fa-user-alt"></i>
-            @Html.EditorFor(model => model.Username, new { @class = "m-1 text-primary login-line" })
+            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { placeholder = "Username", @class = "m-1 text-primary login-line" } })
             <span asp-validation-for="Username" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             @*@Html.LabelFor(model => model.Password, new { @class = "col-form-label" })*@
             <i class="fas fa-unlock-alt"></i>
-            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @type = "password", @class = "m-1 text-primary login-line", @id = "password" } })
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new {  @type = "password", placeholder = "Password", @class = "m-1 text-primary login-line", @id = "password" } })
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
 
