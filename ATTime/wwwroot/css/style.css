@@ -43,6 +43,7 @@
     border: 0;
     border-radius: 5px;
     padding: 8px 16px 8px 16px !important;
+    color: white;
 }
 
 .modalBtn:hover {
@@ -98,4 +99,74 @@
     color: white;
     background-color: #233656;
     transition: 0.1s;
+}
+
+
+
+
+
+
+ /*-------------------------------------------- Navigation -------------------------------------------*/
+
+.navigation-left {
+    background-color: #415B76;
+    height: 100%;
+    width: 180px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+    display: block;
+}
+
+.navigation-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+}
+
+.nav-link a {
+    color: white;
+    width: 100%;
+    padding: 6px 8px 6px 0px;
+    text-decoration: none;
+    color: white;
+    display: block;
+    font-family: 'raleway';
+    font-size: 18px;
+}
+
+    .nav-link a:hover {
+        background-color: #CDD6D5;
+        color: black;
+        text-decoration: none;
+        width: 160px;
+    }
+
+
+/*  ------------------------------------------- LOGIN ------------------------------------------ */
+
+.wrapper {
+    margin-top: 12%;
+    vertical-align: middle;
+}
+
+.front-btn {
+    width: 200px;
+}
+
+.single-line {
+    width: 275px;
+    height: 40px;
+}
+
+.fas {
+    color: #415B76;
+}
+
+.fa-unlock-alt, .fa-user-alt {
+    padding: 0 10px;
 }

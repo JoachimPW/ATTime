@@ -10,19 +10,40 @@
     @Styles.Render("~/wwwroot/css/style.css")
 </head>
 <body style="margin:0; padding:0;">
-    <header>
         <div class="position-relative">
-        <img style="text-align:right; position:absolute; top:10px; right:15px;" 
-             src="~/wwwroot/images/@ViewData["Logo"]" />
+            <img style="text-align:right; position:absolute; top:10px; right:15px;"
+                 src="~/wwwroot/images/@ViewData["Logo"]" />
         </div>
+
+        <div class="row">
+            <div id="sidebar-wrapper" class="navigation-left col-4">
+                <ul class="sidebar-nav navigation-list col-12">
+                    <li class="nav-link">
+                        <a>
+                            @Html.ActionLink("Create Teacher", "Teacher", "Register")
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        @Html.ActionLink("Calender", "Calender")
+                    </li>
+                    <li class="nav-link">
+                        @Html.ActionLink("Create Team", "Team", "Register")
+                    </li>
+                    <li class="nav-link">
+                        @Html.ActionLink("Log out", "logout", "Login")
+                    </li>
+                </ul>
+            </div>
+
+            <div class="container body-content col-8">
+                @RenderBody()
+            </div>
+        </div>
+
         <nav>
             @Html.ActionLink("Log out", "logout", "Login")
         </nav>
-    </header>
-
-    <div class="container body-content">
-        @RenderBody()
-    </div>
+    
 
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

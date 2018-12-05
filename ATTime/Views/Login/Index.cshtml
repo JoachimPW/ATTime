@@ -5,25 +5,57 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Login</h2>
-@ViewBag.msg
-@using (Html.BeginForm("Login", "Login", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
-    @Html.LabelFor(model => model.Username, new { @class = "col-form-label" })
-    @Html.EditorFor(model => model.Username, new { @class = "m-1 text-primary" })
-    <span asp-validation-for="Username" class="text-danger"></span>
+<head>
+    <link href="~/wwwroot/css/AdminStudentView.css" rel="stylesheet" />
+    <link href="~/wwwroot/css/style.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+</head>
 
 
-    @Html.LabelFor(model => model.Password, new { @class = "col-form-label" })
-    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @type = "password", @class = "m-1 text-primary", @id = "password" } })
-    <span asp-validation-for="Password" class="text-danger"></span>
-    <button type="submit" class="btn btn-default m-1 p-1 btn-succes">Login</button>
 
-}
-<input type="checkbox" onclick="myFunction()" style="display:inline-block;" />
-<p style="display:inline-block;">Show password</p>
+
+<div class=" wrapper text-center">
+
+    @ViewBag.msg
+    @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <div class="form-group img-fluid">
+            <img class="front-logo" src="~/wwwroot/images/EAAA.png" />
+        </div>
+
+      
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.Username, new { @class = "col-form-label" })*@
+            <i class="fas fa-user-alt"></i>
+            @Html.EditorFor(model => model.Username, new { @class = "m-1 text-primary login-line" })
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.Password, new { @class = "col-form-label" })*@
+            <i class="fas fa-unlock-alt"></i>
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @type = "password", @class = "m-1 text-primary login-line", @id = "password" } })
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-default btn-succes modalBtn front-btn">Login</button>
+        </div>
+
+
+        // SHOW Password
+        //<input type="checkbox" onclick="myFunction()" style="display:inline-block;" />
+        //<p style="display:inline-block;">Show password</p>
+    }
+
+</div>
+
+
 
 <script>
     function myFunction() {

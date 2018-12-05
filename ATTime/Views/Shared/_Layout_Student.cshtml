@@ -10,20 +10,28 @@
     @Styles.Render("~/wwwroot/css/style.css")
 </head>
 <body style="margin:0; padding:0;">
-    <header>
-        <div class="position-relative">
-            <img style="text-align:right; position:absolute; top:10px; right:15px;"
-                 src="~/wwwroot/images/@ViewData["Logo"]" />
-        </div>
-        <nav>
-            @Html.ActionLink("Check in", "Index", "StudentView")
-            @Html.ActionLink("Adsense", "procentage", "StudentView")
-            @Html.ActionLink("Log out", "logout", "Login")
-        </nav>
-    </header>
+    <div class="row">
+        <div id="sidebar-wrapper" class="navigation-left col-4">
+            <ul class="sidebar-nav navigation-list col-12">
 
-    <div class="container body-content">
-        @RenderBody()
+                <li class="nav-link">
+                    <a>
+                        @Html.ActionLink("Check in", "Index", "StudentView")
+                    </a>
+                </li>
+                <li class="nav-link">
+                    @Html.ActionLink("Adsense", "procentage", "StudentView")
+                </li>
+                <li class="nav-link">
+                    @Html.ActionLink("Log out", "logout", "Login")
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="container body-content col-8">
+            @RenderBody()
+        </div>
     </div>
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
