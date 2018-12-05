@@ -25,18 +25,36 @@
                 <div class="col-6">
                     @if (a.AttendanceId == 1 && a.CalenderId >= today_id())
                     {
-                        <div class="pending"></div>
-                        <p>Pending</p>
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="pending"></div>
+                            </div>
+                            <div class="col-9">
+                                <p>Pending</p>
+                            </div>
+                        </div>
                     }
                     else if (a.AttendanceId == 1)
                     {
-                        <div class="didn"></div>
-                        <p>Didn't Attend</p>
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="didn"></div>
+                            </div>
+                            <div class="col-9">
+                                <p>Didn't Attend</p>
+                            </div>
+                        </div>
                     }
                     else
                     {
-                        <div class="did"></div>
-                        <p>Attended</p>
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="did"></div>
+                            </div>
+                            <div class="col-9">
+                                <p>Attended</p>
+                            </div>
+                        </div>
                     }
                 </div>
             </div>
