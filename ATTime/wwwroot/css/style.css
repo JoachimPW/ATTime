@@ -183,3 +183,10 @@
 .fa-unlock-alt, .fa-user-alt {
     padding: 0 10px;
 }
+
+
+/*  ------------------------------------------- Student ------------------------------------------ */
+.body-student {
+    text-align: center;
+    padding-top: 100px;
+}
