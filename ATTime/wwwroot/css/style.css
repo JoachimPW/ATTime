@@ -119,6 +119,10 @@ a {
     font-family: 'rawline', sans-serif;
 }
 
+.container {
+    margin-top: 5%;
+}
+
 .navigation-left {
     background-color: #415B76;
     height: 100%;
