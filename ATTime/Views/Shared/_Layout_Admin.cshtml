@@ -21,6 +21,9 @@
             <div id="sidebar-wrapper" class="navigation-left col-4">
                 <ul class="sidebar-nav navigation-list col-12">
                     <li class="nav-link">
+                        @Html.ActionLink("Teams", "Index", "AdminView")
+                    </li>
+                    <li class="nav-link">
                         <a>
                             @Html.ActionLink("Create Teacher", "Teacher", "Register")
                         </a>
@@ -29,7 +32,7 @@
                         @Html.ActionLink("Calender", "Calender")
                     </li>
                     <li class="nav-link">
-                        @Html.ActionLink("Create Team", "Team", "Register")
+                        @Html.ActionLink("Create Team or Course", "Team", "Register")
                     </li>
                     <li class="nav-link">
                         @Html.ActionLink("Log out", "logout", "Login")
