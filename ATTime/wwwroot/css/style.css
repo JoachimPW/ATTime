@@ -146,6 +146,19 @@
         width: 160px;
     }
 
+.name {
+    color: white;
+    font-size: 23px;
+    text-align: center;
+}
+
+.role {
+    color: white;
+    font-size: 15px;
+    text-align: center;
+    border-bottom: 1px solid white;
+    padding-bottom: 5px;
+}
 
 /*  ------------------------------------------- LOGIN ------------------------------------------ */
 
