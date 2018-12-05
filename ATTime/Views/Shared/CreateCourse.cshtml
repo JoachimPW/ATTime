@@ -4,9 +4,6 @@
     ViewBag.Title = "_Course";
 }
 
-@Html.Partial("_AdminNav")
-
-
 
 @using (Html.BeginForm("CreateCourse", "Register", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {

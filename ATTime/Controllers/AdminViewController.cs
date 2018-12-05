@@ -16,6 +16,13 @@ namespace ATTime.Controllers
         ATTime_DBContext db = new ATTime_DBContext();
         public ActionResult Index()
         {
+
+            var adminUsername = ((string)Session["adminName"]);
+            var adminFirstname = db.Operators.Where(s => s.Username == adminUsername).Single().FirstName;
+            var adminLastname = db.Operators.Where(s => s.Username == adminUsername).Single().LastName;
+            ViewData["adminFirstname"] = adminFirstname;
+            ViewData["adminLastname"] = adminLastname;
+            ViewBag.RoleName = ((string)Session["UserRole"]);
             //Her tjekker vi, som vi har en session med et id i:
             if (Session["UserId"] == null)
             {
@@ -235,8 +242,7 @@ namespace ATTime.Controllers
                     ViewData["Role"] = currentrole;
                     ViewData["Schoolname"] = schoolname;
                     ViewData["Logo"] = schoollogo;
-                    //Tilføj koden her: 
-                    
+                    //Tilføj koden her:                     
 
                     //Koden skal slutte her
                     return View();
