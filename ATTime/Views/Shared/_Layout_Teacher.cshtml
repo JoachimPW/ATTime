@@ -16,21 +16,22 @@
         <div id="sidebar-wrapper" class="navigation-left col-4">
             <ul class="sidebar-nav navigation-list col-12">
 
-                <li class="nav-link">
-                    <a>
-                    @Html.ActionLink("Teams", "Index", "TeacherView")
-                    </a>
-                </li>
-                <li class="nav-link">
-                    @Html.ActionLink("Calender", "calender", "TeacherView")
+                <li> <img class="img-fluid rounded-circle" src="~/wwwroot/images/kenneth.jpg" /> </li>
+                <br />
+                <li>
+                    <h2 class="name">
+                        @LoginCheckViewModel.Firstname(((int)ViewData["id"]), ((string)ViewData["Role"]))
+                        @LoginCheckViewModel.Lastname(((int)ViewData["id"]), ((string)ViewData["Role"]))
+                    </h2>
+                    <h5 class="role">@ViewData["Role"]</h5>
                 </li>
                 <li class="nav-link">
                     @Html.ActionLink("Log out", "logout", "Login")
                 </li>
             </ul>
         </div>
-        
-        <div class="container body-content col-8">
+
+        <div class="container body-content col-8 body-student">
             @RenderBody()
         </div>
     </div>

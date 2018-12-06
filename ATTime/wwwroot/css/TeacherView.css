@@ -64,6 +64,8 @@
     max-width:100%;
 }
 .row_d {
+    margin-left:2%;
+    width:120%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }

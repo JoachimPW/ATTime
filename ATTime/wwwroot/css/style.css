@@ -168,7 +168,12 @@ a {
     border-bottom: 1px solid white;
     padding-bottom: 5px;
 }
-
+.knap {
+    cursor: pointer;
+}
+.knap:hover {
+    text-decoration:underline;
+}
 /*  ------------------------------------------- LOGIN ------------------------------------------ */
 
 .wrapper {
@@ -192,6 +197,11 @@ a {
 
 .fa-unlock-alt, .fa-user-alt {
     padding: 0 10px;
+}
+
+.logo {
+    width: 30%;
+    height: auto;
 }
 
 

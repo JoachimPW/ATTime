@@ -43,10 +43,23 @@ namespace ATTime.Controllers
              ViewData["TC"] = today_course;
              ViewData["CID"] = today_course_id;
 
-            var attendance = context.AttendanceCourseStudents
-               .Where(s => s.StudentId == currentid && s.TeamId == team && s.CalenderId == today_id)
-               .FirstOrDefault().AttendanceId;
-            ViewBag.att = attendance;
+            if(context.AttendanceCourseStudents
+               .Where(s => s.StudentId == currentid)
+               .Where(s => s.TeamId == team)
+               .Where(s => s.CalenderId == today_id)
+               .Count() == 0)
+            {
+                ViewBag.att = 1;
+            }
+            else
+            {
+                int? attendance = context.AttendanceCourseStudents
+                               .Where(s => s.StudentId == currentid)
+                               .Where(s => s.TeamId == team)
+                               .Where(s => s.CalenderId == today_id)
+                               .Single().AttendanceId;
+                ViewBag.att = attendance;
+            }
 
             var student_courses = context.CourseStudents
                  .Where(s => s.StudentId == currentid)
