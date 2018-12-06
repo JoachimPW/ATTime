@@ -6,41 +6,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
-    @Styles.Render("~/wwwroot/css/TeacherView.css")
     @Styles.Render("~/wwwroot/css/style.css")
+    @Styles.Render("~/wwwroot/css/TeacherView.css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
 </head>
 <body style="margin:0; padding:0;">
-    <header>
-        <div class="position-relative">
-            <img style="text-align:right; position:absolute; top:10px; right:15px;"
-                 src="~/wwwroot/images/@ViewData["Logo"]" />
-        </div>
-        <nav>
-            <h2>
-                @LoginCheckViewModel.Firstname(((int)ViewData["id"]), ((string)ViewData["Role"]))
-                @LoginCheckViewModel.Lastname(((int)ViewData["id"]), ((string)ViewData["Role"]))
-            </h2>
-            <h5>@ViewData["Role"]</h5>
-            @Html.ActionLink("Teams", "Index", "TeacherView")
-            @using (Html.BeginForm("calender", "TeacherView", FormMethod.Post))
-            {
-                <input type="hidden" value="@ViewData["team"]" name="teamid" />
-                <button type="submit" class="btn btn-default m-1 p-1 btn-success">Calender</button>
-            }
-            @using (Html.BeginForm("student", "TeacherView", FormMethod.Post))
-            {
-                <input type="hidden" value="@ViewData["team"]" name="teamid" />
-                <button type="submit" class="btn btn-default m-1 p-1 btn-success">Students</button>
-            }
-            @Html.ActionLink("Log out", "logout", "Login")
-        </nav>
-    </header>
+    <div class="row">
+        <div id="sidebar-wrapper" class="navigation-left col-4">
+            <ul class="sidebar-nav navigation-list col-12">
 
-    <div class="container body-content">
-        @RenderBody()
+                <li> <img class="img-fluid rounded-circle" src="~/wwwroot/images/kenneth.jpg" /> </li>
+                <br />
+                <li>
+                    <h2 class="name">
+                        @LoginCheckViewModel.Firstname(((int)ViewData["id"]), ((string)ViewData["Role"]))
+                        @LoginCheckViewModel.Lastname(((int)ViewData["id"]), ((string)ViewData["Role"]))
+                    </h2>
+                    <h5 class="role">@ViewData["Role"]</h5>
+                </li>
+                <li class="nav-link">
+                    @Html.ActionLink("Teams", "Index", "TeacherView")
+                </li>
+                <li class="nav-link">
+                    @using (Html.BeginForm("calender", "TeacherView", FormMethod.Post))
+                    {
+                        <input type="hidden" value="@ViewData["team"]" name="teamid" />
+                        <button type="submit" class="knap text border-0 bg-transparent p-1 text-light">Calender</button>
+                    }
+                </li>
+                <li class="nav-link">
+                    @using (Html.BeginForm("student", "TeacherView", FormMethod.Post))
+                    {
+                        <input type="hidden" value="@ViewData["team"]" name="teamid" />
+                        <button type="submit" class="knap text border-0 bg-transparent p-1 text-light">Students</button>
+                    }
+                </li>
+                <li class="nav-link">
+                    @Html.ActionLink("Log out", "logout", "Login")
+                </li>
+            </ul>
+        </div>
+
+        <div class="container body-content col-8 body-student">
+            @RenderBody()
+        </div>
     </div>
     @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 </body>
 </html>
+
