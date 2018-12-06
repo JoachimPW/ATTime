@@ -25,18 +25,9 @@
 
                     <li> <img class="img-fluid rounded-circle" src="~/wwwroot/images/admin.png" /> </li>
                     <br />
-                    <li>
-                        <h2 class="name">
-<<<<<<< HEAD
-                            @LoginCheckViewModel.Firstname(((int)ViewData["id"]), ((string)ViewData["Role"]))
-                            @LoginCheckViewModel.Lastname(((int)ViewData["id"]), ((string)ViewData["Role"]))
-                        </h2>
 
-                     <h5 class="role">@ViewData["Role"]</h5>
-=======
-                            @Html.Partial("_AdminNav")
-                        </h2>                        
->>>>>>> 1b21894aeddce3a3dff9b8f483141d3315a591b4
+                    <li>
+                     <h2 class="name">@Html.Partial("_AdminNav") </h2>                      
                     </li>
 
                     <li class="nav-link">
