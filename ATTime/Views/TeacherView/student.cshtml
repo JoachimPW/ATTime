@@ -4,9 +4,10 @@
     Layout = "~/Views/Shared/_Layout_Teacher_two.cshtml";
 }
 
-<h2>student</h2>
+<h2 class="mb-1">Student</h2>
+<div class="row">
 @foreach (TeamStudent student in ViewBag.students)
  {
     @Html.Partial("_student_teacher", student)
  }
-
+</div>

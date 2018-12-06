@@ -4,8 +4,10 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_Teacher.cshtml";
 }
-@foreach (TeamOperator team in ViewBag.TO)
- {
-    @Html.Partial("_team_teacher", team)
- }
-
+<h2 class="text-lg-left">Teams</h2>
+<div class="row">
+    @foreach (TeamOperator team in ViewBag.TO)
+    {
+        @Html.Partial("_team_teacher", team)
+    }
+</div>

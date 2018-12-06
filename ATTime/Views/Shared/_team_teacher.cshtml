@@ -2,16 +2,16 @@
 @using ATTime.Models.ViewModel
 
 
-<div class="">
+<div class="col-3 float-left border m-1 p-4" style="border-radius: 5px; border-color:#898989 !important;">
     @using (Html.BeginForm("calender", "TeacherView", FormMethod.Post))
     {
         <input type="hidden" name="teamid" value="@Model.TeamId" />
-        <button type="submit" class="btn btn-default m-1 p-1 btn-danger">@Model.Team.TeamName</button>
+        <button type="submit" class="knap text border-0 bg-transparent p-1">@Model.Team.TeamName</button>
     }
     <hr />
     @using (Html.BeginForm("student", "TeacherView", FormMethod.Post))
     {
         <input type="hidden" name="teamid" value="@Model.TeamId" />
-        <button type="submit" class="btn btn-default m-1 p-1 btn-danger">Students @ATTime.Models.ViewModel.Studencount.student_count(@Model.TeamId)</button>
+        <button type="submit" class="knap text border-0 bg-transparent p-1">Students @ATTime.Models.ViewModel.Studencount.student_count(@Model.TeamId)</button>
     }
 </div>

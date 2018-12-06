@@ -4,8 +4,7 @@
 @{
     ViewBag.Title = "_student_teacher";
 }
-<div class="row">
-    <div class="col-3 border-dark float-left">
+    <div class="col-3 float-left border m-1 p-4" style="border-radius: 5px; border-color:#898989 !important;">
         <h3>@Studencount.firstname(Model.StudentId) @Studencount.lastname(Model.StudentId)</h3>
         <hr />
         <p>Total absent: @Studencount.total_absent(Model.StudentId, ((int)ViewData["team"])) % </p>
@@ -34,4 +33,3 @@
             }
         }
     </div>
-</div>
