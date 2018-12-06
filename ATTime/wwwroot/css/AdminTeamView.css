@@ -11,8 +11,8 @@
     width: 20%;
     display: inline-block;
     float: left;
-    padding: 0px;
-    margin: 20px;
+    padding: 0px !important;
+    margin: 20px !important;
 }
 
 #addCourse {
