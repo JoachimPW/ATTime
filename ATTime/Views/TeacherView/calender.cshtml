@@ -4,8 +4,8 @@
     Layout = "~/Views/Shared/_Layout_Teacher_two.cshtml";
 }
 <div id="data" class="data"></div>
-<div class="row">
-    <h2 class="float-left col-4">@ViewBag.teamname</h2>
+<div class="row att_row">
+    <h2 class="float-left col-3 mb-0 text-lg-left p-0 mt-1">@ViewBag.teamname</h2>
     <div class="float-lg-right">
         <p>@ViewBag.msg</p>
         @using (Html.BeginForm("between", "TeacherView", FormMethod.Post))
