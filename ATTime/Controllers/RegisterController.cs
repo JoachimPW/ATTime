@@ -29,6 +29,13 @@ namespace ATTime.Controllers
             var schoolid = ((int)Session["School"]);
             var team = db.Teams.Where(s => s.SchoolId == schoolid);
             ViewBag.team = team;
+
+            var adminUsername = ((string)Session["adminName"]);
+            var adminFirstname = db.Operators.Where(s => s.Username == adminUsername).Single().FirstName;
+            var adminLastname = db.Operators.Where(s => s.Username == adminUsername).Single().LastName;
+            ViewData["adminFirstname"] = adminFirstname;
+            ViewData["adminLastname"] = adminLastname;
+            ViewBag.RoleName = ((string)Session["UserRole"]);
             return View();
         }
         [HttpPost]
@@ -70,9 +77,9 @@ namespace ATTime.Controllers
             ViewBag.tester = test;
 
             ViewBag.tester2 = test2;
-
-            // Teachers // 
             
+            // Teachers // 
+
             var oprtr = db.Operators.Where(s => s.SchoolId == schoolid).Where(i => i.RoleId == 2);
             ViewBag.oprtr = oprtr;
 
@@ -106,6 +113,7 @@ namespace ATTime.Controllers
             var adminLastname = db.Operators.Where(s => s.Username == adminUsername).Single().LastName;
             ViewData["adminFirstname"] = adminFirstname;
             ViewData["adminLastname"] = adminLastname;
+            ViewBag.RoleName = ((string)Session["UserRole"]);
 
             var TeamName = db.Teams.Where(i => i.TeamId == teamId).Single().TeamName;
             ViewBag.TeamName = TeamName;
@@ -129,6 +137,13 @@ namespace ATTime.Controllers
 
             var courses = db.Courses.ToList();
             ViewBag.CourseNAME = courses;
+
+            var adminUsername = ((string)Session["adminName"]);
+            var adminFirstname = db.Operators.Where(s => s.Username == adminUsername).Single().FirstName;
+            var adminLastname = db.Operators.Where(s => s.Username == adminUsername).Single().LastName;
+            ViewData["adminFirstname"] = adminFirstname;
+            ViewData["adminLastname"] = adminLastname;
+            ViewBag.RoleName = ((string)Session["UserRole"]);
 
             return View();
         }
