@@ -48,7 +48,7 @@
         {
             <input type="hidden" value="@Model.Student.StudentId" id="studentid" name="studentid" />
             <select class="form-control selectList" name="Courseid">
-                <option value="" selected disabled hidden id="defaultOption">Select Course</option>
+                <option value="" selected disabled hidden id="defaultOption">--Course--</option>
 
                 @foreach (Course c in ViewBag.CourseNAME)
                 {

@@ -63,6 +63,7 @@
 
 .TeamBtn:hover {
     background-color: #F9F9F9;
+    padding: 0;
 }
 
 .TeamBtn span {
@@ -147,7 +148,7 @@ a {
     font-size: 18px;
 }
 
-    .nav-link a:hover {
+   .nav-link a:hover {
         background-color: #CDD6D5;
         color: black;
         text-decoration: none;
