@@ -71,6 +71,14 @@ namespace ATTime.Controllers
             ViewData["Logo"] = schoollogo;
             ViewData["team"] = teamid;
 
+            //Dage i ugen 
+            List<Days> dage = new List<Days>();
+            for (int i = 0; i < 7; i++)
+            {
+                dage.Add(new Days() { dag = DateTime.Now.AddDays(i).ToString("dddd") });
+            }
+            ViewBag.dage = dage;
+
             //Koden fra calender
             var start_date = DateTime.Now.ToString("dd-MM-yyyy");
             var startid = context.Calenders.Where(s => s.CalenderName == start_date).Single().CalenderId;
